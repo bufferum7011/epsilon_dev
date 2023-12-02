@@ -1,0 +1,87 @@
+* {
+    -fx-margin: 0;
+    -fx-padding: 0;
+    -fx-border: 0;
+    -fx-font-size: 100%;
+    -fx-font: inherit;
+    -fx-vertical-align: baseline;
+
+    -fx-color_transparent: rgba(255, 255, 255, 0);
+    -fx-color_white_1: rgb(255, 255, 255);
+    -fx-color_gray_1: rgb(170, 170, 170);
+    -fx-color_black_1: rgb(0, 0, 0);
+    -fx-color_black_2: rgb(33, 33, 33);
+    -fx-color_black_3: rgba(33, 33, 33, 0.7);
+    -fx-color_blue_1: rgb(14, 104, 199);
+    -fx-color_blue_2: rgb(150, 177, 194);
+    -fx-color_green_1: rgb(0, 146, 56);
+    -fx-color_yellow_1: rgb(255, 202, 69);
+    -fx-color_red_1: rgb(255, 45, 45);
+    -fx-color_red_2: rgb(188, 82, 82);
+}
+@font-face {
+	-fx-font-family: 'core_sans';
+	-fx-src: url("/fonts/Core_Sans_CR_35_Light.ttf");
+}
+body {
+    -fx-font-family: 'core_sans';
+    -fx-background-color: -fx-color_black_2;
+    -fx-z-index: 0;
+}
+hr {
+    -fx-height: 0.5px;
+    -fx-width: auto;
+    -fx-background-color: -fx-color_blue_1;
+}
+.hr_vert {
+    -fx-padding-left: 25px;
+    -fx-margin-left: 25px;
+    -fx-border-left: 2px solid -fx-color_blue_2;
+}
+/* ==================================== */
+
+/* Greeting */
+.greeting {
+    -fx-background-color: -fx-color_black_2;
+    -fx-background-radius: 5px;
+}
+.greeting_title {
+    -fx-font-family: 'core_sans';
+    -fx-font-size: 20px;
+    -fx-fill: -fx-color_blue_1;
+}
+.greeting_inputs {
+    -fx-padding: 20px;
+}
+.greeting_input_login {
+
+}
+.greeting_input_password {
+
+}
+.greeting_separator {
+    -fx-background-color: -fx-color_blue_1;
+    -fx-padding: 0px 20px;
+}
+.greeting_toolbar {
+    -fx-height: auto;
+    -fx-width: 100%;
+    -fx-background: none;
+}
+.greeting_toolbar_btn {
+    -fx-background-color: -fx-color_transparent;
+    -fx-fill: -fx-color_green_1;
+}
+.greeting_forgot_password {
+
+}
+.greeting_authorization {
+    
+}
+.greeting_registration {
+    
+}
+.greeting_enter {
+    -fx-background-color: -fx-color_blue_1;
+    -fx-background-radius: 5px;
+}
