@@ -37,32 +37,29 @@ public class draft {
 
 
 
-// <AnchorPane
-//     maxHeight="-Infinity"
-//     maxWidth="-Infinity"
-//     minHeight="-Infinity"
-//     minWidth="-Infinity"
-//     prefHeight="455.0"
-//     prefWidth="702.0"
-//     stylesheets="/css/styles.css"
-//     xmlns="http://javafx.com/javafx/21"
-//     xmlns:fx="http://javafx.com/fxml/1">
-//     <children>
-//         <VBox layoutX="52.0" layoutY="47.0" prefHeight="97.0" prefWidth="174.0">
-//             <children>
-//                 <Label prefHeight="18.0" prefWidth="106.0" text="Введите логин" />
-//                 <TextField floatText="Имя" prefHeight="102.0" prefWidth="200.0" />
-//             </children>
-//         </VBox>
-//         <Separator layoutX="31.0" layoutY="371.0" prefHeight="1.0" prefWidth="632.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-//         <Button layoutX="31.0" layoutY="391.0" mnemonicParsing="false" text="Загрузить на сервер" textAlignment="CENTER" textFill="#2495ff">
-//             <font>
-//                 <Font name="System Bold" size="12.0" />
-//             </font>
-//         </Button>
-//     </children>
-// </AnchorPane>
 
 
+
+
+        // @Override
+        // public void start(Stage primaryStage) {
+        //         WebView webView = new WebView();
+        //         webView.getEngine().load("https://www.example.com"); // Загрузка веб-страницы
+
+        //         Scene scene = new Scene(webView, 800, 600);
+        //         primaryStage.setScene(scene);
+        //         primaryStage.show();
+        // }
+
+
+
+//     static void setRoot(String fxml) throws IOException {
+//         scene.setRoot(loadFXML(fxml));
+//     }
+
+//     private static Parent loadFXML(String fxml) throws IOException {
+//         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+//         return fxmlLoader.load();
+//     }
 
 }

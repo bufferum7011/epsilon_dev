@@ -46,6 +46,13 @@
             <version>13</version>
         </dependency>
 
+        <!-- JavaFX WebView -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17</version>
+        </dependency>
+
     </dependencies>
 
 
