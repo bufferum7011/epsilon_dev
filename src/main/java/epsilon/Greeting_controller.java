@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
-public class Greeting {
+public class Greeting_controller {
 
     @FXML private ResourceBundle resources;
     @FXML private URL location;

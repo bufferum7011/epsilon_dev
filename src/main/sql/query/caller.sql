@@ -1,0 +1,1 @@
+CALL proc_reset_tables;

@@ -85,3 +85,17 @@ hr {
     -fx-background-color: -fx-color_blue_1;
     -fx-background-radius: 5px;
 }
+
+
+/* Main */
+.main {
+    -fx-background-color: -fx-color_blue_2;
+}
+.main_header {
+    -fx-background-color: -fx-color_black_2;
+}
+.main_header_title {
+    -fx-font-family: 'core_sans';
+    -fx-font-size: 20px;
+    -fx-fill: -fx-color_blue_1;
+}

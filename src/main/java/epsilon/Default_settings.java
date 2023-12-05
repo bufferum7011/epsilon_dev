@@ -4,9 +4,8 @@ import javafx.stage.Stage;
 
 public class Default_settings {
 
-    private String css = getClass().getResource("/css/styles.css").toExternalForm();
-
-    public void my_stage(Stage stage, Scene scene) {
+    public Default_settings() { }
+    public Default_settings(Stage stage, Scene scene) {
         
         // scene.setRoot(new TextArea("some text"));
         // scene.getStylesheets().add(css);

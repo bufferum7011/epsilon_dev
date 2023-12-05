@@ -7,11 +7,78 @@
     <groupId>epsilon</groupId>
     <artifactId>epsilon</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <name>Epsilon</name>
+    <description>My desktop application - Epsilon</description>
+
+
+    <dependencies>
+
+        <!-- JavaFX -->
+        <!-- Бибилиотека JavaFX -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>13</version>
+        </dependency>
+
+        <!-- gluonhq.com -->
+        <!-- Чтобы пользоватся всеми элементами JavaFX -->
+        <!-- <dependency>
+            <groupId>com.gluonhq</groupId>
+            <artifactId>charm</artifactId>
+            <version>6.0.5</version>
+        </dependency> -->
+
+        <!-- FXML -->
+        <!-- Нужен для работы fxml -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>13</version>
+        </dependency>
+
+        <!-- JavaFX WebView -->
+        <!-- Нужен для взаимствования элементов web -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-web</artifactId>
+            <version>17</version>
+        </dependency>
+
+        <!-- mysql-connector-java  -->
+        <!-- Нужен для подключеня к базе данных  -->
+        <!-- <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency> -->
+
+        <!-- spring-core  -->
+        <!-- Нужен для создания бинов  -->
+        <!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>6.1.1</version>
+        </dependency> -->
+
+        <!-- spring-boot-starter-web -->
+		<!-- Нужен для создания контроллеров -->
+		<!-- <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency> -->
+
+    </dependencies>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <!-- <java.version>20</java.version> -->
+        <spring.version>3.1.4</spring.version>
     </properties>
 
 
@@ -21,39 +88,6 @@
             <url>https://nexus.gluonhq.com/nexus/content/repositories/releases/</url>
         </repository>
     </repositories>
-
-
-    <dependencies>
-
-        <!-- Чтобы пользоватся всеми элементами -->
-        <dependency>
-            <groupId>com.gluonhq</groupId>
-            <artifactId>charm</artifactId>
-            <version>6.0.5</version>
-        </dependency>
-
-        <!-- JavaFX -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
-
-        <!-- FXML -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
-        </dependency>
-
-        <!-- JavaFX WebView -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>17</version>
-        </dependency>
-
-    </dependencies>
 
 
     <build>
@@ -66,6 +100,7 @@
                     <release>11</release>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -76,13 +111,25 @@
                         <!-- Usage: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>epsilon.App</mainClass>
+                            <mainClass>epsilon.Panel</mainClass>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
         </plugins>
     </build>
+
+
+    <!-- <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter</artifactId>
+        <version>3.1.4</version>
+    </parent> -->
 
 
 </project>
