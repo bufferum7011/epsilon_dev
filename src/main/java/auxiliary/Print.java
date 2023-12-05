@@ -1,17 +1,6 @@
 package auxiliary;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 public class Print {
-
-    @PostConstruct
-    private void _init() {
-        _init("PRINT");
-    }
-    @PreDestroy
-    private void _dest() {
-        _dest("PRINT");
-    }
 
     public boolean key_print = true;
     public void _init(String c) { result(GREEN + "[" + c + "] - INIT\n"); }

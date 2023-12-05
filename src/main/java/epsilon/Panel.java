@@ -1,10 +1,12 @@
 package epsilon;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-@SpringBootApplication
+@SpringBootConfiguration
 public class Panel {
 
     public static void main(String[] args) {
@@ -12,17 +14,16 @@ public class Panel {
         System.out.println("Loading resources...");
         new Panel();
 
-        SpringApplication.run(SpringApplication.class, args);
-        // pulling out bean from the pool
+        SpringApplication.run(Panel.class, args);
         context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
         panel =             context.getBean("panel", epsilon.Panel.class);
         sql =               context.getBean("sql", auxiliary.Exec_sql.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
+        panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
 
-        css =               ""; // getClass().getResource("css/styles.css").toExternalForm();
         System.out.println("Launching Epsilon...");
-        epsilon.launch();
+        epsilon.start();
     }
 
     // variables
@@ -38,6 +39,7 @@ public class Panel {
     public static auxiliary.Exec_sql sql;
     public static Epsilon epsilon = new Epsilon();
 
-    public static String css;
-
+    public String css;
+    public Stage stage;
+    public Scene scene;
 }

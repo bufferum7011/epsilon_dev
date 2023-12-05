@@ -8,6 +8,7 @@
     <artifactId>epsilon</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Epsilon</name>
+    <packaging>jar</packaging>
     <description>My desktop application - Epsilon</description>
 
 
@@ -45,7 +46,7 @@
             <version>17</version>
         </dependency>
 
-        <!-- mysql-connector-java  -->
+        <!-- mysql-connector-java -->
         <!-- Нужен для подключеня к базе данных  -->
         <dependency>
             <groupId>mysql</groupId>
@@ -55,20 +56,28 @@
         </dependency>
 
         <!-- spring-core  -->
-        <!-- Нужен для создания бинов  -->
+        <!-- Нужен для работы spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
-        <!-- spring-boot-starter-web -->
-		<!-- Нужен для создания контроллеров -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<version>${spring.version.starter}</version>
-		</dependency>
+        <!-- spring-beans -->
+        <!-- Нужен для создания бинов -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+
+        <!-- spring-boot  -->
+        <!-- Нужен для работы spring -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>3.2.0</version>
+        </dependency>
 
         <!-- spring-context -->
 		<!-- Нужен для создания контекстов -->
@@ -135,10 +144,6 @@
                 </executions>
             </plugin>
 
-            <plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
         </plugins>
     </build>
 

@@ -1,23 +1,23 @@
 package epsilon;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import static epsilon.Panel.*;
+
+import javafx.stage.StageStyle;
 
 public class Default_settings {
 
-    public Default_settings() { }
-    public Default_settings(Stage stage, Scene scene) {
+    public Default_settings() {
         
-        // scene.setRoot(new TextArea("some text"));
-        // scene.getStylesheets().add(css);
+        panel.scene.getStylesheets().setAll(panel.css);
 
-        stage.setScene(scene);      // Установка сцены
-        stage.setTitle("Epsilon");  // Установка названия приложения
-        stage.setHeight(500);       // Установка высоты окна
-        stage.setWidth(500);        // Установка ширины окна
-        stage.setOpacity(1);        // Установка прозрачности
-        stage.centerOnScreen();     // Располагает окно в центре экрана
-        stage.setResizable(false);  // Разрешение на изменение размера
-        stage.show();
+        panel.stage.setScene(panel.scene);  // Установка сцены
+        panel.stage.setTitle("Epsilon");    // Установка названия приложения
+        panel.stage.setHeight(500);         // Установка высоты окна
+        panel.stage.setWidth(500);          // Установка ширины окна
+        panel.stage.setOpacity(1);          // Установка прозрачности
+        panel.stage.initStyle(StageStyle.DECORATED);
+        panel.stage.centerOnScreen();       // Располагает окно в центре экрана
+        panel.stage.setResizable(true);     // Разрешение на изменение размера
+        panel.stage.show();
     }
 
 

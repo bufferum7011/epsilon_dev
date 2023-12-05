@@ -1,4 +1,6 @@
 package epsilon;
+import static epsilon.Panel.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -13,13 +15,16 @@ public class Greeting_controller {
     @FXML private Text greeting_title;
 
     @FXML
-    void greeting_enter_press() {
-        greeting_title.setText("Hello");
+    public void greeting_enter_press() throws IOException {
+        Window window = new Window();
+        window.index_fxml(panel.stage);
     }
 
     @FXML
-    void initialize() {
+    public void initialize() {
         
     }
+
+    
 
 }

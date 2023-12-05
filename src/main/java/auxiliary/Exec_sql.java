@@ -6,21 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.springframework.stereotype.Component;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 
 /** Database management. @author https://github.com/bufferum7011 */
 @Component
 public class Exec_sql {
-
-    @PostConstruct
-    private void _init() {
-        print._init("SQL");
-    }
-    @PreDestroy
-    private void _dest() {
-        print._init("SQL");
-    }
 
     public Connection get_conn() {
         try { return DriverManager.getConnection(panel.mysql_server, panel.mysql_user, panel.mysql_password); }
