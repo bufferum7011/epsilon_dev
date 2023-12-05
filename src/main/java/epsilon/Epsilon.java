@@ -3,7 +3,6 @@ import java.io.IOException;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// @SpringBootApplication
 public class Epsilon extends Application {
 
     @Override public void init() throws Exception {

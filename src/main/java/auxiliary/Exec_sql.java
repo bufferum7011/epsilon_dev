@@ -1,5 +1,5 @@
 package auxiliary;
-import static squadrom.beans.Panel.*;
+import static epsilon.Panel.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
