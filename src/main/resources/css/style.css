@@ -1,11 +1,4 @@
 * {
-    -fx-margin: 0;
-    -fx-padding: 0;
-    -fx-border: 0;
-    -fx-font-size: 100%;
-    -fx-font: inherit;
-    -fx-vertical-align: baseline;
-
     -fx-color_transparent: rgba(255, 255, 255, 0);
     -fx-color_white_1: rgb(255, 255, 255);
     -fx-color_gray_1: rgb(170, 170, 170);
@@ -22,11 +15,6 @@
 @font-face {
 	-fx-font-family: 'core_sans';
 	-fx-src: url("/fonts/Core_Sans_CR_35_Light.ttf");
-}
-body {
-    -fx-font-family: 'core_sans';
-    -fx-background-color: -fx-color_black_2;
-    -fx-z-index: 0;
 }
 hr {
     -fx-height: 0.5px;
@@ -93,9 +81,13 @@ hr {
 }
 .main_header {
     -fx-background-color: -fx-color_black_2;
+    /* -fx-width: 100%; */
 }
 .main_header_title {
     -fx-font-family: 'core_sans';
     -fx-font-size: 20px;
     -fx-fill: -fx-color_blue_1;
+}
+.main_nav_left {
+    -fx-background-color: -fx-color_black_2;
 }

@@ -4,6 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 @SpringBootConfiguration
@@ -21,6 +22,7 @@ public class Panel {
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
+        // panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
 
         System.out.println("Launching Epsilon...");
         epsilon.start();
@@ -39,7 +41,9 @@ public class Panel {
     public static auxiliary.Exec_sql sql;
     public static Epsilon epsilon = new Epsilon();
 
-    public String css;
     public Stage stage;
     public Scene scene;
+    public String css;
+    public Image icon;
+
 }
