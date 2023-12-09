@@ -22,7 +22,7 @@ public class Epsilon extends Application {
         System.out.println("Application starts");
         panel.stage = stage;
         // Window window = new Window();
-        // window.greeting(stage);
+        // window.index_fxml();
 
         Index_controller index_controller = new Index_controller();
         index_controller.index_java();

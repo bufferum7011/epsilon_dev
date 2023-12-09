@@ -21,12 +21,8 @@ hr {
     -fx-width: auto;
     -fx-background-color: -fx-color_blue_1;
 }
-.hr_vert {
-    -fx-padding-left: 25px;
-    -fx-margin-left: 25px;
-    -fx-border-left: 2px solid -fx-color_blue_2;
-}
 /* ==================================== */
+
 
 /* Greeting */
 .greeting {
@@ -81,7 +77,7 @@ hr {
 }
 .main_header {
     -fx-background-color: -fx-color_black_2;
-    /* -fx-width: 100%; */
+    -fx-height: 60px;
 }
 .main_header_title {
     -fx-font-family: 'core_sans';

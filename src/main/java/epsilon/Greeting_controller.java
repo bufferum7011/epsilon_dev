@@ -17,7 +17,7 @@ public class Greeting_controller {
     @FXML
     public void greeting_enter_press() throws IOException {
         Window window = new Window();
-        window.index_fxml(panel.stage);
+        window.index_fxml();
     }
 
     @FXML

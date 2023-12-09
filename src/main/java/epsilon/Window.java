@@ -45,13 +45,13 @@ public class Window {
         // pane.getChildren().addAll(text);
         new Default_settings();
     }
-    public void index_fxml(Stage stage) throws IOException {
+    public void index_fxml() throws IOException {
 
-        panel.scene = new Scene(loadFXML("index"));
+        panel.scene = new Scene(loadFXML("sol"));
         panel.scene.getStylesheets().add(panel.css);
         new Default_settings();
     }
-    public void greeting(Stage stage) throws IOException {
+    public void greeting() throws IOException {
 
         panel.scene = new Scene(loadFXML("greeting"));
         panel.scene.getStylesheets().add(panel.css);

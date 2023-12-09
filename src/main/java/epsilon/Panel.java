@@ -15,15 +15,19 @@ public class Panel {
         System.out.println("Loading resources...");
         new Panel();
 
+        // Экземпляры
         SpringApplication.run(Panel.class, args);
         context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
         panel =             context.getBean("panel", epsilon.Panel.class);
         sql =               context.getBean("sql", auxiliary.Exec_sql.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
+
+        // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
         // panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
 
+        // Запуск приложения
         System.out.println("Launching Epsilon...");
         epsilon.start();
     }
