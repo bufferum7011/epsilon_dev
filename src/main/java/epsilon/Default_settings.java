@@ -10,7 +10,7 @@ public class Default_settings {
 
         panel.stage.setScene(panel.scene);          // Настройка сцены
         panel.stage.setTitle(panel.server_project); // Настройка названия приложения
-        panel.stage.initStyle(StageStyle.DECORATED);// Настройка рамки окна
+        panel.stage.initStyle(StageStyle.UNDECORATED);// Настройка рамки окна
         panel.stage.setMinHeight(550);              // Настройка минимальной выстоты
         panel.stage.setMinWidth(1000);              // Настройка минимальной ширины
         panel.stage.setHeight(550);                 // Настройка высоты окна

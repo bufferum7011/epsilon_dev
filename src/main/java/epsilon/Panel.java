@@ -26,10 +26,11 @@ public class Panel {
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
         // panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
+        panel.key_fullscreen = false;
 
         // Запуск приложения
         System.out.println("Launching Epsilon...");
-        epsilon.start();
+        epsilon.launch(Epsilon.class);
     }
 
     // variables
@@ -49,5 +50,6 @@ public class Panel {
     public Scene scene;
     public String css;
     public Image icon;
+    public boolean key_fullscreen;
 
 }
