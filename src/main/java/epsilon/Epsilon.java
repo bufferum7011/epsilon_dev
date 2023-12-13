@@ -20,8 +20,17 @@ public class Epsilon extends Application {
 
         System.out.println("Application starts");
         panel.stage = stage;
+
         Window window = new Window();
-        window.index_java();
+        Fxml fxml = new Fxml();
+
+        // window.index();
+
+        // fxml.index();
+        // fxml.sol();
+        fxml.greeting();
+
+        // window.index_fxml();
     }
 
 }

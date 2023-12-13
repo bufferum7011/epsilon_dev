@@ -25,4 +25,11 @@ public class Spring_config {
         return new Exec_sql();
     }
 
+    @Bean
+    @Scope("singleton")
+    @DependsOn({"panel"})
+    public Handlers handlers() {
+        return new Handlers();
+    }
+
 }

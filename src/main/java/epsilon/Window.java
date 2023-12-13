@@ -21,53 +21,7 @@ import javafx.stage.Stage;
 
 public class Window {
 
-    public static void setRoot(String fxml) throws IOException {
-        panel.scene.setRoot(loadFXML(fxml));
-    }
-
-    public static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Epsilon.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
-    }
-
-    public void test_1(Stage stage) {
-
-        Circle circle = new Circle(50);
-        circle.setFill(Color.rgb(122, 122, 122));
-        circle.setStroke(Color.AQUA);
-        circle.setStrokeWidth(10);
-
-        Text text = new Text("Hello world!");
-        text.setStyle("-fx-fill: green;");
-
-        VBox pane = new VBox();
-        // pane.getChildren().addAll(text);
-        // pane.getChildren().addAll(circle);
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.setLeft(pane);
-        panel.scene.setRoot(borderPane);
-
-        // pane = new Pane();
-        // pane.getChildren().addAll(circle);
-        // pane.getChildren().addAll(text);
-        new Default_settings();
-    }
-    public void index_fxml() throws IOException {
-
-        panel.scene = new Scene(loadFXML("sol"));
-        panel.scene.getStylesheets().add(panel.css);
-        new Default_settings();
-    }
-    public void greeting() throws IOException {
-
-        panel.scene = new Scene(loadFXML("greeting"));
-        panel.scene.getStylesheets().add(panel.css);
-        new Default_settings();
-    }
-
-
-    public void index_java() {
+    public void index() {
 
         // ============================
 
@@ -78,51 +32,27 @@ public class Window {
         Button btn_right = new Button("Right");
 
         Button btn_hide = new Button("_");
+        btn_hide.setOnMousePressed(handlers.get_hide());
+
         Button btn_resize = new Button("☐");
+        btn_resize.setOnMousePressed(handlers.get_resize());
+
         Button btn_close = new Button("×");
+        btn_close.setOnMousePressed(handlers.get_clouse());
+
+        btn_hide.setOnMousePressed(handlers.get_hide());
+        btn_resize.setOnMousePressed(handlers.get_resize());
+        btn_close.setOnMousePressed(handlers.get_clouse());
 
         BorderPane borderPane_2 = new BorderPane();
         borderPane_2.setLeft(btn_hide);
         borderPane_2.setCenter(btn_resize);
         borderPane_2.setRight(btn_close);
-
-        btn_hide.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent arg0) {
-                panel.stage.hide();
-            }
-        });
-        btn_resize.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent arg0) {
-                if(panel.key_fullscreen) {
-                    panel.key_fullscreen = false;
-                    panel.stage.setFullScreen(false);
-                }
-                else {
-                    panel.key_fullscreen = true;
-                    panel.stage.setFullScreen(true);
-                }
-
-            }
-        });
-        btn_close.setOnMousePressed(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent arg0) {
-                panel.stage.close();
-            }
-        });
+        BorderPane.setAlignment(borderPane_2, Pos.CENTER_RIGHT);
 
         HBox hbox = new HBox();
         hbox.getStyleClass().add("main_header");
-        hbox.getChildren().add(label);
-        hbox.getChildren().add(btn_left);
-        hbox.getChildren().add(btn_center);
-        hbox.getChildren().add(btn_right);
-        hbox.getChildren().add(borderPane_2);
+        hbox.getChildren().addAll(label, btn_left, btn_center, btn_right, borderPane_2);
         HBox.setHgrow(hbox, Priority.ALWAYS);
 
         // ============================
@@ -200,6 +130,5 @@ public class Window {
         panel.scene = new Scene(borderPane);
         new Default_settings();
     }
-
 
 }

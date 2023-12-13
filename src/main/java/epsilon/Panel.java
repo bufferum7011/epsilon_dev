@@ -20,6 +20,7 @@ public class Panel {
         context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
         panel =             context.getBean("panel", epsilon.Panel.class);
         sql =               context.getBean("sql", auxiliary.Exec_sql.class);
+        handlers =          context.getBean("handlers", Handlers.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
 
@@ -45,6 +46,7 @@ public class Panel {
     public static auxiliary.Print print;
     public static auxiliary.Exec_sql sql;
     public static Epsilon epsilon = new Epsilon();
+    public static Handlers handlers;
 
     public Stage stage;
     public Scene scene;
