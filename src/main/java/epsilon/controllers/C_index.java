@@ -22,12 +22,14 @@ public class C_index {
     @FXML private URL location;
     @FXML private Button greeting_enter;
     @FXML private Text greeting_title;
+
+
     @FXML public void greeting_enter_press(ActionEvent event) {
         greeting_title.setText(greeting_enter.getText());
     }
-    public void fxml_index() throws IOException {
-        new C_main().get_scene("index");
-    }
+
+
+    public void fxml_index() throws IOException { new C_main().get_scene("index"); }
     @FXML public void initialize() {
 
         // ============================

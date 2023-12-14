@@ -14,7 +14,10 @@ public class C_main {
     @FXML private URL location;
     @FXML public void initialize() {}
 
+
     public void fxml_main() throws IOException { get_scene("greeting"); }
+
+
     public void get_scene(String fxml) throws IOException {
 
         panel.scene = new Scene(new FXMLLoader(Epsilon.class.getResource(fxml + ".fxml")).load());
