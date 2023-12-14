@@ -1,5 +1,6 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class Index {
+public class C_index {
 
     @FXML private ResourceBundle resources;
     @FXML private URL location;
@@ -23,6 +24,9 @@ public class Index {
     @FXML private Text greeting_title;
     @FXML public void greeting_enter_press(ActionEvent event) {
         greeting_title.setText(greeting_enter.getText());
+    }
+    public void fxml_index() throws IOException {
+        new C_main().get_scene("index");
     }
     @FXML public void initialize() {
 
