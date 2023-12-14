@@ -35,7 +35,7 @@ public class Handlers {
 
             @Override
             public void handle(MouseEvent arg0) {
-                panel.stage.close();
+                try { epsilon.stop(); } catch(Exception e) { }
             }
         };
     }

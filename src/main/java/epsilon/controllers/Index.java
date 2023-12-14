@@ -1,5 +1,9 @@
-package epsilon;
+package epsilon.controllers;
 import static epsilon.Panel.*;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -9,10 +13,18 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
-public class Window {
+public class Index {
 
-    public void index() {
+    @FXML private ResourceBundle resources;
+    @FXML private URL location;
+    @FXML private Button greeting_enter;
+    @FXML private Text greeting_title;
+    @FXML public void greeting_enter_press(ActionEvent event) {
+        greeting_title.setText(greeting_enter.getText());
+    }
+    @FXML public void initialize() {
 
         // ============================
 

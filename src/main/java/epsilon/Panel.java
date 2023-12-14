@@ -3,9 +3,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
+import auxiliary.Exec_sql;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 @SpringBootConfiguration
 public class Panel {
@@ -26,12 +34,12 @@ public class Panel {
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
-        // panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
+        // panel.icon =        new Image(epsilon.getClass().getResource("icon.png").toExternalForm());
         panel.key_fullscreen = false;
 
         // Запуск приложения
         System.out.println("Launching Epsilon...");
-        epsilon.launch(Epsilon.class);
+        epsilon.launch(Epsilon.class, args);
     }
 
     // variables
@@ -53,5 +61,55 @@ public class Panel {
     public String css;
     public Image icon;
     public boolean key_fullscreen;
+
+    public void default_settings() {
+
+        scene.getStylesheets().add(css);
+
+        stage.setScene(scene);                  // Настройка сцены
+        stage.setTitle(server_project);         // Настройка названия приложения
+        stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
+        stage.setMinHeight(550);                // Настройка минимальной выстоты
+        stage.setMinWidth(1000);                // Настройка минимальной ширины
+        stage.setHeight(550);                   // Настройка высоты окна
+        stage.setWidth(1000);                   // Настройка ширины окна
+        stage.setX(100);                        // Настройка расположения окна по горизонтали
+        stage.setY(100);                        // Настройка расположения окна по высоте
+        stage.centerOnScreen();                 // Располагает окно в центре экрана
+        stage.setResizable(true);               // Разрешение на изменение размера
+
+        // stage.setFullScreen(false);             // Разрешение на открытие на полный экран
+        // stage.setOpacity(1);                    // Настройка прозрачности
+        // stage.getIcons().add(icon);             // Настройка иконки
+        stage.show();
+    }
+
+}
+
+
+@Configuration
+@ComponentScan({"epsilon"})
+@PropertySource("classpath:application.properties")
+class Spring_config {
+
+    @Bean
+    @Scope("singleton")
+    public Panel panel() {
+        return new Panel();
+    }
+
+    @Bean
+    @Scope("singleton")
+    @DependsOn({"panel"})
+    public Exec_sql sql() {
+        return new Exec_sql();
+    }
+
+    @Bean
+    @Scope("singleton")
+    @DependsOn({"panel"})
+    public Handlers handlers() {
+        return new Handlers();
+    }
 
 }

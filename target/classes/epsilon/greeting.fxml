@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="307.0" styleClass="greeting" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="epsilon.Greeting_controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="405.0" prefWidth="307.0" styleClass="greeting" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="epsilon.controllers.Control_greeting">
 
     <children>
     
@@ -27,7 +27,7 @@
             </padding>
         </VBox>
 
-        <Button fx:id="greeting_enter" layoutX="112.0" layoutY="286.0" mnemonicParsing="false" onAction="#greeting_enter_press" prefHeight="34.0" prefWidth="82.0" styleClass="greeting_enter" stylesheets="../css/style.css" text="Войти" textAlignment="CENTER">
+        <Button fx:id="greeting_enter" layoutX="112.0" layoutY="294.0" mnemonicParsing="false" onAction="#greeting_enter_press" prefHeight="34.0" prefWidth="82.0" styleClass="greeting_enter" stylesheets="../css/style.css" text="Войти" textAlignment="CENTER">
             <font>
                 <Font name="System Bold" size="12.0" />
             </font>

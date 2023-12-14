@@ -18,19 +18,19 @@ public class Fxml {
 
         panel.scene = new Scene(loadFXML("greeting"));
         panel.scene.getStylesheets().add(panel.css);
-        new Default_settings();
+        panel.default_settings();
     }
     public void index() throws IOException {
 
         panel.scene = new Scene(loadFXML("index"));
         panel.scene.getStylesheets().add(panel.css);
-        new Default_settings();
+        panel.default_settings();
     }
     public void sol() throws IOException {
 
         panel.scene = new Scene(loadFXML("index"));
         panel.scene.getStylesheets().add(panel.css);
-        new Default_settings();
+        panel.default_settings();
     }
 
 }
