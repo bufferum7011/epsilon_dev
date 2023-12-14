@@ -1,13 +1,17 @@
+echo ==============================================1=
 color 3
-timeout 5
+echo ==============================================2=
 mvn clean -f "d:\_jsource\epsilon\pom.xml"
-timeout 5
+echo ==============================================3=
 mvn compile -f "d:\_jsource\epsilon\pom.xml"
-
+echo ==============================================4=
 SET todays_date = data /T
-
+echo ==============================================5=
 git add .
 git add .
-git commit -m todays_date
+echo ==============================================6=
+git commit -m %todays_date%
+echo ==============================================7=
 git push
+echo ==============================================8=
 timeout 5
