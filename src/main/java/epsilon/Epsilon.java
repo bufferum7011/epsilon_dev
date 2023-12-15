@@ -1,7 +1,7 @@
 package epsilon;
 import static epsilon.Panel.*;
 import java.io.IOException;
-import epsilon.controllers.*;
+import epsilon.controllers.C_main;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -23,8 +23,9 @@ public class Epsilon extends Application {
         panel.stage = stage;
 
         // new C_greeting().initialize();
-        new C_index().initialize();
+        // new C_index().initialize();
         // new C_main().get_scene("sol");
+        new C_main().initialize();
     }
 
 }

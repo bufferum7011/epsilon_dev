@@ -19,6 +19,47 @@ import javafx.stage.StageStyle;
 @SpringBootConfiguration
 public class Panel {
 
+    // variables
+    @Value("${mysql.server}")   public String mysql_server;
+    @Value("${mysql.user}")     public String mysql_user;
+    @Value("${mysql.password}") public String mysql_password;
+    @Value("${server.project}") public String server_project;
+    @Value("${server.ip}")      public String server_ip;
+
+    public static AnnotationConfigApplicationContext context;
+    public static Panel panel;
+    public static auxiliary.Print print;
+    public static auxiliary.Exec_sql sql;
+    public static Epsilon epsilon;
+    public static Handlers handlers;
+
+    public Stage stage;
+    public Scene scene;
+    public String css;
+    public String icon;
+    public boolean key_fullscreen;
+
+    public void default_settings() {
+
+        scene.getStylesheets().add(css);
+
+        stage.setScene(scene);                  // Настройка сцены
+        stage.setTitle(server_project);         // Настройка названия приложения
+        stage.getIcons().add(new Image(icon));  // Настройка иконки
+        stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
+        stage.setMinHeight(500);                // Настройка минимальной выстоты
+        stage.setMinWidth(350);                 // Настройка минимальной ширины
+        stage.setHeight(550);                   // Настройка высоты окна
+        stage.setWidth(1000);                   // Настройка ширины окна
+        stage.setX(100);                        // Настройка расположения окна по горизонтали
+        stage.setY(100);                        // Настройка расположения окна по высоте
+        stage.centerOnScreen();                 // Располагает окно в центре экрана
+        stage.setResizable(true);               // Разрешение на изменение размера
+
+        // stage.setFullScreen(false);             // Разрешение на открытие на полный экран
+        // stage.setOpacity(1);                    // Настройка прозрачности
+        stage.show();
+    }
     public static void main(String[] args) {
 
         System.out.println("Loading resources...");
@@ -41,48 +82,6 @@ public class Panel {
         // Запуск приложения
         System.out.println("Launching Epsilon...");
         Application.launch(Epsilon.class, args);
-    }
-
-    // variables
-    @Value("${mysql.server}")   public String mysql_server;
-    @Value("${mysql.user}")     public String mysql_user;
-    @Value("${mysql.password}") public String mysql_password;
-    @Value("${server.project}") public String server_project;
-    @Value("${server.ip}")      public String server_ip;
-
-    public static AnnotationConfigApplicationContext context;
-    public static Panel panel;
-    public static auxiliary.Print print;
-    public static auxiliary.Exec_sql sql;
-    public static Epsilon epsilon = new Epsilon();
-    public static Handlers handlers;
-
-    public Stage stage;
-    public Scene scene;
-    public String css;
-    public String icon;
-    public boolean key_fullscreen;
-
-    public void default_settings() {
-
-        scene.getStylesheets().add(css);
-
-        stage.setScene(scene);                  // Настройка сцены
-        stage.setTitle(server_project);         // Настройка названия приложения
-        stage.getIcons().add(new Image(icon));  // Настройка иконки
-        stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
-        stage.setMinHeight(550);                // Настройка минимальной выстоты
-        stage.setMinWidth(1000);                // Настройка минимальной ширины
-        stage.setHeight(550);                   // Настройка высоты окна
-        stage.setWidth(1000);                   // Настройка ширины окна
-        stage.setX(100);                        // Настройка расположения окна по горизонтали
-        stage.setY(100);                        // Настройка расположения окна по высоте
-        stage.centerOnScreen();                 // Располагает окно в центре экрана
-        stage.setResizable(true);               // Разрешение на изменение размера
-
-        // stage.setFullScreen(false);             // Разрешение на открытие на полный экран
-        // stage.setOpacity(1);                    // Настройка прозрачности
-        stage.show();
     }
 
 }
