@@ -25,7 +25,8 @@ public class Epsilon extends Application {
         // new C_greeting().initialize();
         // new C_index().initialize();
         // new C_main().get_scene("sol");
-        new C_main().initialize();
+        // new C_main().initialize();
+        new C_main().init_2();
     }
 
 }

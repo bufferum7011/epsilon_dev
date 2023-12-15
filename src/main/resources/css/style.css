@@ -87,3 +87,12 @@ hr {
 .main_nav_left {
     -fx-background-color: -fx-color_black_2;
 }
+
+
+
+.cicle {
+    -fx-background-color: chartreuse;
+}
+.my_pane_for_circle {
+    -fx-background-color: rgb(0, 124, 109);
+}

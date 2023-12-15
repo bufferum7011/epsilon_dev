@@ -51,7 +51,7 @@ public class C_index {
 
         btn_hide.setOnMousePressed(handlers.get_hide());
         btn_resize.setOnMousePressed(handlers.get_resize());
-        btn_close.setOnMousePressed(handlers.get_clouse());
+            
 
         BorderPane borderPane_2 = new BorderPane();
         borderPane_2.setLeft(btn_hide);

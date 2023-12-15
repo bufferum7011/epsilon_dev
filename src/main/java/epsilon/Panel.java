@@ -7,9 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.PropertySource;~
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import auxiliary.Exec_sql;
+import epsilon.controllers.C_main;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -32,6 +33,7 @@ public class Panel {
     public static auxiliary.Exec_sql sql;
     public static Epsilon epsilon;
     public static Handlers handlers;
+    public static C_main c_main;
 
     public Stage stage;
     public Scene scene;
@@ -73,6 +75,7 @@ public class Panel {
         handlers =          context.getBean("handlers", Handlers.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
+        c_main = new C_main();
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
