@@ -34,7 +34,7 @@ public class Panel {
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
-        // panel.icon =        new Image(epsilon.getClass().getResource("icon.png").toExternalForm());
+        panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
         panel.key_fullscreen = false;
 
         // Запуск приложения
@@ -80,7 +80,7 @@ public class Panel {
 
         // stage.setFullScreen(false);             // Разрешение на открытие на полный экран
         // stage.setOpacity(1);                    // Настройка прозрачности
-        // stage.getIcons().add(icon);             // Настройка иконки
+        stage.getIcons().add(icon);             // Настройка иконки
         stage.show();
     }
 
