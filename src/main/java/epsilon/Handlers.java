@@ -6,19 +6,17 @@ import javafx.scene.input.MouseEvent;
 public class Handlers {
 
     public EventHandler<MouseEvent> get_hide() {
-        return new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent arg0) {
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
                 panel.stage.hide();
             }
         };
     }
     public EventHandler<MouseEvent> get_resize() {
-        return new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent arg0) {
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
                 if(panel.key_fullscreen) {
                     panel.key_fullscreen = false;
                     panel.stage.setFullScreen(false);
@@ -31,10 +29,9 @@ public class Handlers {
         };
     }
     public EventHandler<MouseEvent> get_clouse() {
-        return new EventHandler<MouseEvent>() {
 
-            @Override
-            public void handle(MouseEvent arg0) {
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
                 try { epsilon.stop(); } catch(Exception e) { }
             }
         };

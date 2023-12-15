@@ -1,5 +1,4 @@
 package epsilon.controllers;
-import static epsilon.Panel.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;

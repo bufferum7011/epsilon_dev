@@ -10,6 +10,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import auxiliary.Exec_sql;
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -34,12 +35,12 @@ public class Panel {
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
-        panel.icon =        new Image(epsilon.getClass().getResource("/icon.png").toExternalForm());
+        panel.icon =        epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm();
         panel.key_fullscreen = false;
 
         // Запуск приложения
         System.out.println("Launching Epsilon...");
-        epsilon.launch(Epsilon.class, args);
+        Application.launch(Epsilon.class, args);
     }
 
     // variables
@@ -59,7 +60,7 @@ public class Panel {
     public Stage stage;
     public Scene scene;
     public String css;
-    public Image icon;
+    public String icon;
     public boolean key_fullscreen;
 
     public void default_settings() {
@@ -68,6 +69,7 @@ public class Panel {
 
         stage.setScene(scene);                  // Настройка сцены
         stage.setTitle(server_project);         // Настройка названия приложения
+        stage.getIcons().add(new Image(icon));  // Настройка иконки
         stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
         stage.setMinHeight(550);                // Настройка минимальной выстоты
         stage.setMinWidth(1000);                // Настройка минимальной ширины
@@ -80,7 +82,6 @@ public class Panel {
 
         // stage.setFullScreen(false);             // Разрешение на открытие на полный экран
         // stage.setOpacity(1);                    // Настройка прозрачности
-        stage.getIcons().add(icon);             // Настройка иконки
         stage.show();
     }
 

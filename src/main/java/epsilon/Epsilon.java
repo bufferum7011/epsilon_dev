@@ -22,6 +22,7 @@ public class Epsilon extends Application {
         print.result("[Application starts]\n");
         panel.stage = stage;
 
+        // new C_greeting().initialize();
         new C_index().initialize();
         // new C_main().get_scene("sol");
     }
