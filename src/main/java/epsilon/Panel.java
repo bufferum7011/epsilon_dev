@@ -34,7 +34,7 @@ public class Panel {
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
-        panel.icon =        new Image(epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm());
+        panel.icon =        new Image(epsilon.getClass().getResource("/icon.png").toExternalForm());
         panel.key_fullscreen = false;
 
         // Запуск приложения
