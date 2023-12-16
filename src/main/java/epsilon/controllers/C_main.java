@@ -1,11 +1,6 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
@@ -23,23 +18,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class C_main {
+public class C_main implements Default_controller {
 
-    @FXML private ResourceBundle resources;
-    @FXML private URL location;
-
-
-    public void get_scene(String fxml) throws IOException {
-
-        panel.scene = new Scene(new FXMLLoader(epsilon.getClass().getResource(fxml + ".fxml")).load());
-        panel.scene.getStylesheets().add(panel.css);
-        panel.default_settings();
-    }
-
-    public void fxml_main() throws IOException { get_scene("greeting"); }
-
-
-    @FXML public void initialize() {
+    @Override public void fxml() throws IOException { get_scene("greeting"); }
+    @Override public void initialize() {
 
         Group group = new Group();
 
@@ -50,6 +32,7 @@ public class C_main {
         text.setY(50);
         text.setFill(Color.RED);
         text.setFont(new Font("Verdana", 20));
+        group.getChildren().add(text);
 
         // Line
         Line line = new Line();
@@ -61,6 +44,7 @@ public class C_main {
         line.setStrokeWidth(5);
         line.setOpacity(1);
         line.setRotate(45);
+        group.getChildren().add(line);
 
         // Rectangle прямоугольник
         Rectangle rectangle = new Rectangle();
@@ -71,6 +55,7 @@ public class C_main {
         rectangle.setY(0);
         rectangle.setStrokeWidth(20);
         rectangle.setStroke(Color.SANDYBROWN);
+        group.getChildren().add(rectangle);
 
         // Polygon/Traingle триугольник
         Polygon traingle = new Polygon();
@@ -80,6 +65,7 @@ public class C_main {
             200.0, 300.0
         );
         traingle.setFill(Color.PURPLE);
+        group.getChildren().add(traingle);
 
         // Circle круг
         Circle circle = new Circle();
@@ -87,20 +73,25 @@ public class C_main {
         circle.setCenterY(300);
         circle.setRadius(50);
         circle.setFill(Color.BLACK);
+        group.getChildren().add(circle);
 
         // Image
-        Image image = new Image("/img_sys/icon.png");
-        ImageView imageView = new ImageView(image);
+        ImageView imageView = new ImageView(new Image("/img_sys/icon.png"));
         imageView.setX(400);
         imageView.setY(400);
+        group.getChildren().add(imageView);
 
-        group.getChildren().addAll(rectangle, text, line, traingle, circle, imageView);
         panel.scene = new Scene(group);
         panel.default_settings();
+        panel.stage.show();
     }
 
+    public void get_scene(String fxml) throws IOException {
 
-
+        panel.scene = new Scene(new FXMLLoader(epsilon.getClass().getResource(fxml + ".fxml")).load());
+        panel.scene.getStylesheets().add(panel.css);
+        panel.default_settings();
+    }
 
     public static Circle circle;
     public double x = 300;
@@ -148,6 +139,7 @@ public class C_main {
 
         panel.scene = new Scene(borderPane);
         panel.default_settings();
+        panel.stage.show();
     }
 
 }

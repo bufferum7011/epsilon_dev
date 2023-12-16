@@ -1,17 +1,28 @@
 package epsilon;
 import static epsilon.Panel.*;
-
-import java.awt.Color;
-
-import javafx.event.ActionEvent;
+import epsilon.controllers.C_index;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Handlers {
 
+    // Greeting
+    public EventHandler<MouseEvent> greeting_next() {
+
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
+                
+                // Будет проверка, но пока пропуск
+
+                panel.stage.setResizable(true);
+                new C_index().initialize();
+            }
+        };
+    }
+
+
+    // Index
     public EventHandler<MouseEvent> get_hide() {
 
         return new EventHandler<MouseEvent>() {
@@ -43,6 +54,9 @@ public class Handlers {
             }
         };
     }
+    
+    
+    // C_main
     public EventHandler<MouseEvent> move_circle(String side, Circle circle) {
 
         return new EventHandler<MouseEvent>() {
