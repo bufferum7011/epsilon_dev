@@ -10,15 +10,21 @@ import javafx.scene.text.Text;
 
 public class C_greeting implements Default_controller {
 
+    public TextField input_email;
+    public TextField input_password;
+    public Hyperlink forgot_password;
+    public Hyperlink registration;
+    public Button btn_enter;
+
     @Override public void fxml() throws IOException { new C_main().get_scene("greeting"); }
     @Override public void initialize() {
 
         Text title = new Text("Добро пожаловать в Epsilon");
-        TextField input_email = new TextField("Почта");
-        TextField input_password = new TextField("Пароль");
-        Hyperlink forgot_password = new Hyperlink("Забыл пароль");
-        Hyperlink registration = new Hyperlink("Зарегистрироватся");
-        Button btn_enter = new Button("Войти");
+        input_email = new TextField("Почта");
+        input_password = new TextField("Пароль");
+        forgot_password = new Hyperlink("Забыл пароль");
+        registration = new Hyperlink("Зарегистрироватся");
+        btn_enter = new Button("Войти");
 
         btn_enter.setOnMousePressed(handlers.greeting_next());
 

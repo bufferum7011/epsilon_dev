@@ -30,7 +30,7 @@ public class C_index implements Default_controller {
         Button btn_resize = new Button("☐");
         btn_resize.setOnMousePressed(handlers.get_resize());
 
-        Button btn_close = new Button("×");
+        Button btn_close = new Button("✕");
         btn_close.setOnMousePressed(handlers.get_clouse());
 
         btn_hide.setOnMousePressed(handlers.get_hide());

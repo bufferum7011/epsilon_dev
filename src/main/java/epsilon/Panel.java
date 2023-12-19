@@ -1,6 +1,5 @@
 package epsilon;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -9,7 +8,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import auxiliary.Exec_sql;
+import epsilon.controllers.C_greeting;
+import epsilon.controllers.C_index;
 import epsilon.controllers.C_main;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -17,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+@Component
 @SpringBootConfiguration
 public class Panel {
 
@@ -33,7 +36,10 @@ public class Panel {
     public static auxiliary.Exec_sql sql;
     public static Epsilon epsilon;
     public static Handlers handlers;
+
     public static C_main c_main;
+    public static C_greeting c_greeting;
+    public static C_index c_index;
 
     public Stage stage;
     public Scene scene;
@@ -67,18 +73,21 @@ public class Panel {
     }
     public static void main(String[] args) {
 
-        System.out.println("Loading resources...");
-        new Panel();
-
         // Экземпляры
-        SpringApplication.run(Panel.class, args);
+        System.out.println("Loading resources...");
+        // SpringApplication.run(Panel.class, args);
         context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
         panel =             context.getBean("panel", epsilon.Panel.class);
         sql =               context.getBean("sql", auxiliary.Exec_sql.class);
         handlers =          context.getBean("handlers", Handlers.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
+
         c_main = new C_main();
+        c_greeting = new C_greeting();
+        // c_greeting =        context.getBean("c_greeting", C_greeting.class);
+        c_index = new C_index();
+        // c_index =           context.getBean("c_index", C_index.class);
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
@@ -88,6 +97,7 @@ public class Panel {
         // Запуск приложения
         System.out.println("Launching Epsilon...");
         Application.launch(Epsilon.class, args);
+
     }
 
 }
@@ -113,9 +123,21 @@ class Spring_config {
 
     @Bean
     @Scope("singleton")
-    @DependsOn({"panel"})
+    @DependsOn({"panel", "sql"})
     public Handlers handlers() {
         return new Handlers();
     }
+
+    // @Bean
+    // // // @Scope("singleton")
+    // // @DependsOn({"panel", "sql", "handlers"})
+    // public C_greeting c_greeting() {
+    //     return new C_greeting();
+    // }
+
+    // @Bean
+    // public C_index c_index() {
+    //     return new C_index();
+    // }
 
 }
