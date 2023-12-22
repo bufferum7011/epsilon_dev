@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import auxiliary.Exec_sql;
+import epsilon.controllers.C_decart;
 import epsilon.controllers.C_greeting;
 import epsilon.controllers.C_index;
 import epsilon.controllers.C_main;
@@ -40,6 +41,7 @@ public class Panel {
     public static C_main c_main;
     public static C_greeting c_greeting;
     public static C_index c_index;
+    public static C_decart c_decart;
 
     public Stage stage;
     public Scene scene;
@@ -85,6 +87,7 @@ public class Panel {
 
         c_main = new C_main();
         c_greeting = new C_greeting();
+        c_decart = new C_decart();
         // c_greeting =        context.getBean("c_greeting", C_greeting.class);
         c_index = new C_index();
         // c_index =           context.getBean("c_index", C_index.class);

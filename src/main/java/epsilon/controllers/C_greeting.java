@@ -19,17 +19,21 @@ public class C_greeting implements Default_controller {
     @Override public void fxml() throws IOException { new C_main().get_scene("greeting"); }
     @Override public void initialize() {
 
-        Text title = new Text("Добро пожаловать в Epsilon");
-        input_email = new TextField("Почта");
-        input_password = new TextField("Пароль");
-        forgot_password = new Hyperlink("Забыл пароль");
-        registration = new Hyperlink("Зарегистрироватся");
-        btn_enter = new Button("Войти");
+        VBox vBox = new VBox();
+        {
+            Text title = new Text("Добро пожаловать в Epsilon");
+            input_email = new TextField("Почта");
+            input_password = new TextField("Пароль");
+            forgot_password = new Hyperlink("Забыл пароль");
+            registration = new Hyperlink("Зарегистрироватся");
+            btn_enter = new Button("Войти");
 
-        btn_enter.setOnMousePressed(handlers.greeting_next());
+            btn_enter.setOnMousePressed(handlers.greeting_next());
 
-        VBox vBox = new VBox(title, input_email, input_password, forgot_password, registration, btn_enter);
-        vBox.getStyleClass().add("greeting");
+            vBox.getChildren().addAll(title, input_email, input_password, forgot_password, registration, btn_enter);
+            vBox.getStyleClass().add("greeting");
+        }
+
 
         panel.scene = new Scene(vBox);
         panel.default_settings();
