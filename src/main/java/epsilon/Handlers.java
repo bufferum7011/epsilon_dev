@@ -101,7 +101,9 @@ public class Handlers {
 
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
-                c_decart.circle.setCenterX((int) c_decart.slider_x.getValue() * 5);
+                c_decart.x = (int) c_decart.slider_x.getValue() * 5;
+                c_decart.circle.setCenterX(c_decart.x);
+                c_decart.val_x.setText("X = " + c_decart.x);
             }
         };
     }
@@ -109,7 +111,9 @@ public class Handlers {
 
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
-                c_decart.circle.setCenterY((int) c_decart.slider_y.getValue() * 5);
+                c_decart.y = (int) c_decart.slider_y.getValue() * 5;
+                c_decart.circle.setCenterY(c_decart.y);
+                c_decart.val_y.setText("Y = " + c_decart.y);
             }
         };
     }

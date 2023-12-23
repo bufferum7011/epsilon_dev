@@ -59,7 +59,7 @@ public class Panel {
         stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
 
         stage.setMinHeight(500);                // Настройка минимальной выстоты
-        stage.setMinWidth(350);                 // Настройка минимальной ширины
+        stage.setMinWidth(500);                 // Настройка минимальной ширины
         // stage.setMaxHeight(500);                // Настройка максимальной выстоты
         // stage.setMaxWidth(350);                 // Настройка максимальной ширины
         stage.setHeight(550);                   // Настройка высоты окна
