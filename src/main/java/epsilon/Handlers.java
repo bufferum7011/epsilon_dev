@@ -9,7 +9,7 @@ import javafx.scene.shape.Circle;
 @Component
 public class Handlers {
 
-    // Greeting
+    // C_greeting
     public EventHandler<MouseEvent> greeting_next() {
 
         return new EventHandler<MouseEvent>() {
@@ -30,7 +30,7 @@ public class Handlers {
     }
 
 
-    // Index
+    // C_index
     public EventHandler<MouseEvent> get_hide() {
 
         return new EventHandler<MouseEvent>() {
@@ -91,6 +91,25 @@ public class Handlers {
                     circle.setCenterX(c_main.x);
                 }
 
+            }
+        };
+    }
+
+
+    // C_decart
+    public EventHandler<MouseEvent> move_x() {
+
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
+                c_decart.circle.setCenterX((int) c_decart.slider_x.getValue() * 5);
+            }
+        };
+    }
+    public EventHandler<MouseEvent> move_y() {
+
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
+                c_decart.circle.setCenterY((int) c_decart.slider_y.getValue() * 5);
             }
         };
     }

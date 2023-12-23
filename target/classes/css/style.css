@@ -1,4 +1,4 @@
-* {
+/* * {
     -fx-color_transparent: rgba(255, 255, 255, 0);
     -fx-color_white_1: rgb(255, 255, 255);
     -fx-color_gray_1: rgb(170, 170, 170);
@@ -11,21 +11,16 @@
     -fx-color_yellow_1: rgb(255, 202, 69);
     -fx-color_red_1: rgb(255, 45, 45);
     -fx-color_red_2: rgb(188, 82, 82);
-}
-@font-face {
+} */
+/* @font-face {
 	-fx-font-family: 'core_sans';
 	-fx-src: url("/fonts/Core_Sans_CR_35_Light.ttf");
-}
-hr {
-    -fx-height: 0.5px;
-    -fx-width: auto;
-    -fx-background-color: -fx-color_blue_1;
-}
+} */
 /* ==================================== */
 
 
 /* Greeting */
-.greeting {
+/* .greeting {
     -fx-background-color: -fx-color_black_2;
     -fx-background-radius: 5px;
 }
@@ -68,11 +63,11 @@ hr {
 .greeting_enter {
     -fx-background-color: -fx-color_blue_1;
     -fx-background-radius: 5px;
-}
+} */
 
 
 /* Main */
-.main {
+/* .main {
     -fx-background-color: -fx-color_blue_2;
 }
 .main_header {
@@ -95,4 +90,16 @@ hr {
 }
 .my_pane_for_circle {
     -fx-background-color: rgb(0, 124, 109);
+} */
+
+
+/* C_decart */
+.c_decart {
+    -fx-background-color: rgb(0, 0, 0);
+}
+.pane_title {
+    -fx-background-color: rgb(0, 0, 0);
+}
+.pane_center {
+    -fx-background-color: rgb(14, 104, 199);
 }
