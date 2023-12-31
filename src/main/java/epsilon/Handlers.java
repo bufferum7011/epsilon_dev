@@ -2,6 +2,8 @@ package epsilon;
 import static epsilon.Panel.*;
 import org.springframework.stereotype.Component;
 import epsilon.controllers.C_index;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
@@ -62,8 +64,7 @@ public class Handlers {
             }
         };
     }
-    
-    
+
     // C_main
     public EventHandler<MouseEvent> move_circle(String side, Circle circle) {
 
@@ -102,7 +103,7 @@ public class Handlers {
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
                 c_decart.x = (int) c_decart.slider_x.getValue() * 5;
-                c_decart.circle.setCenterX(c_decart.x);
+                c_decart.point.setLayoutX(c_decart.x);
                 c_decart.val_x.setText("X = " + c_decart.x);
             }
         };
@@ -112,10 +113,16 @@ public class Handlers {
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
                 c_decart.y = (int) c_decart.slider_y.getValue() * 5;
-                c_decart.circle.setCenterY(c_decart.y);
+                c_decart.point.setLayoutY(c_decart.y);
                 c_decart.val_y.setText("Y = " + c_decart.y);
             }
         };
     }
+    public ChangeListener<Number> resizer_gred_2d = new ChangeListener<Number>() {
+        @Override
+        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            c_decart.grid_2d_size.setText("Grid_2d_size:\nheight = " + c_decart.grid_2d.getHeight() + "\nwidth = " + c_decart.grid_2d.getWidth());
+        }
+    };
 
 }

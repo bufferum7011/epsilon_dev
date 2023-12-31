@@ -42,6 +42,7 @@ public class Panel {
     public static C_greeting c_greeting;
     public static C_index c_index;
     public static C_decart c_decart;
+    public static Test test;
 
     public Stage stage;
     public Scene scene;
@@ -84,13 +85,11 @@ public class Panel {
         handlers =          context.getBean("handlers", Handlers.class);
         print =             new auxiliary.Print();
         epsilon =           new Epsilon();
-
-        c_main = new C_main();
-        c_greeting = new C_greeting();
-        c_decart = new C_decart();
-        // c_greeting =        context.getBean("c_greeting", C_greeting.class);
-        c_index = new C_index();
-        // c_index =           context.getBean("c_index", C_index.class);
+        c_main =            new C_main();
+        c_greeting =        new C_greeting();
+        c_decart =          new C_decart();
+        c_index =           new C_index();
+        test =              new Test();
 
         // Переменные
         panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
@@ -100,9 +99,7 @@ public class Panel {
         // Запуск приложения
         System.out.println("Launching Epsilon...");
         Application.launch(Epsilon.class, args);
-
     }
-
 }
 
 
@@ -132,7 +129,7 @@ class Spring_config {
     }
 
     // @Bean
-    // // // @Scope("singleton")
+    // // @Scope("singleton")
     // // @DependsOn({"panel", "sql", "handlers"})
     // public C_greeting c_greeting() {
     //     return new C_greeting();
