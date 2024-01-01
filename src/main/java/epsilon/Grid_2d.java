@@ -1,6 +1,5 @@
 package epsilon;
 import static epsilon.Panel.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -21,9 +20,9 @@ public class Grid_2d {
         CENTER_X = (WIDTH  / 2);
         CENTER_Y = (HEIGHT / 2);
 
-        c_decart.pane_grid_2d.getTransforms().clear();
-        c_decart.pane_grid_2d.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
-        c_decart.pane_grid_2d.getTransforms().add(new Scale(1, -1));
+        c_main.pane_grid_2d.getTransforms().clear();
+        c_main.pane_grid_2d.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
+        c_main.pane_grid_2d.getTransforms().add(new Scale(1, -1));
 
         // draw();
         // create_grid_lines();
@@ -69,24 +68,28 @@ public class Grid_2d {
         for(double x = CENTER_X + 50; x <= WIDTH; x += 50) {
             Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
             Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_decart.pane_grid_2d.getChildren().addAll(line, text);
+            c_main.pane_grid_2d.getChildren().clear();
+            c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
         for(double x = CENTER_X - 50; x >= 0; x -= 50) {
             Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
             Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_decart.pane_grid_2d.getChildren().addAll(line, text);
+            c_main.pane_grid_2d.getChildren().clear();
+            c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
 
         // Линии с разметкой по оси Y
         for(double y = CENTER_Y + 50; y <= HEIGHT; y += 50) {
             Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
             Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_decart.pane_grid_2d.getChildren().addAll(line, text);
+            c_main.pane_grid_2d.getChildren().clear();
+            c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
         for(double y = CENTER_Y - 50; y >= 0; y -= 50) {
             Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
             Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_decart.pane_grid_2d.getChildren().addAll(line, text);
+            c_main.pane_grid_2d.getChildren().clear();
+            c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
     }
     private Line create_metric_line(double startX, double startY, double endX, double endY) {

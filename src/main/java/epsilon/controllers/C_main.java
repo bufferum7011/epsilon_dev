@@ -1,152 +1,140 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
 import java.io.IOException;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 
 public class C_main implements Default_controller {
 
-    @Override public void fxml() throws IOException { get_scene("greeting"); }
+    public double x, y;
+    public Slider slider_y, slider_x;
+    public double scale_x_y = 1;
+    public Scale scale;
+    public Translate translate;
+
+
+    public Text title = new Text("Декартовая плоскость");
+    public Text title_x = new Text("Изменение для X");
+    public Text title_y = new Text("Изменение для Y");
+    public Text indicator_height = new Text("height = 0.0");
+    public Text indicator_width = new Text("width = 0.0");
+    public Text grid_2d_size = new Text("Grid_2d_size: ");
+
+
+    public HBox pane_title;
+    public HBox pane_slider_x;
+    public VBox pane_slider_y;
+    public Pane pane_grid_2d;
+    public BorderPane border_pane;
+
+    @Override public void fxml() throws IOException {}
     @Override public void initialize() {
 
-        Text text = new Text(); {
-            text.setText("WHOOOOOA!!!");
-            text.setX(50);
-            text.setY(50);
-            text.setFill(Color.RED);
-            text.setFont(new Font("Verdana", 20));
+        //////////////// Установка начальных значений ////////////////
+        x = 0;
+        y = 0;
+        scale = new Scale(scale_x_y, scale_x_y * -1);
+        translate = new Translate(0, 0);
+
+
+        //////////////// Создание title ////////////////
+        pane_title = new HBox(); {
+            pane_title.getStyleClass().add("pane_title");
+            pane_title.getChildren().add(title); 
         }
 
 
-        Line line = new Line(); {
-            line.setStartX(200);
-            line.setStartY(200);
-            line.setEndX(500);
-            line.setEndY(200);
-            line.setStroke(Color.ORANGE);
-            line.setStrokeWidth(5);
-            line.setOpacity(1);
-            line.setRotate(45);
+        //////////////// Создание ползунка для X ////////////////
+        pane_slider_x = new HBox(); {
+            slider_x = new Slider();
+            slider_x.setValue(0);
+            slider_x.setMin(0);
+            slider_x.setMax(50);
+            slider_x.setOnMouseClicked(handlers.move_x());
+            slider_x.setOnMouseDragged(handlers.move_x());
+            slider_x.setOnMouseReleased(handlers.move_x());
+
+            pane_slider_x.getChildren().addAll(title_x, slider_x);
+            pane_slider_x.getStyleClass().add("pane_slider_x");
         }
 
+        //////////////// Создание сетки с кругом ////////////////
+        pane_grid_2d = new Pane(); {
 
-        Rectangle rectangle = new Rectangle(); {
-            rectangle.setHeight(100);
-            rectangle.setWidth(100);
-            rectangle.setFill(Color.GHOSTWHITE);
-            rectangle.setX(0);
-            rectangle.setY(0);
-            rectangle.setStrokeWidth(20);
-            rectangle.setStroke(Color.SANDYBROWN);
+            pane_grid_2d.heightProperty().addListener(handlers.set_zero_position);
+            pane_grid_2d.widthProperty().addListener(handlers.set_zero_position);
+            pane_grid_2d.getChildren().add(el.create_cicle());
+            pane_grid_2d.getStyleClass().add("pane_center");
         }
 
+        //////////////// Создание ползунка для Y ////////////////
+        pane_slider_y = new VBox(); {
+            slider_y = new Slider();
+            // slider_y.setRotate(-90);
+            slider_y.setValue(0);
+            slider_y.setMin(0);
+            slider_y.setMax(100);
+            slider_y.setOnMouseClicked(handlers.move_y());
+            slider_y.setOnMouseDragged(handlers.move_y());
+            slider_y.setOnMouseReleased(handlers.move_y());
 
-        Polygon traingle = new Polygon(); {
-            traingle.getPoints().setAll(
-                200.0, 200.0,
-                300.0, 300.0,
-                200.0, 300.0
-            );
-            traingle.setFill(Color.PURPLE);
+            Spinner<Integer> spinner_y = new Spinner<Integer>(-500, 500, 0, 5);
+            Spinner<Integer> spinner_x = new Spinner<Integer>(-500, 500, 0, 5);
+            spinner_y.valueProperty().addListener((observable, oldValue, newValue) -> {
+                pane_grid_2d.setTranslateY(newValue);
+            });
+            spinner_x.valueProperty().addListener((observable, oldValue, newValue) -> {
+                pane_grid_2d.setTranslateX(newValue);
+            });
+            spinner_x.setEditable(true);
+            spinner_y.setEditable(true);
+
+
+            RadioButton btn_scale = new RadioButton("Изменить полюса");
+            btn_scale.setAccessibleHelp("Изменить полюса_2");
+            btn_scale.setSelected(false);
+            btn_scale.selectedProperty().addListener((observable, oldValue, newValue) -> {
+                if(btn_scale.isSelected()) { pane_grid_2d.setScaleY(-1); }
+                else { pane_grid_2d.setScaleY(1); }
+            });
+
+
+
+
+            pane_slider_y.getChildren().addAll(slider_y, title_y, grid_2d_size, spinner_y, spinner_x, btn_scale);
+            pane_slider_y.getStyleClass().add("pane_slider_y");
         }
 
+        //////////////// Упаковка и отправка ////////////////
+        border_pane = new BorderPane(); {
+            border_pane.getStyleClass().add("c_decart");
+            border_pane.setTop(pane_title);
+            border_pane.setBottom(pane_slider_x);
+            border_pane.setLeft(pane_slider_y);
+            border_pane.setCenter(pane_grid_2d);
 
-        Circle circle = new Circle(); {
-            circle.setCenterX(300);
-            circle.setCenterY(300);
-            circle.setRadius(50);
-            circle.setFill(Color.BLACK);
+            BorderPane.setAlignment(pane_title, Pos.TOP_CENTER);
+            BorderPane.setAlignment(pane_slider_x, Pos.BOTTOM_CENTER);
+            BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
+            BorderPane.setAlignment(pane_grid_2d, Pos.BOTTOM_CENTER);
         }
 
-
-        ImageView imageView = new ImageView(new Image("/img_sys/icon.png")); {
-            imageView.setX(400);
-            imageView.setY(400);
-        }
-        
-
-        Group group = new Group(); {
-            group.getChildren().add(line);
-            group.getChildren().add(rectangle);
-            group.getChildren().add(traingle);
-            group.getChildren().add(circle);
-            group.getChildren().add(text);
-            group.getChildren().add(imageView);
-        }
-
-
-        panel.scene = new Scene(group);
+        panel.scene = new Scene(border_pane);
         panel.default_settings();
-        panel.stage.show();
-    }
-
-    public void get_scene(String fxml) throws IOException {
-
-        panel.scene = new Scene(new FXMLLoader(epsilon.getClass().getResource(fxml + ".fxml")).load());
-        panel.scene.getStylesheets().add(panel.css);
-        panel.default_settings();
-    }
-
-    public static Circle circle;
-    public double x = 300;
-    public double y = 300;
-
-    public void init_2() {
-
-        // Circle круг
-        circle = new Circle();
-        circle.setCenterX(x);
-        circle.setCenterY(y);
-        circle.setRadius(50);
-        circle.setFill(Color.BLACK);
-
-        Button btn_up = new Button("UP");
-        Button btn_down = new Button("DOWN");
-        Button btn_left = new Button("LEFT");
-        Button btn_right = new Button("RIGHT");
-
-        btn_up.setOnMousePressed(handlers.move_circle("up", circle));
-        btn_down.setOnMousePressed(handlers.move_circle("down", circle));
-        btn_left.setOnMousePressed(handlers.move_circle("left", circle));
-        btn_right.setOnMousePressed(handlers.move_circle("right", circle));
-
-        Pane pane = new Pane(circle);
-        pane.setMaxHeight(600);
-        pane.setMaxWidth(600);
-        pane.getStyleClass().add("my_pane_for_circle");
-
-
-        BorderPane borderPane = new BorderPane();
-        borderPane.getStyleClass().add("cicle");
-
-        borderPane.setTop(btn_up);
-        borderPane.setBottom(btn_down);
-        borderPane.setLeft(btn_left);
-        borderPane.setRight(btn_right);
-        borderPane.setCenter(pane);
-
-        BorderPane.setAlignment(btn_up, Pos.TOP_CENTER);
-        BorderPane.setAlignment(btn_down, Pos.BOTTOM_CENTER);
-        BorderPane.setAlignment(btn_left, Pos.CENTER_LEFT);
-        BorderPane.setAlignment(btn_right, Pos.CENTER_RIGHT);
-        BorderPane.setAlignment(pane, Pos.CENTER);
-
-        panel.scene = new Scene(borderPane);
-        panel.default_settings();
+        {
+            panel.stage.setHeight(500);
+            panel.stage.setWidth(500);
+        }
         panel.stage.show();
     }
 

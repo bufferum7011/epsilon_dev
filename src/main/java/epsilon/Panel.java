@@ -1,18 +1,17 @@
 package epsilon;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.SpringBootConfiguration;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
+import java.io.IOException;
+// import org.springframework.beans.factory.annotation.Value;
+// import org.springframework.boot.SpringBootConfiguration;
+// import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+// import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.ComponentScan;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.context.annotation.DependsOn;
+// import org.springframework.context.annotation.PropertySource;
+// import org.springframework.context.annotation.Scope;
+// import org.springframework.stereotype.Component;
 import auxiliary.Exec_sql;
-import epsilon.controllers.C_decart;
 import epsilon.controllers.C_greeting;
-import epsilon.controllers.C_index;
 import epsilon.controllers.C_main;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -20,30 +19,29 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-@Component
-@SpringBootConfiguration
-public class Panel {
+// @Component
+// @SpringBootConfiguration
+public class Panel extends Application {
 
     // variables
-    @Value("${mysql.server}")   public String mysql_server;
-    @Value("${mysql.user}")     public String mysql_user;
-    @Value("${mysql.password}") public String mysql_password;
-    @Value("${server.project}") public String server_project;
-    @Value("${server.ip}")      public String server_ip;
+    // @Value("${mysql.server}")   public String mysql_server;
+    // @Value("${mysql.user}")     public String mysql_user;
+    // @Value("${mysql.password}") public String mysql_password;
+    // @Value("${server.project}") public String server_project;
+    // @Value("${server.ip}")      public String server_ip;
 
-    public static AnnotationConfigApplicationContext context;
+    // public static AnnotationConfigApplicationContext context;
     public static Panel panel;
     public static auxiliary.Print print;
     public static auxiliary.Exec_sql sql;
-    public static Epsilon epsilon;
     public static Handlers handlers;
 
-    public static C_main c_main;
+    // public static Epsilon epsilon;
     public static C_greeting c_greeting;
-    public static C_index c_index;
-    public static C_decart c_decart;
+    public static C_main c_main;
     public static Test test;
     public static Grid_2d grid_2d;
+    public static Elements el;
 
     public Stage stage;
     public Scene scene;
@@ -53,11 +51,11 @@ public class Panel {
 
     public void default_settings() {
 
-        scene.getStylesheets().add(css);
+        // scene.getStylesheets().add(css);
 
         stage.setScene(scene);                  // Настройка сцены
-        stage.setTitle(server_project);         // Настройка названия приложения
-        stage.getIcons().add(new Image(icon));  // Настройка иконки
+        // stage.setTitle(server_project);         // Настройка названия приложения
+        // stage.getIcons().add(new Image(icon));  // Настройка иконки
         stage.initStyle(StageStyle.DECORATED);  // Настройка рамки окна
 
         stage.setMinHeight(500);                // Настройка минимальной выстоты
@@ -80,65 +78,84 @@ public class Panel {
         // Экземпляры
         System.out.println("Loading resources...");
         // SpringApplication.run(Panel.class, args);
-        context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
-        panel =             context.getBean("panel", epsilon.Panel.class);
-        sql =               context.getBean("sql", auxiliary.Exec_sql.class);
-        handlers =          context.getBean("handlers", Handlers.class);
+        // context =           new AnnotationConfigApplicationContext(epsilon.Spring_config.class);
+        panel =             new Panel();
+        sql =               new Exec_sql();
+        handlers =          new Handlers();
+        // panel =             context.getBean("panel", epsilon.Panel.class);
+        // sql =               context.getBean("sql", auxiliary.Exec_sql.class);
+        // handlers =          context.getBean("handlers", Handlers.class);
         print =             new auxiliary.Print();
-        epsilon =           new Epsilon();
-        c_main =            new C_main();
         c_greeting =        new C_greeting();
-        c_decart =          new C_decart();
-        c_index =           new C_index();
+        c_main =            new C_main();
         test =              new Test();
+        el =                new Elements();
+        // epsilon =           new Epsilon();
 
         // Переменные
-        panel.css =         epsilon.getClass().getResource("/css/style.css").toExternalForm();
-        panel.icon =        epsilon.getClass().getResource("/img_sys/icon.png").toExternalForm();
+        panel.css =         panel.getClass().getResource("/css/style.css").toExternalForm();
+        panel.icon =        panel.getClass().getResource("/img_sys/icon.png").toExternalForm();
         panel.key_fullscreen = false;
 
         // Запуск приложения
         System.out.println("Launching Epsilon...");
-        Application.launch(Epsilon.class, args);
+        Application.launch(Panel.class, args);
     }
+    @Override public void start(Stage stage) throws IOException {
+
+        // print.result("[Application starts]\n");
+        this.stage = stage;
+        // c_greeting.initialize();
+        c_main.initialize();
+        // test.initialize();
+    }
+    // @Override public void init() throws Exception {
+
+    //     print.result("[Application inits]\n");
+    //     super.init();
+    // }
+    // @Override public void stop() throws Exception {
+
+    //     print.result("[Application stops]\n");
+    //     super.stop();
+    // }
 }
 
+// @Configuration
+// @ComponentScan({"epsilon"})
+// @PropertySource("classpath:application.properties")
+// class Spring_config {
 
-@Configuration
-@ComponentScan({"epsilon"})
-@PropertySource("classpath:application.properties")
-class Spring_config {
+//     @Bean
+//     @Scope("singleton")
+//     public Panel panel() {
+//         return new Panel();
+//     }
 
-    @Bean
-    @Scope("singleton")
-    public Panel panel() {
-        return new Panel();
-    }
+//     @Bean
+//     @Scope("singleton")
+//     @DependsOn({"panel"})
+//     public Exec_sql sql() {
+//         return new Exec_sql();
+//     }
 
-    @Bean
-    @Scope("singleton")
-    @DependsOn({"panel"})
-    public Exec_sql sql() {
-        return new Exec_sql();
-    }
+//     @Bean
+//     @Scope("singleton")
+//     @DependsOn({"panel", "sql"})
+//     public Handlers handlers() {
+//         return new Handlers();
+//     }
 
-    @Bean
-    @Scope("singleton")
-    @DependsOn({"panel", "sql"})
-    public Handlers handlers() {
-        return new Handlers();
-    }
+//     // @Bean
+//     // // @Scope("singleton")
+//     // // @DependsOn({"panel", "sql", "handlers"})
+//     // public C_greeting c_greeting() {
+//     //     return new C_greeting();
+//     // }
 
-    // @Bean
-    // // @Scope("singleton")
-    // // @DependsOn({"panel", "sql", "handlers"})
-    // public C_greeting c_greeting() {
-    //     return new C_greeting();
-    // }
+//     // @Bean
+//     // public C_index c_index() {
+//     //     return new C_index();
+//     // }
 
-    // @Bean
-    // public C_index c_index() {
-    //     return new C_index();
-    // }
-
-}
+// }

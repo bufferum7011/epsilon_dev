@@ -1,14 +1,11 @@
 package epsilon;
 import static epsilon.Panel.*;
-import org.springframework.stereotype.Component;
-import epsilon.controllers.C_index;
+import epsilon.controllers.C_main;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Circle;
 
-@Component
 public class Handlers {
 
     // C_greeting
@@ -26,13 +23,13 @@ public class Handlers {
                 print.debag(input_password);
 
                 panel.stage.setResizable(true);
-                new C_index().initialize();
+                new C_main().initialize();
             }
         };
     }
 
 
-    // C_index
+    // title
     public EventHandler<MouseEvent> get_hide() {
 
         return new EventHandler<MouseEvent>() {
@@ -60,51 +57,19 @@ public class Handlers {
 
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
-                try { epsilon.stop(); } catch(Exception e) { }
+                // try { panel.stop(); } catch(Exception e) { }
             }
         };
     }
 
-    // C_main
-    public EventHandler<MouseEvent> move_circle(String side, Circle circle) {
-
-        return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
-
-                if(side.equals("up")) {
-                    c_main.y += 10;
-                    print.debag("y+10 :: " + c_main.y + "\n");
-                    circle.setCenterY(c_main.y);
-                }
-                if(side.equals("down")) {
-                    c_main.y -= 10;
-                    print.debag("y-10 :: " + c_main.y + "\n");
-                    circle.setCenterY(c_main.y);
-                }
-                if(side.equals("right")) {
-                    c_main.x += 10;
-                    print.debag("x+10 :: " + c_main.x + "\n");
-                    circle.setCenterX(c_main.x);
-                }
-                if(side.equals("left")) {
-                    c_main.x -= 10;
-                    print.debag("x-10 :: " + c_main.x + "\n");
-                    circle.setCenterX(c_main.x);
-                }
-
-            }
-        };
-    }
-
-
-    // C_decart
+    // cicle
     public EventHandler<MouseEvent> move_x() {
 
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
-                c_decart.x = (int) c_decart.slider_x.getValue() * 5;
-                // c_decart.point.setLayoutX(c_decart.x);
-                c_decart.val_x.setText("X = " + c_decart.x);
+                c_main.x = (int) c_main.slider_x.getValue() * 5;
+                el.point.setLayoutX(c_main.x);
+                el.val_x.setText("X = " + c_main.x);
             }
         };
     }
@@ -112,16 +77,18 @@ public class Handlers {
 
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
-                c_decart.y = (int) c_decart.slider_y.getValue() * 5;
-                // c_decart.point.setLayoutY(c_decart.y);
-                c_decart.val_y.setText("Y = " + c_decart.y);
+                c_main.y = (int) c_main.slider_y.getValue() * 5;
+                el.point.setLayoutY(c_main.y);
+                el.val_y.setText("Y = " + c_main.y);
             }
         };
     }
-    public ChangeListener<Number> resizer_gred_2d = new ChangeListener<Number>() {
+
+    // c_main
+    public ChangeListener<Number> set_zero_position = new ChangeListener<Number>() {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            grid_2d = new Grid_2d(c_decart.pane_grid_2d.getHeight(), c_decart.pane_grid_2d.getWidth());
+            grid_2d = new Grid_2d(c_main.pane_grid_2d.getHeight(), c_main.pane_grid_2d.getWidth());
         }
     };
 

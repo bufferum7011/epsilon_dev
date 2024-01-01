@@ -19,23 +19,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
-
-        <!-- gluonhq.com -->
-        <!-- Чтобы пользоватся всеми элементами JavaFX -->
-        <dependency>
-            <groupId>com.gluonhq</groupId>
-            <artifactId>charm</artifactId>
-            <version>6.0.5</version>
-        </dependency>
-
-        <!-- FXML -->
-        <!-- Нужен для работы fxml -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
+            <version>${javafx_version}</version>
         </dependency>
 
         <!-- JavaFX WebView -->
@@ -43,7 +27,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>17</version>
+            <version>${javafx_version}</version>
         </dependency>
 
         <!-- mysql-connector-java -->
@@ -56,44 +40,44 @@
 
         <!-- spring-core  -->
         <!-- Нужен для работы spring -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+            <version>6.1.2</version>
+        </dependency> -->
 
         <!-- spring-beans -->
         <!-- Нужен для создания бинов -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+            <version>6.1.2</version>
+        </dependency> -->
 
         <!-- spring-boot  -->
         <!-- Нужен для работы spring -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>3.2.0</version>
-        </dependency>
+            <version>3.2.1</version>
+        </dependency> -->
 
         <!-- spring-context -->
 		<!-- Нужен для создания контекстов -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+            <version>6.1.2</version>
+        </dependency> -->
 
         <!-- jakarta.servlet-api -->
 		<!-- API для сервлетов -->
-        <dependency>
+        <!-- <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0-M1</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency> -->
 
     </dependencies>
 
@@ -103,8 +87,9 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <java.version>20</java.version>
-        <spring.version>6.1.1</spring.version>
-        <spring.version.starter>3.1.4</spring.version.starter>
+        <javafx_version>22-ea+16</javafx_version>
+        <spring_version>3.2.1</spring_version>
+        <spring_version_starter>3.1.4</spring_version_starter>
     </properties>
 
 
@@ -130,7 +115,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.6</version>
+                <version>0.0.7</version>
                 <executions>
                     <execution>
                         <!-- Default configuration for running -->

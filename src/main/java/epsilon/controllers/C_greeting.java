@@ -16,7 +16,7 @@ public class C_greeting implements Default_controller {
     public Hyperlink registration;
     public Button btn_enter;
 
-    @Override public void fxml() throws IOException { new C_main().get_scene("greeting"); }
+    @Override public void fxml() throws IOException {  }
     @Override public void initialize() {
 
         VBox vBox = new VBox();
