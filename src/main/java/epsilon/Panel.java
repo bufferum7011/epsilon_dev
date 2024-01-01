@@ -43,6 +43,7 @@ public class Panel {
     public static C_index c_index;
     public static C_decart c_decart;
     public static Test test;
+    public static Grid_2d grid_2d;
 
     public Stage stage;
     public Scene scene;

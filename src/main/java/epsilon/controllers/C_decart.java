@@ -1,19 +1,15 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
 import java.io.IOException;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -23,7 +19,6 @@ import javafx.scene.transform.Translate;
 
 public class C_decart implements Default_controller {
 
-    public Group point;
     public double x, y;
     public Slider slider_y, slider_x;
     public double scale_x_y = 1;
@@ -44,7 +39,7 @@ public class C_decart implements Default_controller {
     public HBox pane_title;
     public HBox pane_slider_x;
     public VBox pane_slider_y;
-    public AnchorPane grid_2d;
+    public Pane pane_grid_2d;
     public BorderPane border_pane;
 
     @Override public void fxml() throws IOException {}
@@ -79,25 +74,19 @@ public class C_decart implements Default_controller {
         }
 
         //////////////// Создание сетки с кругом ////////////////
-        grid_2d = new AnchorPane(); {
-            point = new Group(new Circle(x, y, 50, Color.YELLOW), new VBox(val_x, val_y));
+        pane_grid_2d = new Pane(); {
+            Group point = new Group(new Circle(x, y, 50, Color.YELLOW), new VBox(val_x, val_y));
 
-            grid_2d.heightProperty().addListener(handlers.resizer_gred_2d);
-            grid_2d.getChildren().add(point);
-            grid_2d.getStyleClass().add("pane_center");
-            grid_2d.getTransforms().add(scale);
-            grid_2d.getTransforms().add(translate);
-
-            AnchorPane.setTopAnchor(grid_2d, 0.0);
-            AnchorPane.setBottomAnchor(grid_2d, 0.0);
-            AnchorPane.setLeftAnchor(grid_2d, 0.0);
-            AnchorPane.setRightAnchor(grid_2d, 0.0);
+            pane_grid_2d.heightProperty().addListener(handlers.resizer_gred_2d);
+            pane_grid_2d.widthProperty().addListener(handlers.resizer_gred_2d);
+            pane_grid_2d.getChildren().add(point);
+            pane_grid_2d.getStyleClass().add("pane_center");
         }
 
         //////////////// Создание ползунка для Y ////////////////
         pane_slider_y = new VBox(); {
             slider_y = new Slider();
-            slider_y.setRotate(-90);
+            // slider_y.setRotate(-90);
             slider_y.setValue(0);
             slider_y.setMin(0);
             slider_y.setMax(100);
@@ -108,10 +97,10 @@ public class C_decart implements Default_controller {
             Spinner<Integer> spinner_y = new Spinner<Integer>(-500, 500, 0, 5);
             Spinner<Integer> spinner_x = new Spinner<Integer>(-500, 500, 0, 5);
             spinner_y.valueProperty().addListener((observable, oldValue, newValue) -> {
-                grid_2d.setTranslateY(newValue);
+                pane_grid_2d.setTranslateY(newValue);
             });
             spinner_x.valueProperty().addListener((observable, oldValue, newValue) -> {
-                grid_2d.setTranslateX(newValue);
+                pane_grid_2d.setTranslateX(newValue);
             });
             spinner_x.setEditable(true);
             spinner_y.setEditable(true);
@@ -121,8 +110,8 @@ public class C_decart implements Default_controller {
             btn_scale.setAccessibleHelp("Изменить полюса_2");
             btn_scale.setSelected(false);
             btn_scale.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                if(btn_scale.isSelected()) { grid_2d.setScaleY(-1); }
-                else { grid_2d.setScaleY(1); }
+                if(btn_scale.isSelected()) { pane_grid_2d.setScaleY(-1); }
+                else { pane_grid_2d.setScaleY(1); }
             });
 
 
@@ -138,12 +127,12 @@ public class C_decart implements Default_controller {
             border_pane.setTop(pane_title);
             border_pane.setBottom(pane_slider_x);
             border_pane.setLeft(pane_slider_y);
-            border_pane.setCenter(grid_2d);
+            border_pane.setCenter(pane_grid_2d);
 
             BorderPane.setAlignment(pane_title, Pos.TOP_CENTER);
             BorderPane.setAlignment(pane_slider_x, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
-            BorderPane.setAlignment(grid_2d, Pos.BOTTOM_CENTER);
+            BorderPane.setAlignment(pane_grid_2d, Pos.BOTTOM_CENTER);
         }
 
         panel.scene = new Scene(border_pane);
@@ -154,4 +143,5 @@ public class C_decart implements Default_controller {
         }
         panel.stage.show();
     }
+
 }
