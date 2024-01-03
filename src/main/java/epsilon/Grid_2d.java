@@ -30,7 +30,7 @@ public class Grid_2d {
         CENTER_Y = (HEIGHT / 2);
         c_main.pane_center.getTransforms().clear();
         c_main.pane_center.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
-        c_main.pane_center.getTransforms().add(new Scale(1, -1));
+        // c_main.pane_center.getTransforms().add(new Scale(1, -1));
         c_main.pane_center.getChildren().set(0, pane_grid_2d);
 
         pane_grid_2d.getChildren().clear();

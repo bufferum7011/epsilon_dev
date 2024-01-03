@@ -6,6 +6,6 @@ module epsilon {
     opens epsilon;
 
     exports epsilon;
-    exports epsilon.controllers;
+    exports epsilon.layouts;
     exports auxiliary;
 }

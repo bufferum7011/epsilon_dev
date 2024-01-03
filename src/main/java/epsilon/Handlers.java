@@ -68,14 +68,14 @@ public class Handlers {
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent arg0) {
                 if(code.equals("X")) {
-                    c_main.x = (int) c_main.slider_x.getValue() * 5;
-                    el.circle_parent.setLayoutX(c_main.x);
-                    el.circle.lable_x.setText("X = " + c_main.x);
+                    int x = (int) c_main.slider_x.getValue() * 5;
+                    el.circle_parent.setLayoutX(x);
+                    el.circle.lable_x.setText("X = " + x);
                 }
                 if(code.equals("Y")) {
-                    c_main.y = (int) c_main.slider_y.getValue() * 5;
-                    el.circle_parent.setLayoutY(c_main.y);
-                    el.circle.lable_y.setText("Y = " + c_main.y);
+                    int y = (int) c_main.slider_y.getValue() * 5;
+                    el.circle_parent.setLayoutY(y);
+                    el.circle.lable_y.setText("Y = " + y);
                 }
             }
         };

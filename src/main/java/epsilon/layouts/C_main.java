@@ -1,16 +1,10 @@
-package epsilon.controllers;
+package epsilon.layouts;
 import static epsilon.Panel.*;
-
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
-import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -19,9 +13,10 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
-public class C_main {
+public class C_main extends Default_layouts {
 
-    public double x, y;
+    ////////// Variables //////////
+
     public Slider slider_y, slider_x;
     public double scale_x_y = 1;
     public Scale scale;
@@ -30,31 +25,37 @@ public class C_main {
     private static final double MAX_SCALE = 10.0;
     private static final double SCALE_DELTA = 1.1;
 
-    public Text title = new Text("Декартовая плоскость");
-
     public HBox pane_title;
     public HBox pane_slider_x;
     public VBox pane_slider_y;
     public Pane pane_center;
     public BorderPane border_pane;
 
-    public void initialize() {
+    @Override public void default_settings() {
+        panel.scene = new Scene(border_pane);
+        super.default_settings();
+        panel.stage.setHeight(500);
+        panel.stage.setWidth(500);
+        panel.stage.show();
+    }
 
-        //////////////// Установка начальных значений ////////////////
-        x = 0;
-        y = 0;
+    @Override public void initialize() {
+
+        ////////// Установка начальных значений //////////
         scale = new Scale(scale_x_y, scale_x_y * -1);
         translate = new Translate(0, 0);
 
 
-        //////////////// Создание title ////////////////
+        ////////// Создание title //////////
         pane_title = new HBox(); {
-            pane_title.getStyleClass().add("pane_title");
-            pane_title.getChildren().add(title); 
+            Text title = new Text("Декартовая плоскость");
+
+            pane_title.getChildren().add(title);
+            pane_title.getStyleClass().add("pane_title"); 
         }
 
 
-        //////////////// Создание ползунка для X ////////////////
+        ////////// Создание ползунка для X //////////
         pane_slider_x = new HBox(); {
             slider_x = new Slider();
             slider_x.setValue(0);
@@ -68,15 +69,14 @@ public class C_main {
             pane_slider_x.getStyleClass().add("pane_slider_x");
         }
 
-        //////////////// Создание сетки с кругом ////////////////
+        ////////// Создание сетки с кругом //////////
         pane_center = new Pane(); {
 
-            Scale scale = new Scale(1, 1);
-            pane_center.getTransforms().add(scale);
+            // pane_center.getTransforms().add(scale);
 
             pane_center.heightProperty().addListener(handlers.resizer_grid_2d);
             pane_center.widthProperty().addListener(handlers.resizer_grid_2d);
-            pane_center.getChildren().addAll(grid_2d.pane_grid_2d, grid_2d.chart);
+            pane_center.getChildren().addAll(grid_2d.pane_grid_2d, el.circle_parent, grid_2d.chart);
             pane_center.getStyleClass().add("pane_center");
             pane_center.setOnScroll(event -> {
                 // double delta = event.getDeltaY();
@@ -97,7 +97,7 @@ public class C_main {
             });
         }
 
-        //////////////// Создание ползунка для Y ////////////////
+        ////////// Создание ползунка для Y //////////
         pane_slider_y = new VBox(); {
             slider_y = new Slider();
             slider_y.setRotate(-90);
@@ -112,27 +112,15 @@ public class C_main {
 
             Spinner<Integer> spinner_function = new Spinner<Integer>(-20, 20, 0);
             spinner_function.valueProperty().addListener((observable, oldValue, newValue) -> {
-
-                // double  y1 = 0,
-                //         y2 = 1,
-                //         y3 = 2;
-                double  x = newValue;
-                double  y = x * x;
-
-                grid_2d.functions(x);
-
-                // Функция y = x * x4
-
+                grid_2d.functions(newValue);
             });
             spinner_function.setEditable(true);
-
-            // pane_slider_y
 
             pane_slider_y.getChildren().addAll(new Label("Функция y(x) = "), spinner_function);
             pane_slider_y.getStyleClass().add("pane_slider_y");
         }
 
-        //////////////// Упаковка и отправка ////////////////
+        ////////// Упаковка и отправка //////////
         border_pane = new BorderPane(); {
             border_pane.getStyleClass().add("c_decart");
             border_pane.setCenter(pane_center);
@@ -146,13 +134,7 @@ public class C_main {
             BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
         }
 
-        panel.scene = new Scene(border_pane);
-        panel.default_settings();
-        {
-            panel.stage.setHeight(500);
-            panel.stage.setWidth(500);
-        }
-        panel.stage.show();
+        default_settings();
     }
 
 }
