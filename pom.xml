@@ -5,29 +5,27 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>epsilon</groupId>
-    <artifactId>epsilon</artifactId>
+    <artifactId>epsilon_3</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>Epsilon</name>
     <packaging>jar</packaging>
     <description>My desktop application - Epsilon</description>
 
 
-    <dependencies>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <java.version>20</java.version>
+        <spring_version>6.1.1</spring_version>
+        <spring_version_starter>3.1.4</spring_version_starter>
+    </properties>
 
-        <!-- JavaFX -->
-        <!-- Бибилиотека JavaFX -->
+    <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx_version}</version>
-        </dependency>
-
-        <!-- JavaFX WebView -->
-        <!-- Нужен для взаимствования элементов web -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-web</artifactId>
-            <version>${javafx_version}</version>
+            <version>13</version>
         </dependency>
 
         <!-- mysql-connector-java -->
@@ -38,12 +36,13 @@
             <version>8.0.33</version>
         </dependency>
 
+
         <!-- spring-core  -->
         <!-- Нужен для работы spring -->
         <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>6.1.2</version>
+            <version>${spring.version}</version>
         </dependency> -->
 
         <!-- spring-beans -->
@@ -51,7 +50,7 @@
         <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>6.1.2</version>
+            <version>${spring.version}</version>
         </dependency> -->
 
         <!-- spring-boot  -->
@@ -59,7 +58,7 @@
         <!-- <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot</artifactId>
-            <version>3.2.1</version>
+            <version>3.2.0</version>
         </dependency> -->
 
         <!-- spring-context -->
@@ -67,30 +66,19 @@
         <!-- <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.1.2</version>
+            <version>${spring.version}</version>
         </dependency> -->
 
         <!-- jakarta.servlet-api -->
 		<!-- API для сервлетов -->
-        <!-- <dependency>
+        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>6.1.0-M1</version>
             <scope>provided</scope>
-        </dependency> -->
+        </dependency>
 
     </dependencies>
-
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <java.version>20</java.version>
-        <javafx_version>22-ea+16</javafx_version>
-        <spring_version>3.2.1</spring_version>
-        <spring_version_starter>3.1.4</spring_version_starter>
-    </properties>
 
 
     <repositories>
@@ -103,6 +91,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -115,7 +104,7 @@
             <plugin>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.7</version>
+                <version>0.0.6</version>
                 <executions>
                     <execution>
                         <!-- Default configuration for running -->

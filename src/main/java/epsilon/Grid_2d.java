@@ -68,13 +68,11 @@ public class Grid_2d {
         for(double x = CENTER_X + 50; x <= WIDTH; x += 50) {
             Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
             Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_main.pane_grid_2d.getChildren().clear();
             c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
         for(double x = CENTER_X - 50; x >= 0; x -= 50) {
             Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
             Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_main.pane_grid_2d.getChildren().clear();
             c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
 
@@ -82,13 +80,11 @@ public class Grid_2d {
         for(double y = CENTER_Y + 50; y <= HEIGHT; y += 50) {
             Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
             Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_main.pane_grid_2d.getChildren().clear();
             c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
         for(double y = CENTER_Y - 50; y >= 0; y -= 50) {
             Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
             Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_main.pane_grid_2d.getChildren().clear();
             c_main.pane_grid_2d.getChildren().addAll(line, text);
         }
     }

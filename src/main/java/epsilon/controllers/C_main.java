@@ -1,6 +1,6 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
-import java.io.IOException;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.RadioButton;
@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
-public class C_main implements Default_controller {
+public class C_main {
 
     public double x, y;
     public Slider slider_y, slider_x;
@@ -22,14 +22,14 @@ public class C_main implements Default_controller {
     public Scale scale;
     public Translate translate;
 
-
     public Text title = new Text("Декартовая плоскость");
+    public Text val_x = new Text("X = 0.0");
+    public Text val_y = new Text("Y = 0.0");
     public Text title_x = new Text("Изменение для X");
     public Text title_y = new Text("Изменение для Y");
     public Text indicator_height = new Text("height = 0.0");
     public Text indicator_width = new Text("width = 0.0");
     public Text grid_2d_size = new Text("Grid_2d_size: ");
-
 
     public HBox pane_title;
     public HBox pane_slider_x;
@@ -37,8 +37,7 @@ public class C_main implements Default_controller {
     public Pane pane_grid_2d;
     public BorderPane border_pane;
 
-    @Override public void fxml() throws IOException {}
-    @Override public void initialize() {
+    public void initialize() {
 
         //////////////// Установка начальных значений ////////////////
         x = 0;
@@ -60,9 +59,9 @@ public class C_main implements Default_controller {
             slider_x.setValue(0);
             slider_x.setMin(0);
             slider_x.setMax(50);
-            slider_x.setOnMouseClicked(handlers.move_x());
-            slider_x.setOnMouseDragged(handlers.move_x());
-            slider_x.setOnMouseReleased(handlers.move_x());
+            slider_x.setOnMouseClicked(handlers.move_circle("X"));
+            slider_x.setOnMouseDragged(handlers.move_circle("X"));
+            slider_x.setOnMouseReleased(handlers.move_circle("X"));
 
             pane_slider_x.getChildren().addAll(title_x, slider_x);
             pane_slider_x.getStyleClass().add("pane_slider_x");
@@ -71,22 +70,22 @@ public class C_main implements Default_controller {
         //////////////// Создание сетки с кругом ////////////////
         pane_grid_2d = new Pane(); {
 
-            pane_grid_2d.heightProperty().addListener(handlers.set_zero_position);
-            pane_grid_2d.widthProperty().addListener(handlers.set_zero_position);
-            pane_grid_2d.getChildren().add(el.create_cicle());
+            pane_grid_2d.heightProperty().addListener(handlers.resizer_grid_2d);
+            pane_grid_2d.widthProperty().addListener(handlers.resizer_grid_2d);
+            pane_grid_2d.getChildren().add(el.circle_parent);
             pane_grid_2d.getStyleClass().add("pane_center");
         }
 
         //////////////// Создание ползунка для Y ////////////////
         pane_slider_y = new VBox(); {
             slider_y = new Slider();
-            // slider_y.setRotate(-90);
+            slider_y.setRotate(-90);
             slider_y.setValue(0);
             slider_y.setMin(0);
             slider_y.setMax(100);
-            slider_y.setOnMouseClicked(handlers.move_y());
-            slider_y.setOnMouseDragged(handlers.move_y());
-            slider_y.setOnMouseReleased(handlers.move_y());
+            slider_y.setOnMouseClicked(handlers.move_circle("Y"));
+            slider_y.setOnMouseDragged(handlers.move_circle("Y"));
+            slider_y.setOnMouseReleased(handlers.move_circle("Y"));
 
             Spinner<Integer> spinner_y = new Spinner<Integer>(-500, 500, 0, 5);
             Spinner<Integer> spinner_x = new Spinner<Integer>(-500, 500, 0, 5);
@@ -108,9 +107,6 @@ public class C_main implements Default_controller {
                 else { pane_grid_2d.setScaleY(1); }
             });
 
-
-
-
             pane_slider_y.getChildren().addAll(slider_y, title_y, grid_2d_size, spinner_y, spinner_x, btn_scale);
             pane_slider_y.getStyleClass().add("pane_slider_y");
         }
@@ -127,6 +123,7 @@ public class C_main implements Default_controller {
             BorderPane.setAlignment(pane_slider_x, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
             BorderPane.setAlignment(pane_grid_2d, Pos.BOTTOM_CENTER);
+            BorderPane.setMargin(pane_slider_y, new Insets(20.0, 0.0, 0.0, 20.0));
         }
 
         panel.scene = new Scene(border_pane);
