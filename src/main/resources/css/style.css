@@ -21,94 +21,16 @@
 } */
 /* ==================================== */
 
-
-/* Greeting */
-/* .greeting {
-    -fx-background-color: -fx-color_black_2;
-    -fx-background-radius: 5px;
-}
-.greeting_title {
-    -fx-font-family: 'core_sans';
-    -fx-font-size: 20px;
-    -fx-fill: -fx-color_blue_1;
-}
-.greeting_inputs {
-    -fx-padding: 20px;
-}
-.greeting_input_login {
-
-}
-.greeting_input_password {
-
-}
-.greeting_separator {
-    -fx-background-color: -fx-color_blue_1;
-    -fx-padding: 0px 20px;
-}
-.greeting_toolbar {
-    -fx-height: auto;
-    -fx-width: 100%;
-    -fx-background: none;
-}
-.greeting_toolbar_btn {
-    -fx-background-color: -fx-color_transparent;
-    -fx-fill: -fx-color_green_1;
-}
-.greeting_forgot_password {
-
-}
-.greeting_authorization {
-    
-}
-.greeting_registration {
-    
-}
-.greeting_enter {
-    -fx-background-color: -fx-color_blue_1;
-    -fx-background-radius: 5px;
-} */
-
-
-/* Main */
-/* .main {
-    -fx-background-color: -fx-color_blue_2;
-}
-.main_header {
-    -fx-background-color: -fx-color_black_2;
-    -fx-height: 60px;
-}
-.main_header_title {
-    -fx-font-family: 'core_sans';
-    -fx-font-size: 20px;
-    -fx-fill: -fx-color_blue_1;
-}
-.main_nav_left {
-    -fx-background-color: -fx-color_black_2;
-}
-
-
-
-.cicle {
-    -fx-background-color: chartreuse;
-}
-.my_pane_for_circle {
-    -fx-background-color: rgb(0, 124, 109);
-} */
-
-
-/* C_decart */
-.c_decart {
+/* C_main */
+.c_main {
     -fx-background-color: rgb(33, 33, 33);
 }
-.pane_title {
+.box_title {
     -fx-background-color: rgb(233, 233, 230);
 }
-.pane_center {
-    /* -fx-background-color: rgb(82, 33, 33); */
-}
-.pane_slider_x {
+.box_bottom {
     -fx-background-color: rgb(16, 80, 148);
 }
-.pane_slider_y {
+.box_left {
     -fx-background-color: rgb(16, 80, 148);
 }

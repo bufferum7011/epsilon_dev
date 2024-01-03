@@ -10,68 +10,80 @@ import javafx.scene.shape.Line;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
-public class Grid_2d {
+public class Render {
 
     private double CENTER_X;
     private double CENTER_Y;
     private double HEIGHT;
     private double WIDTH;
-    public final double TERMINATOR = 42.15;
+    private final double TERMINATOR = 42.15;
+    public Translate box_center_translate;
+    public Scale box_center_scale;
 
-    public Pane pane_grid_2d = new Pane();
+
+
+
+    
+    public Pane grid_2d = new Pane();
     public Pane chart = new Pane();
     public static Cordinat cordinat = new Cordinat();
 
-    public void create_pane_grid_2d(double HEIGHT, double WIDTH) {
-
+    public Render() {}
+    public Render(double HEIGHT, double WIDTH) {
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         CENTER_X = (WIDTH  / 2);
         CENTER_Y = (HEIGHT / 2);
-        c_main.pane_center.getTransforms().clear();
-        c_main.pane_center.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
-        // c_main.pane_center.getTransforms().add(new Scale(1, -1));
-        c_main.pane_center.getChildren().set(0, pane_grid_2d);
 
-        pane_grid_2d.getChildren().clear();
+        box_center_scale = new Scale(1, -1);
+        box_center_translate = new Translate(CENTER_X, CENTER_Y);
+    }
+
+    public void create_grid_2d() {
+
+        c_main.box_center.getTransforms().clear();
+        c_main.box_center.getTransforms().addAll(box_center_translate, box_center_scale);
+        c_main.box_center.getChildren().set(0, grid_2d);
+
+        grid_2d.getChildren().clear();
 
         ////////// Рисую линию в сторону +X //////////
         for(double x = 0; x < CENTER_X; x += TERMINATOR) {
             Line line = new Line(x, -CENTER_Y, x, HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
-            pane_grid_2d.getChildren().add(line);
+            grid_2d.getChildren().add(line);
         }
 
         ////////// Рисую линию в сторону -X //////////
         for(double x = 0; x > -CENTER_X; x -= TERMINATOR) {
             Line line = new Line(x, CENTER_Y, x, -HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
-            pane_grid_2d.getChildren().add(line);
+            grid_2d.getChildren().add(line);
         }
 
         ////////// Рисую линию в сторону +Y //////////
         for(double y = 0; y < CENTER_Y; y += TERMINATOR) {
             Line line = new Line(CENTER_X, y, -WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
-            pane_grid_2d.getChildren().add(line);
+            grid_2d.getChildren().add(line);
         }
 
-        //////// Рисую линию в сторону -Y //////////
+        ////////// Рисую линию в сторону -Y //////////
         for(double y = 0; y > -CENTER_Y; y -= TERMINATOR) {
             Line line = new Line(CENTER_X, y, -WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
-            pane_grid_2d.getChildren().add(line);
+            grid_2d.getChildren().add(line);
         }
 
-        //////// Рисую линии X и Y //////////
+        ////////// Рисую линии X и Y //////////
         Line line_x = new Line(CENTER_X, 0, -CENTER_X, 0);
             line_x.setStroke(Color.WHITE);
             line_x.setStrokeWidth(1);
-            pane_grid_2d.getChildren().add(line_x);
+            grid_2d.getChildren().add(line_x);
         Line line_y = new Line(0, CENTER_Y, 0, -CENTER_Y);
             line_y.setStroke(Color.WHITE);
             line_y.setStrokeWidth(1);
-            pane_grid_2d.getChildren().add(line_y);
+            grid_2d.getChildren().add(line_y);
     }
 
     public void functions(double xx) {

@@ -16,7 +16,6 @@ import javafx.scene.transform.Translate;
 public class C_main extends Default_layouts {
 
     ////////// Variables //////////
-
     public Slider slider_y, slider_x;
     public double scale_x_y = 1;
     public Scale scale;
@@ -25,38 +24,32 @@ public class C_main extends Default_layouts {
     private static final double MAX_SCALE = 10.0;
     private static final double SCALE_DELTA = 1.1;
 
-    public HBox pane_title;
-    public HBox pane_slider_x;
-    public VBox pane_slider_y;
-    public Pane pane_center;
-    public BorderPane border_pane;
+    public HBox box_title;
+    public HBox box_bottom;
+    public VBox box_left;
+    public Pane box_center;
+    public BorderPane root;
 
     @Override public void default_settings() {
-        panel.scene = new Scene(border_pane);
+        panel.scene = new Scene(root);
         super.default_settings();
         panel.stage.setHeight(500);
         panel.stage.setWidth(500);
         panel.stage.show();
     }
-
     @Override public void initialize() {
 
-        ////////// Установка начальных значений //////////
-        scale = new Scale(scale_x_y, scale_x_y * -1);
-        translate = new Translate(0, 0);
-
-
         ////////// Создание title //////////
-        pane_title = new HBox(); {
+        box_title = new HBox(); {
             Text title = new Text("Декартовая плоскость");
 
-            pane_title.getChildren().add(title);
-            pane_title.getStyleClass().add("pane_title"); 
+            box_title.getChildren().add(title);
+            box_title.getStyleClass().add("box_title"); 
         }
 
 
         ////////// Создание ползунка для X //////////
-        pane_slider_x = new HBox(); {
+        box_bottom = new HBox(); {
             slider_x = new Slider();
             slider_x.setValue(0);
             slider_x.setMin(0);
@@ -65,23 +58,19 @@ public class C_main extends Default_layouts {
             slider_x.setOnMouseDragged(handlers.move_circle("X"));
             slider_x.setOnMouseReleased(handlers.move_circle("X"));
 
-            pane_slider_x.getChildren().addAll(slider_x);
-            pane_slider_x.getStyleClass().add("pane_slider_x");
+            box_bottom.getChildren().addAll(slider_x);
+            box_bottom.getStyleClass().add("box_bottom");
         }
 
         ////////// Создание сетки с кругом //////////
-        pane_center = new Pane(); {
-
-            // pane_center.getTransforms().add(scale);
-
-            pane_center.heightProperty().addListener(handlers.resizer_grid_2d);
-            pane_center.widthProperty().addListener(handlers.resizer_grid_2d);
-            pane_center.getChildren().addAll(grid_2d.pane_grid_2d, el.circle_parent, grid_2d.chart);
-            pane_center.getStyleClass().add("pane_center");
-            pane_center.setOnScroll(event -> {
+        box_center = new Pane(); {
+            box_center.heightProperty().addListener(handlers.render_win_resizer);
+            box_center.widthProperty().addListener(handlers.render_win_resizer);
+            box_center.getChildren().addAll(render.grid_2d, el.circle_parent, render.chart);
+            box_center.setOnScroll(event -> {
                 // double delta = event.getDeltaY();
                 // double scaleFactor = (delta > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
-    
+
                 // Ограничение масштабирования до определенных границ
                 double currentScale = scale.getX();
                 print.debag(currentScale + "===");
@@ -93,12 +82,12 @@ public class C_main extends Default_layouts {
                 // scale.setPivotY(event.getY());
                 scale.setX(scale.getX() * SCALE_DELTA);
                 scale.setY(scale.getY() * SCALE_DELTA);
-                pane_center.getTransforms().add(scale);
+                box_center.getTransforms().add(scale);
             });
         }
 
         ////////// Создание ползунка для Y //////////
-        pane_slider_y = new VBox(); {
+        box_left = new VBox(); {
             slider_y = new Slider();
             slider_y.setRotate(-90);
             slider_y.setValue(0);
@@ -107,31 +96,31 @@ public class C_main extends Default_layouts {
             slider_y.setOnMouseClicked(handlers.move_circle("Y"));
             slider_y.setOnMouseDragged(handlers.move_circle("Y"));
             slider_y.setOnMouseReleased(handlers.move_circle("Y"));
-            pane_slider_y.getChildren().add(slider_y);
+            box_left.getChildren().add(slider_y);
 
 
             Spinner<Integer> spinner_function = new Spinner<Integer>(-20, 20, 0);
             spinner_function.valueProperty().addListener((observable, oldValue, newValue) -> {
-                grid_2d.functions(newValue);
+                render.functions(newValue);
             });
             spinner_function.setEditable(true);
 
-            pane_slider_y.getChildren().addAll(new Label("Функция y(x) = "), spinner_function);
-            pane_slider_y.getStyleClass().add("pane_slider_y");
+            box_left.getChildren().addAll(new Label("Функция y(x) = "), spinner_function);
+            box_left.getStyleClass().add("box_left");
         }
 
         ////////// Упаковка и отправка //////////
-        border_pane = new BorderPane(); {
-            border_pane.getStyleClass().add("c_decart");
-            border_pane.setCenter(pane_center);
-            border_pane.setTop(pane_title);
-            border_pane.setBottom(pane_slider_x);
-            border_pane.setLeft(pane_slider_y);
+        root = new BorderPane(); {
+            root.getStyleClass().add("c_main");
+            root.setCenter(box_center);
+            root.setTop(box_title);
+            root.setBottom(box_bottom);
+            root.setLeft(box_left);
 
-            BorderPane.setAlignment(pane_center, Pos.BOTTOM_CENTER);
-            BorderPane.setAlignment(pane_title, Pos.TOP_CENTER);
-            BorderPane.setAlignment(pane_slider_x, Pos.BOTTOM_CENTER);
-            BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
+            BorderPane.setAlignment(box_center, Pos.BOTTOM_CENTER);
+            BorderPane.setAlignment(box_title, Pos.TOP_CENTER);
+            BorderPane.setAlignment(box_bottom, Pos.BOTTOM_CENTER);
+            BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
         }
 
         default_settings();

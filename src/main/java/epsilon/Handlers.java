@@ -4,30 +4,27 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ZoomEvent;
 
 public class Handlers {
 
-    //#region error C_greeting
-    // public EventHandler<MouseEvent> greeting_next() {
+    ////////// Greeting //////////
+    public EventHandler<MouseEvent> greeting_next() {
 
-    //     return new EventHandler<MouseEvent>() {
-    //         @Override public void handle(MouseEvent arg0) {
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent arg0) {
 
-    //             // Будет проверка, но пока пропуск
+                // Будет проверка, но пока пропуск
+                String input_email = c_greeting.input_email.getText();
+                String input_password = c_greeting.input_password.getText();
 
-    //             String input_email = c_greeting.input_email.getText();
-    //             String input_password = c_greeting.input_password.getText();
+                print.debag(input_email);
+                print.debag(input_password);
 
-    //             print.debag(input_email);
-    //             print.debag(input_password);
-
-    //             panel.stage.setResizable(true);
-    //             new C_main().initialize();
-    //         }
-    //     };
-    // }
-    //#endregion
+                panel.stage.setResizable(true);
+                c_main.initialize();
+            }
+        };
+    }
 
     ////////// C_main decorations //////////
     public EventHandler<MouseEvent> get_hide() {
@@ -81,18 +78,13 @@ public class Handlers {
         };
     }
 
-    ////////// Grid_2d //////////
-    public ChangeListener<Number> resizer_grid_2d = new ChangeListener<Number>() {
-        @Override
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            grid_2d.create_pane_grid_2d(c_main.pane_center.getHeight(), c_main.pane_center.getWidth());
-            // c_main.pane_center.getChildren().set(0, grid_2d);
+    ////////// Render //////////
+    public ChangeListener<Number> render_win_resizer = new ChangeListener<Number>() {
+
+        @Override public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+            render = new Render(c_main.box_center.getHeight(), c_main.box_center.getWidth());
+            render.create_grid_2d();
         }
     };
-
-    ////////// Zoom //////////
-    // public EventHandler<ZoomEvent> zoom = new EventHandler<ZoomEvent>() {
-        
-    // }
 
 }

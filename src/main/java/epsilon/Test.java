@@ -27,8 +27,8 @@ public class Test {
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
         // Создаем внешний HBox
-        HBox outerHBox = new HBox();
-        outerHBox.setAlignment(Pos.CENTER_LEFT);
+        HBox box_title = new HBox();
+        box_title.setAlignment(Pos.CENTER);
 
         // Label "ДЕКАРТОВАЯ ПЛОСКОСТЬ"
         Label label = new Label("ДЕКАРТОВАЯ ПЛОСКОСТЬ");
@@ -63,20 +63,20 @@ public class Test {
         innerHBox.getChildren().addAll(closeButton, hideButton, resizeButton);
 
         // Добавляем элементы во внешний HBox
-        outerHBox.getChildren().addAll(label, spacer, innerHBox);
+        box_title.getChildren().addAll(label, spacer, innerHBox);
 
         // Обработка событий мыши для перетаскивания окна
-        outerHBox.setOnMousePressed((MouseEvent event) -> {
+        box_title.setOnMousePressed((MouseEvent event) -> {
             xOffset = event.getSceneX();
             yOffset = event.getSceneY();
         });
 
-        outerHBox.setOnMouseDragged((MouseEvent event) -> {
+        box_title.setOnMouseDragged((MouseEvent event) -> {
             primaryStage.setX(event.getScreenX() - xOffset);
             primaryStage.setY(event.getScreenY() - yOffset);
         });
 
-        Scene scene = new Scene(outerHBox, 700, 400);
+        Scene scene = new Scene(box_title, 700, 400);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
