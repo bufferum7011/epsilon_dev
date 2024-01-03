@@ -35,9 +35,11 @@ build/
 
 ### VS Code ###
 .vscode/
+.vs
 
 ### Project ###
-/src/main/resources/application.properties
-/src/main/resources/templates/draft/
-/src/main/resources/users
+src/main/resources/application.properties
+src/main/resources/templates/draft/
+src/main/resources/users
 # /src/users
+.gitignore

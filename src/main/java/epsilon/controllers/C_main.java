@@ -1,11 +1,16 @@
 package epsilon.controllers;
 import static epsilon.Panel.*;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Separator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
+import javafx.scene.input.ZoomEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -21,20 +26,16 @@ public class C_main {
     public double scale_x_y = 1;
     public Scale scale;
     public Translate translate;
+    private static final double MIN_SCALE = 0.1;
+    private static final double MAX_SCALE = 10.0;
+    private static final double SCALE_DELTA = 1.1;
 
     public Text title = new Text("Декартовая плоскость");
-    public Text val_x = new Text("X = 0.0");
-    public Text val_y = new Text("Y = 0.0");
-    public Text title_x = new Text("Изменение для X");
-    public Text title_y = new Text("Изменение для Y");
-    public Text indicator_height = new Text("height = 0.0");
-    public Text indicator_width = new Text("width = 0.0");
-    public Text grid_2d_size = new Text("Grid_2d_size: ");
 
     public HBox pane_title;
     public HBox pane_slider_x;
     public VBox pane_slider_y;
-    public Pane pane_grid_2d;
+    public Pane pane_center;
     public BorderPane border_pane;
 
     public void initialize() {
@@ -63,17 +64,37 @@ public class C_main {
             slider_x.setOnMouseDragged(handlers.move_circle("X"));
             slider_x.setOnMouseReleased(handlers.move_circle("X"));
 
-            pane_slider_x.getChildren().addAll(title_x, slider_x);
+            pane_slider_x.getChildren().addAll(slider_x);
             pane_slider_x.getStyleClass().add("pane_slider_x");
         }
 
         //////////////// Создание сетки с кругом ////////////////
-        pane_grid_2d = new Pane(); {
+        pane_center = new Pane(); {
 
-            pane_grid_2d.heightProperty().addListener(handlers.resizer_grid_2d);
-            pane_grid_2d.widthProperty().addListener(handlers.resizer_grid_2d);
-            pane_grid_2d.getChildren().add(el.circle_parent);
-            pane_grid_2d.getStyleClass().add("pane_center");
+            Scale scale = new Scale(1, 1);
+            pane_center.getTransforms().add(scale);
+
+            pane_center.heightProperty().addListener(handlers.resizer_grid_2d);
+            pane_center.widthProperty().addListener(handlers.resizer_grid_2d);
+            pane_center.getChildren().addAll(grid_2d.pane_grid_2d, grid_2d.chart);
+            pane_center.getStyleClass().add("pane_center");
+            pane_center.setOnScroll(event -> {
+                // double delta = event.getDeltaY();
+                // double scaleFactor = (delta > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
+    
+                // Ограничение масштабирования до определенных границ
+                double currentScale = scale.getX();
+                print.debag(currentScale + "===");
+                if(currentScale * SCALE_DELTA < MIN_SCALE || currentScale * SCALE_DELTA > MAX_SCALE) {
+                    return;
+                }
+                print.debag("=");
+                // scale.setPivotX(event.getX());
+                // scale.setPivotY(event.getY());
+                scale.setX(scale.getX() * SCALE_DELTA);
+                scale.setY(scale.getY() * SCALE_DELTA);
+                pane_center.getTransforms().add(scale);
+            });
         }
 
         //////////////// Создание ползунка для Y ////////////////
@@ -86,44 +107,43 @@ public class C_main {
             slider_y.setOnMouseClicked(handlers.move_circle("Y"));
             slider_y.setOnMouseDragged(handlers.move_circle("Y"));
             slider_y.setOnMouseReleased(handlers.move_circle("Y"));
+            pane_slider_y.getChildren().add(slider_y);
 
-            Spinner<Integer> spinner_y = new Spinner<Integer>(-500, 500, 0, 5);
-            Spinner<Integer> spinner_x = new Spinner<Integer>(-500, 500, 0, 5);
-            spinner_y.valueProperty().addListener((observable, oldValue, newValue) -> {
-                pane_grid_2d.setTranslateY(newValue);
+
+            Spinner<Integer> spinner_function = new Spinner<Integer>(-20, 20, 0);
+            spinner_function.valueProperty().addListener((observable, oldValue, newValue) -> {
+
+                // double  y1 = 0,
+                //         y2 = 1,
+                //         y3 = 2;
+                double  x = newValue;
+                double  y = x * x;
+
+                grid_2d.functions(x);
+
+                // Функция y = x * x4
+
             });
-            spinner_x.valueProperty().addListener((observable, oldValue, newValue) -> {
-                pane_grid_2d.setTranslateX(newValue);
-            });
-            spinner_x.setEditable(true);
-            spinner_y.setEditable(true);
+            spinner_function.setEditable(true);
 
+            // pane_slider_y
 
-            RadioButton btn_scale = new RadioButton("Изменить полюса");
-            btn_scale.setAccessibleHelp("Изменить полюса_2");
-            btn_scale.setSelected(false);
-            btn_scale.selectedProperty().addListener((observable, oldValue, newValue) -> {
-                if(btn_scale.isSelected()) { pane_grid_2d.setScaleY(-1); }
-                else { pane_grid_2d.setScaleY(1); }
-            });
-
-            pane_slider_y.getChildren().addAll(slider_y, title_y, grid_2d_size, spinner_y, spinner_x, btn_scale);
+            pane_slider_y.getChildren().addAll(new Label("Функция y(x) = "), spinner_function);
             pane_slider_y.getStyleClass().add("pane_slider_y");
         }
 
         //////////////// Упаковка и отправка ////////////////
         border_pane = new BorderPane(); {
             border_pane.getStyleClass().add("c_decart");
+            border_pane.setCenter(pane_center);
             border_pane.setTop(pane_title);
             border_pane.setBottom(pane_slider_x);
             border_pane.setLeft(pane_slider_y);
-            border_pane.setCenter(pane_grid_2d);
 
+            BorderPane.setAlignment(pane_center, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(pane_title, Pos.TOP_CENTER);
             BorderPane.setAlignment(pane_slider_x, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(pane_slider_y, Pos.CENTER_LEFT);
-            BorderPane.setAlignment(pane_grid_2d, Pos.BOTTOM_CENTER);
-            BorderPane.setMargin(pane_slider_y, new Insets(20.0, 0.0, 0.0, 20.0));
         }
 
         panel.scene = new Scene(border_pane);

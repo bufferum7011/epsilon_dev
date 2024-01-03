@@ -1,102 +1,140 @@
 package epsilon;
 import static epsilon.Panel.*;
+
+import java.util.ArrayList;
+
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
 public class Grid_2d {
 
-    public double CENTER_X;
-    public double CENTER_Y;
-    public double HEIGHT;
-    public double WIDTH;
+    private double CENTER_X;
+    private double CENTER_Y;
+    private double HEIGHT;
+    private double WIDTH;
+    public final double TERMINATOR = 42.15;
 
-    public Grid_2d(double HEIGHT, double WIDTH) {
+    public Pane pane_grid_2d = new Pane();
+    public Pane chart = new Pane();
+    public static Cordinat cordinat = new Cordinat();
+
+    public void create_pane_grid_2d(double HEIGHT, double WIDTH) {
+
         this.WIDTH = WIDTH;
         this.HEIGHT = HEIGHT;
         CENTER_X = (WIDTH  / 2);
         CENTER_Y = (HEIGHT / 2);
+        c_main.pane_center.getTransforms().clear();
+        c_main.pane_center.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
+        c_main.pane_center.getTransforms().add(new Scale(1, -1));
+        c_main.pane_center.getChildren().set(0, pane_grid_2d);
 
-        c_main.pane_grid_2d.getTransforms().clear();
-        c_main.pane_grid_2d.getTransforms().add(0, new Translate(CENTER_X, CENTER_Y));
-        c_main.pane_grid_2d.getTransforms().add(new Scale(1, -1));
+        pane_grid_2d.getChildren().clear();
 
-        // draw();
-        // create_grid_lines();
-    }
-
-
-
-    public void draw() { print.way("\n======X=" + CENTER_X + "======Y=" + CENTER_Y + "======\n"); }
-
-    //#region плохой код
-    // public void grid() {
-
-    //     int terminator = 50;
-    //     boolean key_x = false, key_y = false;
-    //     double first = 0;
-    //     double second = 0;
-    //     double x_aux = 0;
-    //     double y_aux = 0;
-
-    //     if(CENTER_X > CENTER_Y) {
-    //         key_x = true;
-    //         first = CENTER_X;
-    //         second = CENTER_Y;
-    //         x_aux = first;
-    //     }
-    //     else {
-    //         key_y = true;
-    //         first = CENTER_Y;
-    //         second = CENTER_X;
-    //         y_aux = first;
-    //     }
-
-    //     for(int i = 0; i < first / terminator; i++) {
-    //         x_aux = terminator - x_aux;
-    //         c_decart.pane_grid_2d.getChildren().add(new Line(x_aux, -CENTER_Y, x_aux, CENTER_Y));
-    //     }
-    // }
-    //#endregion плохой код
-
-    public void create_grid_lines() {
-
-        // Линии с разметкой по оси X
-        for(double x = CENTER_X + 50; x <= WIDTH; x += 50) {
-            Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
-            Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_main.pane_grid_2d.getChildren().addAll(line, text);
-        }
-        for(double x = CENTER_X - 50; x >= 0; x -= 50) {
-            Line line = create_metric_line(x, CENTER_Y - 5, x, CENTER_Y + 5);
-            Text text = create_metric_value(Double.toString(x - CENTER_X), x - 10, CENTER_Y + 20);
-            c_main.pane_grid_2d.getChildren().addAll(line, text);
+        ////////// Рисую линию в сторону +X //////////
+        for(double x = 0; x < CENTER_X; x += TERMINATOR) {
+            Line line = new Line(x, -CENTER_Y, x, HEIGHT);
+            line.setStroke(Color.rgb(50, 50, 50));
+            pane_grid_2d.getChildren().add(line);
         }
 
-        // Линии с разметкой по оси Y
-        for(double y = CENTER_Y + 50; y <= HEIGHT; y += 50) {
-            Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
-            Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_main.pane_grid_2d.getChildren().addAll(line, text);
+        ////////// Рисую линию в сторону -X //////////
+        for(double x = 0; x > -CENTER_X; x -= TERMINATOR) {
+            Line line = new Line(x, CENTER_Y, x, -HEIGHT);
+            line.setStroke(Color.rgb(50, 50, 50));
+            pane_grid_2d.getChildren().add(line);
         }
-        for(double y = CENTER_Y - 50; y >= 0; y -= 50) {
-            Line line = create_metric_line(CENTER_X - 5, y, CENTER_X + 5, y);
-            Text text = create_metric_value(Double.toString(CENTER_Y - y), CENTER_X + 10, y + 5);
-            c_main.pane_grid_2d.getChildren().addAll(line, text);
+
+        ////////// Рисую линию в сторону +Y //////////
+        for(double y = 0; y < CENTER_Y; y += TERMINATOR) {
+            Line line = new Line(CENTER_X, y, -WIDTH, y);
+            line.setStroke(Color.rgb(50, 50, 50));
+            pane_grid_2d.getChildren().add(line);
+        }
+
+        //////// Рисую линию в сторону -Y //////////
+        for(double y = 0; y > -CENTER_Y; y -= TERMINATOR) {
+            Line line = new Line(CENTER_X, y, -WIDTH, y);
+            line.setStroke(Color.rgb(50, 50, 50));
+            pane_grid_2d.getChildren().add(line);
+        }
+
+        //////// Рисую линии X и Y //////////
+        Line line_x = new Line(CENTER_X, 0, -CENTER_X, 0);
+            line_x.setStroke(Color.WHITE);
+            line_x.setStrokeWidth(1);
+            pane_grid_2d.getChildren().add(line_x);
+        Line line_y = new Line(0, CENTER_Y, 0, -CENTER_Y);
+            line_y.setStroke(Color.WHITE);
+            line_y.setStrokeWidth(1);
+            pane_grid_2d.getChildren().add(line_y);
+    }
+
+    public void functions(double xx) {
+
+        chart.getChildren().clear();
+
+        cordinat.set_list(2);
+        
+        ArrayList<Cordinat> c = cordinat.list;
+        boolean key = true;
+        Line line = null;
+
+        for(double i = 0; i < c.size() && c.iterator().hasNext(); i++) {
+
+            int x = (int) Math.round(c.get((int) i).x);
+            int y = (int) Math.round(c.get((int) i).y);
+
+            if(key) {
+                key = false;
+
+                line = new Line();
+                line.setStartX(x);
+                line.setStartY(y);
+
+            }
+            else {
+                key = true;
+
+                line.setEndX(x);
+                line.setEndY(y);
+
+                line.setStroke(Color.WHITE);
+                line.setStrokeWidth(3);
+                chart.getChildren().add(line);
+
+            }
+            print.way("(" + x + ")(" + y + ")===");
+        }
+
+    }
+
+}
+
+class Cordinat {
+
+    public double x;
+    public double y;
+
+    public ArrayList<Cordinat> list = new ArrayList<Cordinat>();
+    public final double TERMINATOR = 42.15;
+
+    public Cordinat() {}
+    public Cordinat(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void set_list(double x) {
+        for(double y = -(4 * TERMINATOR); y < 4 * TERMINATOR; y+=TERMINATOR) {
+            x = x + 2 * TERMINATOR;
+            print.debag("(" + x + "_" + y + ")");
+            list.add(new Cordinat(x, y));
         }
     }
-    private Line create_metric_line(double startX, double startY, double endX, double endY) {
-        return new Line(startX + WIDTH / 2, startY + HEIGHT / 2, endX + WIDTH / 2, endY + HEIGHT / 2);
-    }
-    private Text create_metric_value(String text, double x, double y) {
-        Text label = new Text(text);
-        label.setFont(Font.font("Arial", 10));
-        label.setFill(Color.WHITE);
-        label.setX(x);
-        label.setY(y);
-        return label;
-    }
+    
 }

@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.ZoomEvent;
 
 public class Handlers {
 
@@ -84,8 +85,14 @@ public class Handlers {
     public ChangeListener<Number> resizer_grid_2d = new ChangeListener<Number>() {
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            grid_2d = new Grid_2d(c_main.pane_grid_2d.getHeight(), c_main.pane_grid_2d.getWidth());
+            grid_2d.create_pane_grid_2d(c_main.pane_center.getHeight(), c_main.pane_center.getWidth());
+            // c_main.pane_center.getChildren().set(0, grid_2d);
         }
     };
+
+    ////////// Zoom //////////
+    // public EventHandler<ZoomEvent> zoom = new EventHandler<ZoomEvent>() {
+        
+    // }
 
 }

@@ -1,12 +1,13 @@
 package epsilon;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 public class Panel extends Application {
 
@@ -44,7 +45,7 @@ public class Panel extends Application {
         sql                 = new auxiliary.Exec_sql();
         handlers            = new Handlers();
         el                  = new Elements();
-        
+        grid_2d             = new Grid_2d();
         c_main              = new epsilon.controllers.C_main();
         c_greeting          = new epsilon.controllers.C_greeting();
         test                = new Test();
@@ -97,8 +98,8 @@ public class Panel extends Application {
 
         print.result("[Application starts]\n");
         panel.stage = stage;
-        c_main.initialize();
-        // test.initialize();
+        // c_main.initialize();
+        test.initialize();
         // c_greeting.initialize();
     }
     @Override public void init() throws Exception {
