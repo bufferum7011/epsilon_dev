@@ -11,13 +11,13 @@ public abstract class Default_layouts {
         panel.stage.setScene(panel.scene);                  // Настройка сцены
         panel.stage.setTitle(panel.server_project);         // Настройка названия приложения
         panel.stage.getIcons().add(new Image(panel.icon));  // Настройка иконки
-        panel.stage.initStyle(StageStyle.DECORATED);        // Настройка декорации
+        panel.stage.initStyle(StageStyle.UNDECORATED);      // Настройка декорации
         panel.stage.setOpacity(1);                          // Настройка прозрачности
 
-        panel.stage.setMinHeight(500);                      // Настройка минимальной выстоты
-        panel.stage.setMinWidth(500);                       // Настройка минимальной ширины
-        panel.stage.setMaxHeight(Double.MAX_VALUE);         // Настройка максимальной выстоты
-        panel.stage.setMaxWidth(Double.MAX_VALUE);          // Настройка максимальной ширины
+        // panel.stage.setMinHeight(500);                      // Настройка минимальной выстоты
+        // panel.stage.setMinWidth(500);                       // Настройка минимальной ширины
+        // panel.stage.setMaxHeight(Double.MAX_VALUE);         // Настройка максимальной выстоты
+        // panel.stage.setMaxWidth(Double.MAX_VALUE);          // Настройка максимальной ширины
         panel.stage.setHeight(550);                         // Настройка высоты окна
         panel.stage.setWidth(1000);                         // Настройка ширины окна
         panel.stage.setX(100);                              // Настройка расположения окна по горизонтали

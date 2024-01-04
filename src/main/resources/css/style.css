@@ -28,6 +28,19 @@
 .box_title {
     -fx-background-color: rgb(233, 233, 230);
 }
+    .box_title_btn {
+        -fx-max-width: 28px;
+        -fx-min-width: 28px;
+        -fx-max-height: 28px;
+        -fx-min-height: 28px;
+        -fx-border: none;
+        -fx-background-color: none;
+    }
+    .box_title_btn :hover {
+        -fx-background-color: tomato;
+    }
+
+
 .box_bottom {
     -fx-background-color: rgb(16, 80, 148);
 }

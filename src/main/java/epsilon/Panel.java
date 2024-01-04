@@ -2,6 +2,7 @@ package epsilon;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -17,7 +18,6 @@ public class Panel extends Application {
     public String server_ip;
     public String css;
     public String icon;
-    public boolean key_fullscreen;
     public Stage stage;
     public Scene scene;
 
@@ -51,8 +51,7 @@ public class Panel extends Application {
             panel.server_project    = property.getProperty("server.project");
             panel.server_ip         = property.getProperty("server.ip");
             panel.css               = panel.getClass().getResource("/css/style.css").toExternalForm();
-            panel.icon              = panel.getClass().getResource("/img_sys/icon.png").toExternalForm();
-            panel.key_fullscreen    = false;
+            panel.icon              = panel.getClass().getResource("/img_sys/icon.png").toExternalForm();   
             print.way("[Loading resources...]\n");
         } catch(IOException e) { print.error("[Loading resources...]"); }
 

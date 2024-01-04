@@ -1,13 +1,21 @@
 package epsilon.layouts;
-import static epsilon.Panel.*;
+import static epsilon.Panel.el;
+import static epsilon.Panel.handlers;
+import static epsilon.Panel.panel;
+import static epsilon.Panel.print;
+import static epsilon.Panel.render;
+
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
@@ -41,12 +49,48 @@ public class C_main extends Default_layouts {
 
         ////////// Создание title //////////
         box_title = new HBox(); {
+
+            Pane spacer = new Pane();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+            box_title.getChildren().add(spacer);
+
             Text title = new Text("Декартовая плоскость");
-
             box_title.getChildren().add(title);
-            box_title.getStyleClass().add("box_title"); 
-        }
 
+            Pane spacer_2 = new Pane();
+            HBox.setHgrow(spacer_2, Priority.ALWAYS);
+            box_title.getChildren().add(spacer_2);
+
+            HBox inner_hBox = new HBox(); {
+
+                Button btn_hide = new Button("━");
+                Button btn_resize = new Button("☐");
+                Button btn_clouse = new Button("✕");
+
+                btn_hide.getStyleClass().add("box_title_btn");
+                btn_resize.getStyleClass().add("box_title_btn");
+                btn_clouse.getStyleClass().add("box_title_btn");
+
+                btn_hide.setOnAction(handlers.win_hide());
+                btn_resize.setOnAction(handlers.win_resize());
+                btn_clouse.setOnAction(handlers.win_clouse());
+
+                Insets insets = new Insets(1, 2, 1, 0);
+                HBox.setMargin(btn_hide, insets);
+                HBox.setMargin(btn_resize, insets);
+                HBox.setMargin(btn_clouse, insets);
+                HBox.setMargin(title, insets);
+                inner_hBox.setSpacing(10);
+                inner_hBox.setAlignment(Pos.CENTER_RIGHT);
+                inner_hBox.getChildren().addAll(btn_hide, btn_resize, btn_clouse);
+            }
+
+            box_title.setOnMousePressed(handlers.get_offset());
+            box_title.setOnMouseDragged(handlers.set_offset());
+            box_title.getChildren().add(inner_hBox);
+            box_title.getStyleClass().add("box_title");
+            box_title.setAlignment(Pos.CENTER);
+        }
 
         ////////// Создание ползунка для X //////////
         box_bottom = new HBox(); {
@@ -60,6 +104,7 @@ public class C_main extends Default_layouts {
 
             box_bottom.getChildren().addAll(slider_x);
             box_bottom.getStyleClass().add("box_bottom");
+            box_bottom.setAlignment(Pos.CENTER);
         }
 
         ////////// Создание сетки с кругом //////////
@@ -78,8 +123,8 @@ public class C_main extends Default_layouts {
                     return;
                 }
                 print.debag("=");
-                // scale.setPivotX(event.getX());
-                // scale.setPivotY(event.getY());
+                scale.setPivotX(event.getX());
+                scale.setPivotY(event.getY());
                 scale.setX(scale.getX() * SCALE_DELTA);
                 scale.setY(scale.getY() * SCALE_DELTA);
                 box_center.getTransforms().add(scale);
@@ -111,16 +156,22 @@ public class C_main extends Default_layouts {
 
         ////////// Упаковка и отправка //////////
         root = new BorderPane(); {
+
             root.getStyleClass().add("c_main");
             root.setCenter(box_center);
-            root.setTop(box_title);
             root.setBottom(box_bottom);
             root.setLeft(box_left);
+            root.setTop(box_title);
 
             BorderPane.setAlignment(box_center, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(box_title, Pos.TOP_CENTER);
             BorderPane.setAlignment(box_bottom, Pos.BOTTOM_CENTER);
             BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
+
+            root.setOnMouseMoved(handlers.win_stretch("MOVED"));
+            root.setOnMousePressed(handlers.win_stretch("PRESSED"));
+            root.setOnMouseDragged(handlers.win_stretch("DRAGGED"));
+            root.setOnMouseReleased(handlers.win_stretch("RELEASED"));
         }
 
         default_settings();

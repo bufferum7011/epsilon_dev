@@ -1,17 +1,33 @@
 package epsilon;
 import static epsilon.Panel.*;
+import static epsilon.Panel.c_main;
+import static epsilon.Panel.el;
+import static epsilon.Panel.panel;
+import static epsilon.Panel.print;
+import static epsilon.Panel.render;
+
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class Handlers {
 
+    private double x_offset = 0;
+    private double y_offset = 0;
+    private double HEIGHT;
+    private double WIDTH;
+
     ////////// Greeting //////////
+    ////////// btn //////////
     public EventHandler<MouseEvent> greeting_next() {
 
         return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
+            @Override public void handle(MouseEvent event) {
 
                 // Будет проверка, но пока пропуск
                 String input_email = c_greeting.input_email.getText();
@@ -26,44 +42,12 @@ public class Handlers {
         };
     }
 
-    ////////// C_main decorations //////////
-    public EventHandler<MouseEvent> get_hide() {
-
-        return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
-                panel.stage.hide();
-            }
-        };
-    }
-    public EventHandler<MouseEvent> get_resize() {
-
-        return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
-                if(panel.key_fullscreen) {
-                    panel.key_fullscreen = false;
-                    panel.stage.setFullScreen(false);
-                }
-                else {
-                    panel.key_fullscreen = true;
-                    panel.stage.setFullScreen(true);
-                }
-            }
-        };
-    }
-    public EventHandler<MouseEvent> get_clouse() {
-
-        return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
-                try { panel.stop(); } catch(Exception e) { }
-            }
-        };
-    }
-
     ////////// Elements //////////
+    ////////// move //////////
     public EventHandler<MouseEvent> move_circle(String code) {
 
         return new EventHandler<MouseEvent>() {
-            @Override public void handle(MouseEvent arg0) {
+            @Override public void handle(MouseEvent event) {
                 if(code.equals("X")) {
                     int x = (int) c_main.slider_x.getValue() * 5;
                     el.circle_parent.setLayoutX(x);
@@ -78,7 +62,9 @@ public class Handlers {
         };
     }
 
+
     ////////// Render //////////
+    ///////// box_center resizer - изм. размера box_center /////////
     public ChangeListener<Number> render_win_resizer = new ChangeListener<Number>() {
 
         @Override public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
@@ -86,5 +72,157 @@ public class Handlers {
             render.create_grid_2d();
         }
     };
+
+
+    ////////// box_title //////////
+    ////////// btn //////////
+    public EventHandler<ActionEvent> win_hide() {
+
+        return new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                panel.stage.setIconified(true);
+            }
+        };
+    }
+    public EventHandler<ActionEvent> win_resize() {
+
+        return new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) {
+                if(panel.stage.isMaximized()) { panel.stage.setMaximized(false); }
+                else { panel.stage.setMaximized(true); }
+            }
+        };
+    }
+    public EventHandler<ActionEvent> win_clouse() {
+
+        return new EventHandler<ActionEvent>() {
+            @Override public void handle(ActionEvent event) { panel.stage.close(); }
+        };
+    }
+    ////////// offset - перетаскивание //////////
+    public EventHandler<MouseEvent> get_offset() {
+
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+                x_offset = event.getSceneX();
+                y_offset = event.getSceneY();
+            }
+        };
+    }
+    public EventHandler<MouseEvent> set_offset() {
+
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+                panel.stage.setX(event.getScreenX() - x_offset);
+                panel.stage.setY(event.getScreenY() - y_offset);
+
+                // Максимизация окна при перемещении к верхней границе экрана
+                // if(panel.stage.getY() <= 0) { panel.stage.setMaximized(true); }
+            }
+        };
+    }
+
+
+    ////////// root //////////
+    ////////// stretch - растягивание //////////
+    public EventHandler<MouseEvent> win_stretch(String code) {
+        
+        return new EventHandler<MouseEvent>() {
+            @Override public void handle(MouseEvent event) {
+
+                HEIGHT = panel.stage.getHeight();
+                WIDTH = panel.stage.getWidth();
+
+                edit_cursor(event);
+                if(code.equals("PRESSED")) {
+                    get_offset();
+
+                }
+                else if(code.equals("DRAGGED")) {
+                    get_offset();
+                    released(event);
+                }
+                else if(code.equals("RELEASED")) {
+                    released(event);
+                }
+
+            }
+        };
+    }
+    // Метод определения действия мышки
+    public void released(MouseEvent event) {
+
+        print.result("===================\n");
+        print.result("x_offset=" + x_offset + "\n");
+        print.result("y_offset=" + y_offset + "\n");
+
+        double delta_x = event.getSceneX() - x_offset;
+        double delta_y = event.getSceneY() - y_offset;
+
+        if(delta_x > 0) {
+            panel.stage.setWidth(WIDTH + x_offset);
+            print.result("Width++\n");
+        }
+        else {
+            panel.stage.setWidth(WIDTH - x_offset);
+            print.result("Width--\n");
+        }
+
+        if(delta_y > 0) {
+            panel.stage.setHeight(HEIGHT + y_offset);
+            print.result("Height++\n");
+        }
+        else {
+            panel.stage.setHeight(HEIGHT - y_offset);
+            print.result("Height--\n");
+        }
+
+    }
+
+
+    private void edit_cursor(MouseEvent event) {
+
+        final double RESIZE_MARGIN = 5;
+        double x = event.getX();
+        double y = event.getY();
+
+        // верх-лево
+        if(RESIZE_MARGIN >= x && RESIZE_MARGIN >= y) {
+            panel.scene.setCursor(Cursor.NW_RESIZE);
+        }
+        // верх-право!!!
+        else if(WIDTH - RESIZE_MARGIN <= x && RESIZE_MARGIN >= y) {
+            panel.scene.setCursor(Cursor.NE_RESIZE);
+        }
+        // низ-право
+        else if(WIDTH - RESIZE_MARGIN <= x && HEIGHT - RESIZE_MARGIN <= y) {
+            panel.scene.setCursor(Cursor.SE_RESIZE);
+        }
+        // низ-лево
+        else if(RESIZE_MARGIN >= x && HEIGHT - RESIZE_MARGIN <= y) {
+            panel.scene.setCursor(Cursor.SW_RESIZE);
+        }
+        // верх
+        else if(RESIZE_MARGIN >= y) {
+            panel.scene.setCursor(Cursor.N_RESIZE);
+        }
+        // право
+        else if(WIDTH - RESIZE_MARGIN <= x) {
+            panel.scene.setCursor(Cursor.E_RESIZE);
+        }
+        // низ
+        else if(HEIGHT - RESIZE_MARGIN <= y) {
+            panel.scene.setCursor(Cursor.S_RESIZE);
+        }
+        // лево
+        else if(RESIZE_MARGIN >= x) {
+            panel.scene.setCursor(Cursor.W_RESIZE);
+        }
+        // середина
+        else {
+            panel.scene.setCursor(Cursor.DEFAULT);
+        }
+
+    }
 
 }

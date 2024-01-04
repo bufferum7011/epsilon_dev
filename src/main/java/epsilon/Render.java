@@ -1,21 +1,18 @@
 package epsilon;
 import static epsilon.Panel.*;
-
 import java.util.ArrayList;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
 public class Render {
 
-    private double CENTER_X;
-    private double CENTER_Y;
-    private double HEIGHT;
-    private double WIDTH;
+    public double CENTER_X;
+    public double CENTER_Y;
+    public double BOX_CENTER_HEIGHT;
+    public double BOX_CENTER_WIDTH;
     private final double TERMINATOR = 42.15;
     public Translate box_center_translate;
     public Scale box_center_scale;
@@ -29,11 +26,11 @@ public class Render {
     public static Cordinat cordinat = new Cordinat();
 
     public Render() {}
-    public Render(double HEIGHT, double WIDTH) {
-        this.WIDTH = WIDTH;
-        this.HEIGHT = HEIGHT;
-        CENTER_X = (WIDTH  / 2);
-        CENTER_Y = (HEIGHT / 2);
+    public Render(double BOX_CENTER_HEIGHT, double BOX_CENTER_WIDTH) {
+        this.BOX_CENTER_WIDTH = BOX_CENTER_WIDTH;
+        this.BOX_CENTER_HEIGHT = BOX_CENTER_HEIGHT;
+        CENTER_X = (BOX_CENTER_WIDTH  / 2);
+        CENTER_Y = (BOX_CENTER_HEIGHT / 2);
 
         box_center_scale = new Scale(1, -1);
         box_center_translate = new Translate(CENTER_X, CENTER_Y);
@@ -49,28 +46,28 @@ public class Render {
 
         ////////// Рисую линию в сторону +X //////////
         for(double x = 0; x < CENTER_X; x += TERMINATOR) {
-            Line line = new Line(x, -CENTER_Y, x, HEIGHT);
+            Line line = new Line(x, -CENTER_Y, x, BOX_CENTER_HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
             grid_2d.getChildren().add(line);
         }
 
         ////////// Рисую линию в сторону -X //////////
         for(double x = 0; x > -CENTER_X; x -= TERMINATOR) {
-            Line line = new Line(x, CENTER_Y, x, -HEIGHT);
+            Line line = new Line(x, CENTER_Y, x, -BOX_CENTER_HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
             grid_2d.getChildren().add(line);
         }
 
         ////////// Рисую линию в сторону +Y //////////
         for(double y = 0; y < CENTER_Y; y += TERMINATOR) {
-            Line line = new Line(CENTER_X, y, -WIDTH, y);
+            Line line = new Line(CENTER_X, y, -BOX_CENTER_WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
             grid_2d.getChildren().add(line);
         }
 
         ////////// Рисую линию в сторону -Y //////////
         for(double y = 0; y > -CENTER_Y; y -= TERMINATOR) {
-            Line line = new Line(CENTER_X, y, -WIDTH, y);
+            Line line = new Line(CENTER_X, y, -BOX_CENTER_WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
             grid_2d.getChildren().add(line);
         }
