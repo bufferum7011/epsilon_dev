@@ -14,8 +14,8 @@ public abstract class Default_layouts {
         panel.stage.initStyle(StageStyle.UNDECORATED);      // Настройка декорации
         panel.stage.setOpacity(1);                          // Настройка прозрачности
 
-        // panel.stage.setMinHeight(500);                      // Настройка минимальной выстоты
-        // panel.stage.setMinWidth(500);                       // Настройка минимальной ширины
+        panel.stage.setMinHeight(500);                      // Настройка минимальной выстоты
+        panel.stage.setMinWidth(500);                       // Настройка минимальной ширины
         // panel.stage.setMaxHeight(Double.MAX_VALUE);         // Настройка максимальной выстоты
         // panel.stage.setMaxWidth(Double.MAX_VALUE);          // Настройка максимальной ширины
         panel.stage.setHeight(550);                         // Настройка высоты окна

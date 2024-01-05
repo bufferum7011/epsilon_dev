@@ -169,6 +169,7 @@ public class C_main extends Default_layouts {
             BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
 
             root.setOnMouseMoved(handlers.win_stretch("MOVED"));
+            // root.setOnMouseDragOver(null);
             root.setOnMousePressed(handlers.win_stretch("PRESSED"));
             root.setOnMouseDragged(handlers.win_stretch("DRAGGED"));
             root.setOnMouseReleased(handlers.win_stretch("RELEASED"));
