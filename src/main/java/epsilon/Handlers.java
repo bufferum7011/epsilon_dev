@@ -1,14 +1,11 @@
 package epsilon;
 import static epsilon.Panel.*;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 
 public class Handlers {
 
@@ -124,34 +121,39 @@ public class Handlers {
 
     ////////// root //////////
     ////////// stretch - растягивание //////////
+    private int indicator = 0;
     public EventHandler<MouseEvent> win_stretch(String code) {
         
         return new EventHandler<MouseEvent>() {
             @Override public void handle(MouseEvent event) {
 
+                indicator++;
                 HEIGHT = panel.stage.getHeight();
                 WIDTH = panel.stage.getWidth();
-                delta_x = event.getSceneX() - x_offset;
-                delta_y = event.getSceneY() - y_offset;
                 x = event.getX();
                 y = event.getY();
+                if(indicator % 10 == 0) { print.debag("x:" + x + "=====y:" + y + "\n"); }
+
 
                 if(code.equals("MOVED")) {
                     edit_cursor(event, false);
-                    print.debag("MOVED\n");
                 }
                 if(code.equals("PRESSED")) {
+                    x_offset = event.getSceneX();
+                    y_offset = event.getSceneY();
                     edit_cursor(event, false);
-                    print.error("PRESSED\n");
                 }
                 if(code.equals("DRAGGED")) {
+                    delta_x = event.getSceneX() - x_offset;
+                    print.debag(event.getSceneX() + "=" + x_offset + "\n");
+                    delta_y = event.getSceneY() - y_offset;
                     edit_cursor(event, true);
-                    print.way("DRAGGED\n");
                 }
-                // if(code.equals("RELEASED")) {
-                //     // get_offset();
-                //     released(event);
-                // }
+                if(code.equals("RELEASED")) {
+                    delta_x = event.getSceneX() - x_offset;
+                    delta_y = event.getSceneY() - y_offset;
+                    edit_cursor(event, true);
+                }
 
             }
         };
@@ -159,31 +161,30 @@ public class Handlers {
 
     private void edit_cursor(MouseEvent event, boolean required_stretch) {
 
-        final double RESIZE_MARGIN = 5;
-        get_offset();
-        // print.result("===================\n");
+        final double RESIZE_MARGIN = 3;
+        // if(required_stretch) { print.result("===================\n"); }
         // print.result("x_offset=" + x_offset + "\n");
         // print.result("y_offset=" + y_offset + "\n");
 
         // верх-лево
         if(RESIZE_MARGIN >= x && RESIZE_MARGIN >= y) {
             panel.scene.setCursor(Cursor.NW_RESIZE);
-            if(required_stretch) { stretch_horizontal_vertical(); }
+            if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // верх-право
         else if(WIDTH - RESIZE_MARGIN <= x && RESIZE_MARGIN >= y) {
             panel.scene.setCursor(Cursor.NE_RESIZE);
-            if(required_stretch) { stretch_horizontal_vertical(); }
+            if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // низ-право
         else if(WIDTH - RESIZE_MARGIN <= x && HEIGHT - RESIZE_MARGIN <= y) {
             panel.scene.setCursor(Cursor.SE_RESIZE);
-            if(required_stretch) { stretch_horizontal_vertical(); }
+            if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // низ-лево
         else if(RESIZE_MARGIN >= x && HEIGHT - RESIZE_MARGIN <= y) {
             panel.scene.setCursor(Cursor.SW_RESIZE);
-            if(required_stretch) { stretch_horizontal_vertical(); }
+            if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // верх
         else if(RESIZE_MARGIN >= y) {
@@ -212,48 +213,27 @@ public class Handlers {
 
     }
 
-    public void stretch_horizontal_vertical() {
-
-        if(delta_x > 0) {
-            panel.stage.setWidth(WIDTH + x_offset);
-            print.result("Width++\n");
-        }
-        else {
-            panel.stage.setWidth(WIDTH - x_offset);
-            print.result("Width--\n");
-        }
-
-        if(delta_y > 0) {
-            panel.stage.setHeight(HEIGHT + y_offset);
-            print.result("Height++\n");
-        }
-        else {
-            panel.stage.setHeight(HEIGHT - y_offset);
-            print.result("Height--\n");
-        }
-
-    }
     private void stretch_horizontal() {
 
         if(delta_x > 0) {
-            panel.stage.setWidth(WIDTH + x_offset);
-            print.result("Width++\n");
+            panel.stage.setWidth(WIDTH - x_offset);
+            print.result("stretch_horizontal=Width--\n");
         }
         else {
-            panel.stage.setWidth(WIDTH - x_offset);
-            print.result("Width--\n");
+            panel.stage.setWidth(WIDTH + x_offset);
+            print.result("stretch_horizontal=Width++\n");
         }
 
     }
     private void stretch_vertical() {
 
         if(delta_y > 0) {
-            panel.stage.setHeight(HEIGHT + y_offset);
-            print.result("Height++\n");
+            panel.stage.setHeight(HEIGHT - y_offset);
+            print.result("stretch_vertical=Height--\n");
         }
         else {
-            panel.stage.setHeight(HEIGHT - y_offset);
-            print.result("Height--\n");
+            panel.stage.setHeight(HEIGHT + y_offset);
+            print.result("stretch_vertical=Height++\n");
         }
 
     }

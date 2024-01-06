@@ -9,19 +9,19 @@ import javafx.scene.transform.Translate;
 
 public class Render {
 
+    ////////// box_center ////////// 
     public double CENTER_X;
     public double CENTER_Y;
     public double BOX_CENTER_HEIGHT;
     public double BOX_CENTER_WIDTH;
-    private final double TERMINATOR = 42.15;
     public Translate box_center_translate;
     public Scale box_center_scale;
 
-
-
-
-    
+    ////////// grid_2d //////////
+    private final double TERMINATOR = 42.15;
     public Pane grid_2d = new Pane();
+
+    ////////// chart //////////
     public Pane chart = new Pane();
     public static Cordinat cordinat = new Cordinat();
 

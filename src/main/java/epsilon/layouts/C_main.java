@@ -1,10 +1,5 @@
 package epsilon.layouts;
-import static epsilon.Panel.el;
-import static epsilon.Panel.handlers;
-import static epsilon.Panel.panel;
-import static epsilon.Panel.print;
-import static epsilon.Panel.render;
-
+import static epsilon.Panel.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -116,18 +111,33 @@ public class C_main extends Default_layouts {
                 // double delta = event.getDeltaY();
                 // double scaleFactor = (delta > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
 
+                // // Ограничение масштабирования до определенных границ
+                // double currentScale = scale.getX();
+                // print.debag(currentScale + "===");
+                // if(currentScale * scaleFactor < MIN_SCALE || currentScale * scaleFactor > MAX_SCALE) {
+                //     return;
+                // }
+                // print.debag("=");
+                // scale.setPivotX(event.getX());
+                // scale.setPivotY(event.getY());
+                // scale.setX(scale.getX() * SCALE_DELTA);
+                // scale.setY(scale.getY() * SCALE_DELTA);
+                // box_center.getTransforms().add(scale);
+
+
+                double delta = event.getDeltaY();
+                double scaleFactor = (delta > 0) ? SCALE_DELTA : 1 / SCALE_DELTA;
+    
                 // Ограничение масштабирования до определенных границ
-                double currentScale = scale.getX();
-                print.debag(currentScale + "===");
-                if(currentScale * SCALE_DELTA < MIN_SCALE || currentScale * SCALE_DELTA > MAX_SCALE) {
+                double currentScale = render.box_center_scale.getX();
+                if(currentScale * scaleFactor < MIN_SCALE || currentScale * scaleFactor > MAX_SCALE) {
                     return;
                 }
-                print.debag("=");
-                scale.setPivotX(event.getX());
-                scale.setPivotY(event.getY());
-                scale.setX(scale.getX() * SCALE_DELTA);
-                scale.setY(scale.getY() * SCALE_DELTA);
-                box_center.getTransforms().add(scale);
+    
+                render.box_center_scale.setPivotX(event.getX());
+                render.box_center_scale.setPivotY(event.getY());
+                render.box_center_scale.setX(render.box_center_scale.getX() * scaleFactor);
+                render.box_center_scale.setY(render.box_center_scale.getY() * scaleFactor);
             });
         }
 
@@ -169,7 +179,6 @@ public class C_main extends Default_layouts {
             BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
 
             root.setOnMouseMoved(handlers.win_stretch("MOVED"));
-            // root.setOnMouseDragOver(null);
             root.setOnMousePressed(handlers.win_stretch("PRESSED"));
             root.setOnMouseDragged(handlers.win_stretch("DRAGGED"));
             root.setOnMouseReleased(handlers.win_stretch("RELEASED"));
