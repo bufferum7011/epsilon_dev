@@ -2,10 +2,6 @@ package epsilon;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-import epsilon.handlers.H_elements;
-import epsilon.handlers.H_greeting;
-import epsilon.handlers.H_main;
-import epsilon.handlers.H_resize_win;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -28,17 +24,16 @@ public class Panel extends Application {
     public static auxiliary.Print print;
     public static auxiliary.Exec_sql sql;
 
-    public static epsilon.layouts.C_main c_main                 = new epsilon.layouts.C_main();
-    public static epsilon.layouts.C_greeting c_greeting         = new epsilon.layouts.C_greeting();
+    public static epsilon.layouts.C_main c_main             = new epsilon.layouts.C_main();
+    public static epsilon.layouts.C_greeting c_greeting     = new epsilon.layouts.C_greeting();
 
-    public static epsilon.handlers.H_greeting h_greeting        = new H_greeting();
-    public static epsilon.handlers.H_main h_main                = new H_main();
-    public static epsilon.handlers.H_elements h_elements        = new H_elements();
-    public static epsilon.handlers.H_resize_win h_resize_win    = new H_resize_win();
+    public static epsilon.handlers.H_elements h_elements    = new epsilon.handlers.H_elements();
+    public static epsilon.handlers.Buttons btns             = new epsilon.handlers.Buttons();
+    public static epsilon.handlers.Offset offset            = new epsilon.handlers.Offset();
 
-    public static Test test                                     = new Test();
-    public static Render render                                 = new Render();
-    public static Elements el                                   = new Elements();
+    public static Test test                                 = new Test();
+    public static Render render                             = new Render();
+    public static Render_elements render_el                 = new Render_elements();
 
     public static void main(String[] args) {
 

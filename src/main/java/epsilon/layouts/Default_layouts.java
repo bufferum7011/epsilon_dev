@@ -1,9 +1,6 @@
 package epsilon.layouts;
 import static epsilon.Panel.*;
-import epsilon.ResizeHelper;
-import epsilon.handlers.Resize_listener;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
 
@@ -18,8 +15,8 @@ public abstract class Default_layouts {
         panel.stage.initStyle(StageStyle.UNDECORATED);      // Настройка декорации
         panel.stage.setOpacity(1);                          // Настройка прозрачности
 
-        panel.stage.setMinHeight(200);                      // Настройка минимальной выстоты
-        panel.stage.setMinWidth(200);                       // Настройка минимальной ширины
+        panel.stage.setMinHeight(400);                      // Настройка минимальной выстоты
+        panel.stage.setMinWidth(700);                       // Настройка минимальной ширины
         panel.stage.setMaxHeight(Screen.getPrimary().getBounds().getHeight()); // Настройка максимальной выстоты
         panel.stage.setMaxWidth(Screen.getPrimary().getBounds().getWidth()); // Настройка максимальной ширины
         panel.stage.setHeight(550);                         // Настройка высоты окна

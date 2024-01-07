@@ -1,6 +1,5 @@
 package epsilon;
 import static epsilon.Panel.*;
-import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -20,10 +19,6 @@ public class Render {
     ////////// grid_2d //////////
     private final double TERMINATOR = 42.15;
     public Pane grid_2d = new Pane();
-
-    ////////// chart //////////
-    public Pane chart = new Pane();
-    public static Cordinat cordinat = new Cordinat();
 
     public Render() {}
     public Render(double BOX_CENTER_HEIGHT, double BOX_CENTER_WIDTH) {
@@ -83,67 +78,4 @@ public class Render {
             grid_2d.getChildren().add(line_y);
     }
 
-    public void functions(double xx) {
-
-        chart.getChildren().clear();
-
-        cordinat.set_list(2);
-        
-        ArrayList<Cordinat> c = cordinat.list;
-        boolean key = true;
-        Line line = null;
-
-        for(double i = 0; i < c.size() && c.iterator().hasNext(); i++) {
-
-            int x = (int) Math.round(c.get((int) i).x);
-            int y = (int) Math.round(c.get((int) i).y);
-
-            if(key) {
-                key = false;
-
-                line = new Line();
-                line.setStartX(x);
-                line.setStartY(y);
-
-            }
-            else {
-                key = true;
-
-                line.setEndX(x);
-                line.setEndY(y);
-
-                line.setStroke(Color.WHITE);
-                line.setStrokeWidth(3);
-                chart.getChildren().add(line);
-
-            }
-            print.way("(" + x + ")(" + y + ")===");
-        }
-
-    }
-
-}
-
-class Cordinat {
-
-    public double x;
-    public double y;
-
-    public ArrayList<Cordinat> list = new ArrayList<Cordinat>();
-    public final double TERMINATOR = 42.15;
-
-    public Cordinat() {}
-    public Cordinat(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public void set_list(double x) {
-        for(double y = -(4 * TERMINATOR); y < 4 * TERMINATOR; y+=TERMINATOR) {
-            x = x + 2 * TERMINATOR;
-            print.debag("(" + x + "_" + y + ")");
-            list.add(new Cordinat(x, y));
-        }
-    }
-    
 }

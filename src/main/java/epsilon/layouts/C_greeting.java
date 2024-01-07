@@ -1,7 +1,5 @@
 package epsilon.layouts;
 import static epsilon.Panel.*;
-
-import epsilon.handlers.H_greeting;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -34,9 +32,9 @@ public class C_greeting extends Default_layouts {
             input_password = new TextField("Пароль");
             forgot_password = new Hyperlink("Забыл пароль");
             registration = new Hyperlink("Зарегистрироватся");
+            
             btn_enter = new Button("Войти");
-
-            btn_enter.setOnMousePressed(e -> { h_greeting.btn_next(e); } );
+            btn_enter.setOnAction(e -> btns.btn_next(e));
 
             root.getChildren().addAll(title, input_email, input_password, forgot_password, registration, btn_enter);
         }

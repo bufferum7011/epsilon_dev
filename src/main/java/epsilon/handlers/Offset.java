@@ -1,19 +1,11 @@
 package epsilon.handlers;
 import static epsilon.Panel.*;
-import epsilon.Render;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
-public class H_resize_win {
+public class Offset implements EventHandler<MouseEvent> {
 
     private double HEIGHT;
     private double WIDTH;
@@ -21,16 +13,18 @@ public class H_resize_win {
     private double y_offset = 0;
     private double delta_x = 0;
     private double delta_y = 0;
-    private double x = 0;
-    private double y = 0;
+    private double mouseEventX = 0;
+    private double mouseEventY = 0;
 
-    ////////// btn //////////
-    public void win_resize(ActionEvent event) {
-        if(panel.stage.isMaximized()) { panel.stage.setMaximized(false); }
-        else { panel.stage.setMaximized(true); }
+    public boolean allow = true;
+
+    @Override public void handle(MouseEvent event) {
+        print.debag("offset\n");
+        EventType<? extends MouseEvent> mouse_event_type = event.getEventType();
+        if(allow && mouse_event_type.equals(MouseEvent.MOUSE_PRESSED)) { get_offset(event); }
+        if(allow && mouse_event_type.equals(MouseEvent.MOUSE_DRAGGED)) { set_offset(event); }
+
     }
-    public void win_hide(ActionEvent event) { panel.stage.setIconified(true); }
-    public void win_clouse(ActionEvent event) { panel.stage.close(); }
 
     ////////// offset - перетаскивание //////////
     public void get_offset(MouseEvent event) {
@@ -53,9 +47,9 @@ public class H_resize_win {
         indicator++;
         HEIGHT = panel.stage.getHeight();
         WIDTH = panel.stage.getWidth();
-        x = event.getX();
-        y = event.getY();
-        if(indicator % 10 == 0) { print.debag("x:" + x + "=====y:" + y + "\n"); }
+        mouseEventX = event.getX();
+        mouseEventY = event.getY();
+        if(indicator % 10 == 0) { print.debag("x:" + mouseEventX + "=====y:" + mouseEventY + "\n"); }
 
 
         if(code.equals("MOVED")) {
@@ -80,48 +74,45 @@ public class H_resize_win {
     }
     private void edit_cursor(MouseEvent event, boolean required_stretch) {
 
-        final double RESIZE_MARGIN = 3;
-        // if(required_stretch) { print.result("===================\n"); }
-        // print.result("x_offset=" + x_offset + "\n");
-        // print.result("y_offset=" + y_offset + "\n");
+        final double BORDER = 3;
 
         // верх-лево
-        if(RESIZE_MARGIN >= x && RESIZE_MARGIN >= y) {
+        if(BORDER >= mouseEventX && BORDER >= mouseEventY) {
             panel.scene.setCursor(Cursor.NW_RESIZE);
             if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // верх-право
-        else if(WIDTH - RESIZE_MARGIN <= x && RESIZE_MARGIN >= y) {
+        else if(WIDTH - BORDER <= mouseEventX && BORDER >= mouseEventY) {
             panel.scene.setCursor(Cursor.NE_RESIZE);
             if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // низ-право
-        else if(WIDTH - RESIZE_MARGIN <= x && HEIGHT - RESIZE_MARGIN <= y) {
+        else if(WIDTH - BORDER <= mouseEventX && HEIGHT - BORDER <= mouseEventY) {
             panel.scene.setCursor(Cursor.SE_RESIZE);
             if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // низ-лево
-        else if(RESIZE_MARGIN >= x && HEIGHT - RESIZE_MARGIN <= y) {
+        else if(BORDER >= mouseEventX && HEIGHT - BORDER <= mouseEventY) {
             panel.scene.setCursor(Cursor.SW_RESIZE);
             if(required_stretch) { stretch_horizontal(); stretch_vertical(); }
         }
         // верх
-        else if(RESIZE_MARGIN >= y) {
+        else if(BORDER >= mouseEventY) {
             panel.scene.setCursor(Cursor.N_RESIZE);
             if(required_stretch) { stretch_vertical(); }
         }
         // право
-        else if(WIDTH - RESIZE_MARGIN <= x) {
+        else if(WIDTH - BORDER <= mouseEventX) {
             panel.scene.setCursor(Cursor.E_RESIZE);
             if(required_stretch) { stretch_horizontal(); }
         }
         // низ
-        else if(HEIGHT - RESIZE_MARGIN <= y) {
+        else if(HEIGHT - BORDER <= mouseEventY) {
             panel.scene.setCursor(Cursor.S_RESIZE);
             if(required_stretch) { stretch_vertical(); }
         }
         // лево
-        else if(RESIZE_MARGIN >= x) {
+        else if(BORDER >= mouseEventX) {
             panel.scene.setCursor(Cursor.W_RESIZE);
             if(required_stretch) { stretch_horizontal(); }
         }
@@ -156,12 +147,4 @@ public class H_resize_win {
         }
 
     }
-
-
-    ////////// listeners - перетаскивание //////////
-    public void render_win_resize(Number newValue) {
-        render = new Render(c_main.box_center.getHeight(), c_main.box_center.getWidth());
-        render.create_grid_2d();
-    }
-
 }

@@ -4,9 +4,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
-public class Elements {
+public class Render_elements {
 
-    public Elements() {
+    public Render_elements() {
         circle = new Circle();
         circle_parent = circle.create();
     }
