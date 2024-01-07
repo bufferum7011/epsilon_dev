@@ -27,6 +27,7 @@ public abstract class Default_layouts {
         panel.stage.setResizable(true);                     // Разрешение на изменение размера
         panel.stage.setFullScreen(false);                   // Разрешение на открытие на полный экран
         // stage.centerOnScreen();                          // Располагает окно в центре экрана
+
     }
     public abstract void initialize();
 
