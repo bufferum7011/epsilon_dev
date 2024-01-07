@@ -2,7 +2,10 @@ package epsilon;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
-
+import epsilon.handlers.H_elements;
+import epsilon.handlers.H_greeting;
+import epsilon.handlers.H_main;
+import epsilon.handlers.H_resize_win;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -24,24 +27,24 @@ public class Panel extends Application {
     public static Panel panel;
     public static auxiliary.Print print;
     public static auxiliary.Exec_sql sql;
-    public static Handlers handlers;
-    public static epsilon.layouts.C_main c_main;
-    public static epsilon.layouts.C_greeting c_greeting;
-    public static Test test;
-    public static Render render;
-    public static Elements el;
+
+    public static epsilon.layouts.C_main c_main                 = new epsilon.layouts.C_main();
+    public static epsilon.layouts.C_greeting c_greeting         = new epsilon.layouts.C_greeting();
+
+    public static epsilon.handlers.H_greeting h_greeting        = new H_greeting();
+    public static epsilon.handlers.H_main h_main                = new H_main();
+    public static epsilon.handlers.H_elements h_elements        = new H_elements();
+    public static epsilon.handlers.H_resize_win h_resize_win    = new H_resize_win();
+
+    public static Test test                                     = new Test();
+    public static Render render                                 = new Render();
+    public static Elements el                                   = new Elements();
 
     public static void main(String[] args) {
 
         print               = new auxiliary.Print();
         panel               = new Panel();
         sql                 = new auxiliary.Exec_sql();
-        handlers            = new Handlers();
-        el                  = new Elements();
-        render              = new Render();
-        c_main              = new epsilon.layouts.C_main();
-        c_greeting          = new epsilon.layouts.C_greeting();
-        test                = new Test();
         property            = new Properties();
         try {
             property.load(new FileInputStream("src/main/resources/application.properties"));

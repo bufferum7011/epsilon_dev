@@ -7,5 +7,6 @@ module epsilon {
 
     exports epsilon;
     exports epsilon.layouts;
+    exports epsilon.handlers;
     exports auxiliary;
 }
