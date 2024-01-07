@@ -1,4 +1,5 @@
 package epsilon.handlers;
+import static epsilon.Panel.offset;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.Cursor;
@@ -27,9 +28,6 @@ public class Resize implements EventHandler<MouseEvent> {
     @Override public void handle(MouseEvent event) {
 
         EventType<? extends MouseEvent> mouse_event_type = event.getEventType();
-
-        // offset.allow = false;
-
         mouse_event_x = event.getSceneX();
         mouse_event_y = event.getSceneY();
         HEIGHT = stage.getHeight();
@@ -44,9 +42,12 @@ public class Resize implements EventHandler<MouseEvent> {
 
             // Блоки if - блокирует resizing без подходящего курсора
             if(!cursor_event.equals(Cursor.DEFAULT)) {
-                if(!cursor_event.equals(Cursor.W_RESIZE) && !cursor_event.equals(Cursor.E_RESIZE)) {
 
-                    double min_height = stage.getMinHeight() > (BORDER * 2) ? stage.getMinHeight() : (BORDER * 2);
+                offset.allow = false;
+                double min_height = stage.getMinHeight() > (BORDER * 2) ? stage.getMinHeight() : (BORDER * 2);
+                double min_width = stage.getMinWidth() > (BORDER * 2) ? stage.getMinWidth() : (BORDER * 2);
+
+                if(!cursor_event.equals(Cursor.W_RESIZE) && !cursor_event.equals(Cursor.E_RESIZE)) {
 
                     if(cursor_event.equals(Cursor.NW_RESIZE) || cursor_event.equals(Cursor.N_RESIZE) || cursor_event.equals(Cursor.NE_RESIZE)) {
                         if(HEIGHT > min_height || mouse_event_y < 0) {
@@ -54,16 +55,12 @@ public class Resize implements EventHandler<MouseEvent> {
                             stage.setY(event.getScreenY());
                         }
                     }
-                    else {
-                        if(HEIGHT > min_height || mouse_event_y + delta_y - HEIGHT > 0) {
-                            stage.setHeight(mouse_event_y + delta_y);
-                        }
+                    else if(HEIGHT > min_height || mouse_event_y + delta_y - HEIGHT > 0) {
+                        stage.setHeight(mouse_event_y + delta_y);
                     }
                 }
 
                 if(!cursor_event.equals(Cursor.N_RESIZE) && !cursor_event.equals(Cursor.S_RESIZE)) {
-
-                    double min_width = stage.getMinWidth() > (BORDER * 2) ? stage.getMinWidth() : (BORDER * 2);
 
                     if(cursor_event.equals(Cursor.NW_RESIZE) || cursor_event.equals(Cursor.W_RESIZE) || cursor_event.equals(Cursor.SW_RESIZE)) {
                         if(WIDTH > min_width || mouse_event_x < 0) {
@@ -71,18 +68,18 @@ public class Resize implements EventHandler<MouseEvent> {
                             stage.setX(event.getScreenX());
                         }
                     }
-                    else {
-                        if(WIDTH > min_width || mouse_event_x + delta_x - WIDTH > 0) {
-                            stage.setWidth(mouse_event_x + delta_x);
-                        }
+                    else if(WIDTH > min_width || mouse_event_x + delta_x - WIDTH > 0) {
+                        stage.setWidth(mouse_event_x + delta_x);
                     }
                 }
             }
         }
-        else {
+        else if(mouse_event_type.equals(MouseEvent.MOUSE_RELEASED)) {
             scene.setCursor(Cursor.DEFAULT);
-            // offset.allow = true;
+            cursor_event = Cursor.DEFAULT;
+            offset.allow = true;
         }
+
     }
 
     private void edit_cursor() {
@@ -125,7 +122,6 @@ public class Resize implements EventHandler<MouseEvent> {
         }
 
         cursor_event = scene.getCursor();
-
     }
-    
+
 }

@@ -20,18 +20,15 @@ public class Render {
     private final double TERMINATOR = 42.15;
     public Pane grid_2d = new Pane();
 
-    public Render() {}
-    public Render(double BOX_CENTER_HEIGHT, double BOX_CENTER_WIDTH) {
-        this.BOX_CENTER_WIDTH = BOX_CENTER_WIDTH;
-        this.BOX_CENTER_HEIGHT = BOX_CENTER_HEIGHT;
+    public void create_grid_2d() {
+
+        this.BOX_CENTER_WIDTH = c_main.box_center.getWidth();
+        this.BOX_CENTER_HEIGHT = c_main.box_center.getHeight();
         CENTER_X = (BOX_CENTER_WIDTH  / 2);
         CENTER_Y = (BOX_CENTER_HEIGHT / 2);
 
         box_center_scale = new Scale(1, -1);
         box_center_translate = new Translate(CENTER_X, CENTER_Y);
-    }
-
-    public void create_grid_2d() {
 
         c_main.box_center.getTransforms().clear();
         c_main.box_center.getTransforms().addAll(box_center_translate, box_center_scale);

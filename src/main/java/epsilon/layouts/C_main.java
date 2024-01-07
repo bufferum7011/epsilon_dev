@@ -1,7 +1,6 @@
 package epsilon.layouts;
 import static epsilon.Panel.*;
 import epsilon.handlers.Centering;
-import epsilon.handlers.Offset;
 import epsilon.handlers.Resize;
 import epsilon.handlers.Scroll;
 import javafx.geometry.Insets;
@@ -39,8 +38,7 @@ public class C_main extends Default_layouts {
         panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resize);
         panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resize);
         panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resize);
-        panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED, resize);
-        panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_EXITED_TARGET, resize);
+        panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_RELEASED, resize);
 
         // Скроллинг для сетки
         Scroll scroll = new Scroll();
@@ -52,11 +50,10 @@ public class C_main extends Default_layouts {
         box_center.widthProperty().addListener(centering);
 
         // Перемещение окна по рабочему столу
-        // box_title.addEventHandler(MouseEvent.MOUSE_PRESSED, offset);
-        // box_title.addEventHandler(MouseEvent.MOUSE_DRAGGED, offset);
-
-        // Запрет на перемещение если курсор не равен default
-
+        box_title.addEventHandler(MouseEvent.MOUSE_PRESSED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_DRAGGED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_RELEASED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_EXITED, offset);
 
         panel.stage.show();
     }
