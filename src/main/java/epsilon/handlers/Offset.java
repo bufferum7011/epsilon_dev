@@ -13,6 +13,7 @@ public class Offset implements EventHandler<MouseEvent> {
     @Override public void handle(MouseEvent event) {
 
         EventType<? extends MouseEvent> mouse_event_type = event.getEventType();
+
         if(allow && mouse_event_type.equals(MouseEvent.MOUSE_PRESSED)) {
 
             panel.stage.setOpacity(0.85);

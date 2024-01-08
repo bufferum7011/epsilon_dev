@@ -1,8 +1,11 @@
 package epsilon;
-import static epsilon.Panel.*;
+import static epsilon.Panel.c_main;
+
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.scene.transform.Translate;
 
@@ -40,7 +43,18 @@ public class Render {
         for(double x = 0; x < CENTER_X; x += TERMINATOR) {
             Line line = new Line(x, -CENTER_Y, x, BOX_CENTER_HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
-            grid_2d.getChildren().add(line);
+
+            VBox vBox = new VBox();
+            Line line_short = new Line(x, -5, x, 5);
+            line_short.setStroke(Color.WHITE);
+
+            Text text = new Text(x + "");
+            text.setStrokeWidth(1);
+            text.setStroke(Color.AQUA);
+
+            vBox.getChildren().addAll(line_short);
+
+            grid_2d.getChildren().addAll(line, vBox);
         }
 
         ////////// Рисую линию в сторону -X //////////
@@ -65,14 +79,17 @@ public class Render {
         }
 
         ////////// Рисую линии X и Y //////////
-        Line line_x = new Line(CENTER_X, 0, -CENTER_X, 0);
+        Line line_x = new Line(CENTER_X, 0, -CENTER_X, 0); {
             line_x.setStroke(Color.WHITE);
             line_x.setStrokeWidth(1);
             grid_2d.getChildren().add(line_x);
-        Line line_y = new Line(0, CENTER_Y, 0, -CENTER_Y);
+        }
+        Line line_y = new Line(0, CENTER_Y, 0, -CENTER_Y); {
             line_y.setStroke(Color.WHITE);
             line_y.setStrokeWidth(1);
             grid_2d.getChildren().add(line_y);
+        }
+
     }
 
 }
