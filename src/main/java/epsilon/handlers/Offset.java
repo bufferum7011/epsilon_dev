@@ -1,5 +1,8 @@
 package epsilon.handlers;
+import static epsilon.Panel.c_main;
 import static epsilon.Panel.panel;
+import static epsilon.Panel.style_control;
+
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.MouseEvent;
@@ -16,24 +19,35 @@ public class Offset implements EventHandler<MouseEvent> {
 
         if(allow && mouse_event_type.equals(MouseEvent.MOUSE_PRESSED)) {
 
-            panel.stage.setOpacity(0.85);
-            mouse_event_x = event.getSceneX();
-            mouse_event_y = event.getSceneY();
+            // style_control.remove("c_main");
+            // style_control.add("c_main_opacity");
+            // c_main.box_title.setOpacity(1);
+            // mouse_event_x = event.getSceneX();
+            // mouse_event_y = event.getSceneY();
         }
         if(allow && mouse_event_type.equals(MouseEvent.MOUSE_DRAGGED)) {
 
-            panel.stage.setOpacity(0.85);
-            panel.stage.setX(event.getScreenX() - mouse_event_x);
-            panel.stage.setY(event.getScreenY() - mouse_event_y);
+            // style_control.remove("c_main");
+            // style_control.add("c_main_opacity");
+
+            // panel.scene.getStylesheets().add("c_main_opacity");
+            // c_main.box_title.setOpacity(1);
+            // panel.stage.setX(event.getScreenX() - mouse_event_x);
+            // panel.stage.setY(event.getScreenY() - mouse_event_y);
 
             // Максимизация окна при перемещении к верхней границе экрана
             // if(panel.stage.getY() <= 0) { panel.stage.setMaximized(true); }
         }
         if(allow && mouse_event_type.equals(MouseEvent.MOUSE_RELEASED)) {
-            panel.stage.setOpacity(1);
+            // style_control.remove("c_main_opacity");
+            // style_control.add("c_main");
+            // c_main.box_title.setOpacity(1);
+            // style_control.foreach();
         }
         if(allow && mouse_event_type.equals(MouseEvent.MOUSE_EXITED)) {
-            panel.stage.setOpacity(1);
+            // style_control.remove("c_main_opacity");
+            // style_control.add("c_main");
+            // c_main.box_title.setOpacity(1);
         }
 
     }

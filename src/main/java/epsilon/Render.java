@@ -2,7 +2,6 @@ package epsilon;
 import static epsilon.Panel.c_main;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
@@ -20,7 +19,7 @@ public class Render {
     public Scale box_center_scale;
 
     ////////// grid_2d //////////
-    private final double TERMINATOR = 42.15;
+    private final double TERMINATOR = 50;
     public Pane grid_2d = new Pane();
 
     public void create_grid_2d() {
@@ -29,6 +28,7 @@ public class Render {
         this.BOX_CENTER_HEIGHT = c_main.box_center.getHeight();
         CENTER_X = (BOX_CENTER_WIDTH  / 2);
         CENTER_Y = (BOX_CENTER_HEIGHT / 2);
+        double delimeter = 10;
 
         box_center_scale = new Scale(1, -1);
         box_center_translate = new Translate(CENTER_X, CENTER_Y);
@@ -44,38 +44,70 @@ public class Render {
             Line line = new Line(x, -CENTER_Y, x, BOX_CENTER_HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
 
-            VBox vBox = new VBox();
             Line line_short = new Line(x, -5, x, 5);
             line_short.setStroke(Color.WHITE);
 
-            Text text = new Text(x + "");
-            text.setStrokeWidth(1);
-            text.setStroke(Color.AQUA);
-
-            vBox.getChildren().addAll(line_short);
-
-            grid_2d.getChildren().addAll(line, vBox);
+            Text text = new Text((int) x / delimeter + ""); {
+                text.setStrokeWidth(1);
+                text.setX(x - 5);
+                text.setY(15);
+                text.setStroke(Color.WHITE);
+            }
+            grid_2d.getChildren().addAll(line, line_short, text);
         }
 
         ////////// Рисую линию в сторону -X //////////
         for(double x = 0; x > -CENTER_X; x -= TERMINATOR) {
             Line line = new Line(x, CENTER_Y, x, -BOX_CENTER_HEIGHT);
             line.setStroke(Color.rgb(50, 50, 50));
-            grid_2d.getChildren().add(line);
+
+            Line line_short = new Line(x, -5, x, 5);
+            line_short.setStroke(Color.WHITE);
+
+            Text text = new Text((int) x / delimeter + ""); {
+                text.setStrokeWidth(1);
+                text.setX(x - 5);
+                text.setY(15);
+                text.setStroke(Color.WHITE);
+            }
+
+            grid_2d.getChildren().addAll(line, line_short, text);
         }
 
         ////////// Рисую линию в сторону +Y //////////
         for(double y = 0; y < CENTER_Y; y += TERMINATOR) {
             Line line = new Line(CENTER_X, y, -BOX_CENTER_WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
-            grid_2d.getChildren().add(line);
+
+            Line line_short = new Line(-5, y, 5, y);
+            line_short.setStroke(Color.WHITE);
+
+            Text text = new Text((int) y / delimeter + ""); {
+                text.setStrokeWidth(1);
+                text.setX(15);
+                text.setY(y - 5);
+                text.setStroke(Color.WHITE);
+            }
+
+            grid_2d.getChildren().addAll(line, line_short, text);
         }
 
         ////////// Рисую линию в сторону -Y //////////
         for(double y = 0; y > -CENTER_Y; y -= TERMINATOR) {
             Line line = new Line(CENTER_X, y, -BOX_CENTER_WIDTH, y);
             line.setStroke(Color.rgb(50, 50, 50));
-            grid_2d.getChildren().add(line);
+
+            Line line_short = new Line(-5, y, 5, y);
+            line_short.setStroke(Color.WHITE);
+
+            Text text = new Text((int) y / delimeter + ""); {
+                text.setStrokeWidth(1);
+                text.setX(15);
+                text.setY(y - 5);
+                text.setStroke(Color.WHITE);
+            }
+
+            grid_2d.getChildren().addAll(line, line_short, text);
         }
 
         ////////// Рисую линии X и Y //////////

@@ -11,7 +11,7 @@ public abstract class Default_layouts {
         panel.scene.getStylesheets().add(panel.css);        // Настройка стилей
         panel.stage.setScene(panel.scene);                  // Настройка сцены
         panel.stage.setTitle(panel.server_project);         // Настройка названия приложения
-        panel.stage.getIcons().add(new Image(panel.icon));  // Настройка иконки
+        panel.stage.getIcons().add(new Image(panel.img_icon));// Настройка иконки
         panel.stage.initStyle(StageStyle.UNDECORATED);      // Настройка декорации
         panel.stage.setOpacity(1);                          // Настройка прозрачности
 

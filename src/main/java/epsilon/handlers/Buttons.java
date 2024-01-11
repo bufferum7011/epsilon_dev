@@ -5,12 +5,35 @@ import javafx.event.ActionEvent;
 public class Buttons {
 
     ////////// main //////////
-    public void win_resize(ActionEvent event) {
+    public void win_resize() {
         if(panel.stage.isMaximized()) { panel.stage.setMaximized(false); }
         else { panel.stage.setMaximized(true); }
     }
-    public void win_hide(ActionEvent event) { panel.stage.setIconified(true); }
-    public void win_clouse(ActionEvent event) { panel.stage.close(); }
+    public void win_hide() { panel.stage.setIconified(true); }
+    public void win_close() { panel.stage.close(); }
+
+    // public EventHandler<MouseEvent> win_resize() {
+    //     return new EventHandler<MouseEvent>() {
+    //         @Override public void handle(MouseEvent arg0) {
+    //             if(panel.stage.isMaximized()) { panel.stage.setMaximized(false); }
+    //             else { panel.stage.setMaximized(true); }
+    //         }
+    //     };
+    // }
+    // public EventHandler<MouseEvent> win_hide() {
+    //     return new EventHandler<MouseEvent>() {
+    //         @Override public void handle(MouseEvent arg0) {
+    //             panel.stage.setIconified(true);
+    //         }
+    //     };
+    // }
+    // public EventHandler<MouseEvent> win_close() {
+    //     return new EventHandler<MouseEvent>() {
+    //         @Override public void handle(MouseEvent arg0) {
+    //             panel.stage.close();
+    //         }
+    //     };
+    // }
 
     ////////// greeting //////////
     public void btn_next(ActionEvent event) {

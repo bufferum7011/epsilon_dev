@@ -25,8 +25,11 @@
 .c_main {
     -fx-background-color: rgb(33, 33, 33);
 }
+.c_main_opacity {
+    -fx-background-color: rgba(33, 33, 33, 0.85);
+}
 .box_title {
-    -fx-background-color: rgb(233, 233, 230);
+    -fx-background-color: rgb(33, 33, 33);
 }
     .box_title_btn {
         -fx-max-width: 28px;

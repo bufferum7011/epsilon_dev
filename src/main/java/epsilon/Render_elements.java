@@ -3,6 +3,7 @@ import javafx.scene.Group;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Translate;
 
 public class Render_elements {
 
@@ -21,9 +22,9 @@ public class Render_elements {
         
 
         public Group create() {
-            javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle(20, Color.YELLOW);
+            javafx.scene.shape.Circle circle = new javafx.scene.shape.Circle(50, Color.YELLOW);
             VBox vBox = new VBox(lable_x, lable_y);
-            vBox.setScaleY(-1);
+            vBox.getTransforms().add(new Translate(-10, -10));
             return new Group(circle, vBox);
         }
 
