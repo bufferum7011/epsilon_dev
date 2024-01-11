@@ -1,6 +1,15 @@
 package epsilon.layouts;
-import static epsilon.Panel.*;
+import static epsilon.Panel.btns;
+import static epsilon.Panel.h_render_el;
+import static epsilon.Panel.offset;
+import static epsilon.Panel.panel;
+import static epsilon.Panel.print;
+import static epsilon.Panel.render;
+import static epsilon.Panel.render_el;
+import static epsilon.Panel.style_control;
+
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -8,6 +17,7 @@ import epsilon.Style_control;
 import epsilon.handlers.Centering;
 import epsilon.handlers.Resize;
 import epsilon.handlers.Scroll;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -67,16 +77,20 @@ public class C_main extends Default_layouts {
             box_title.addEventHandler(MouseEvent.MOUSE_EXITED, offset);
         //#endregion
 
-        style_control = new Style_control(panel.stage);
-        new Style_control<>(box_title, "box_title_btn").add();
-        new Style_control<>(box_title, "box_title").add();
-        new Style_control<>(box_title, "box_bottom").add();
-        new Style_control<>(box_title, "box_left").add();
-        new Style_control<>(box_title, "c_main").add();
-        
+        // style_control = new Style_control(panel.stage);
+        // new Style_control<>(box_title, "box_title_btn").add();
+        // new Style_control<>(box_title, "box_title").add();
+        // new Style_control<>(box_title, "box_bottom").add();
+        // new Style_control<>(box_title, "box_left").add();
+        // new Style_control<>(box_title, "c_main").add();
+
         panel.stage.show();
     }
     @Override public void initialize() {
+
+        style_control = new Style_control(panel.stage);
+        // ObservableList<String> style_list = panel.scene.getStylesheets();
+        // foreach(panel.scene.getStylesheets());
 
         ////////// Создание title //////////
         box_title = new VBox(); {
@@ -111,7 +125,8 @@ public class C_main extends Default_layouts {
                         imgView.setFitHeight(22);
 
                         StackPane btn = new StackPane(bg, imgView);
-                        btn.getStyleClass().add("box_title_btn");
+                        // btn.getStyleClass().add("box_title_btn");
+                        // new Style_control<>(btn, "box_title_btn").add();
                         inner_hBox.getChildren().add(btn);
                     }
 
@@ -120,7 +135,9 @@ public class C_main extends Default_layouts {
                 }
 
                 hBox.getChildren().addAll(spacer, text, spacer_2, inner_hBox);
-                hBox.getStyleClass().add("box_title");
+                // hBox.getStyleClass().add("box_title");
+                new Style_control<>(box_title, "box_title").add();
+
                 hBox.setAlignment(Pos.CENTER);
             }
 
@@ -181,7 +198,19 @@ public class C_main extends Default_layouts {
             BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
         }
 
+        // foreach(panel.scene.getStylesheets());
         default_settings();
+        foreach(panel.scene.getStylesheets());
+    }
+
+    private void foreach(ObservableList<String> list) {
+
+        Iterator<String> l = list.iterator();
+
+        while(l.hasNext()) {
+            print.debag("(" + l.next() + ")\n");
+        }
+        print.debag("\n=================\n");
     }
 
 }

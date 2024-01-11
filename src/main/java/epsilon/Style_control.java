@@ -3,9 +3,13 @@ import static epsilon.Panel.print;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-public class Style_control<T, String> {
+public class Style_control<T, String> extends Pane {
 
     private Stage stage;
     private T t;
@@ -23,6 +27,7 @@ public class Style_control<T, String> {
 
     public void add() {
         Style_control<T, String> style = new Style_control<>(t, style_name);
+        // (Pane) 
         list.add(style);
         foreach();
     }
@@ -51,6 +56,11 @@ public class Style_control<T, String> {
         while(iterator.hasNext()) {
             print.debag(iterator.next() + "\n");
         }
+    }
+    @Override public ObservableList<Node> getChildren() {
+        ObservableList<Node> l = super.getChildren();
+        // l.
+        return super.getChildren();
     }
 
 }
