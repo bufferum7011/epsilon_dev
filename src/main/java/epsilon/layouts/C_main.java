@@ -3,21 +3,16 @@ import static epsilon.Panel.btns;
 import static epsilon.Panel.h_render_el;
 import static epsilon.Panel.offset;
 import static epsilon.Panel.panel;
-import static epsilon.Panel.print;
 import static epsilon.Panel.render;
 import static epsilon.Panel.render_el;
 import static epsilon.Panel.style_control;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.function.Consumer;
-
 import epsilon.Style_control;
 import epsilon.handlers.Centering;
 import epsilon.handlers.Resize;
 import epsilon.handlers.Scroll;
-import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Slider;
@@ -33,6 +28,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class C_main extends Default_layouts {
 
@@ -46,51 +43,19 @@ public class C_main extends Default_layouts {
     public Slider slider_y, slider_x;
     public Line delimeter_title;
 
-    @Override public void default_settings() {
+    @Override public void set_scene(Scene scene) { super.set_scene(scene); }
 
-        panel.scene = new Scene(root);
-        super.default_settings();
-        panel.stage.setHeight(600);
-        panel.stage.setWidth(1000);
+    @Override public void execute_before(Stage stage) {
 
-        //#region Listeners
-            // Изменение размеров окна
-            Resize resize = new Resize(panel.stage);
-            panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resize);
-            panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resize);
-            panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resize);
-            panel.stage.getScene().addEventHandler(MouseEvent.MOUSE_RELEASED, resize);
+        root = new BorderPane();
+        set_scene(new Scene(root));
+        style_control = new Style_control(stage);
 
-            // Скроллинг для сетки
-            Scroll scroll = new Scroll();
-            box_center.setOnScroll(scroll);
-
-            // Обработчик для отцентровки сетки
-            Centering centering = new Centering();
-            box_center.heightProperty().addListener(centering);
-            box_center.widthProperty().addListener(centering);
-
-            // Перемещение окна по рабочему столу
-            box_title.addEventHandler(MouseEvent.MOUSE_PRESSED, offset);
-            box_title.addEventHandler(MouseEvent.MOUSE_DRAGGED, offset);
-            box_title.addEventHandler(MouseEvent.MOUSE_RELEASED, offset);
-            box_title.addEventHandler(MouseEvent.MOUSE_EXITED, offset);
-        //#endregion
-
-        // style_control = new Style_control(panel.stage);
-        // new Style_control<>(box_title, "box_title_btn").add();
-        // new Style_control<>(box_title, "box_title").add();
-        // new Style_control<>(box_title, "box_bottom").add();
-        // new Style_control<>(box_title, "box_left").add();
-        // new Style_control<>(box_title, "c_main").add();
-
-        panel.stage.show();
+        stage.setHeight(600);
+        stage.setWidth(1000);
+        super.execute_before(stage);
     }
-    @Override public void initialize() {
-
-        style_control = new Style_control(panel.stage);
-        // ObservableList<String> style_list = panel.scene.getStylesheets();
-        // foreach(panel.scene.getStylesheets());
+    @Override public void initialize(Stage stage) {
 
         ////////// Создание title //////////
         box_title = new VBox(); {
@@ -127,6 +92,7 @@ public class C_main extends Default_layouts {
                         StackPane btn = new StackPane(bg, imgView);
                         // btn.getStyleClass().add("box_title_btn");
                         // new Style_control<>(btn, "box_title_btn").add();
+                        
                         inner_hBox.getChildren().add(btn);
                     }
 
@@ -135,8 +101,10 @@ public class C_main extends Default_layouts {
                 }
 
                 hBox.getChildren().addAll(spacer, text, spacer_2, inner_hBox);
-                // hBox.getStyleClass().add("box_title");
-                new Style_control<>(box_title, "box_title").add();
+                // box_title.getStyleClass().add("box_title");
+                // Pair<T, String> pair = new Pair<T, String>(hbox, "box_title");
+                // style_control.add(pair);
+                style_control.add(box_title, "box_title");
 
                 hBox.setAlignment(Pos.CENTER);
             }
@@ -159,7 +127,8 @@ public class C_main extends Default_layouts {
             }
 
             box_bottom.getChildren().addAll(slider_x);
-            box_bottom.getStyleClass().add("box_bottom");
+            style_control.add(box_bottom, "box_bottom");
+            // style_control.add(box_bottom, "box_bottom");
         }
 
         ////////// Создание ползунка для Y //////////
@@ -177,16 +146,16 @@ public class C_main extends Default_layouts {
             }
 
             box_left.getChildren().add(slider_y);
-            box_left.getStyleClass().add("box_left");
+            // new Style_control<>(box_left, "box_left").add();
         }
 
         ////////// Создание сетки с кругом //////////
         box_center = new Pane(); { box_center.getChildren().addAll(render.grid_2d, render_el.circle_parent); }
 
         ////////// Упаковка и отправка //////////
-        root = new BorderPane(); {
+        {
 
-            root.getStyleClass().add("c_main");
+            // new Style_control<>(root, "c_main").add();
             root.setCenter(box_center);
             root.setBottom(box_bottom);
             root.setLeft(box_left);
@@ -198,19 +167,35 @@ public class C_main extends Default_layouts {
             BorderPane.setAlignment(box_left, Pos.CENTER_LEFT);
         }
 
-        // foreach(panel.scene.getStylesheets());
-        default_settings();
-        foreach(panel.scene.getStylesheets());
     }
+    @Override public void execute_after(Stage stage) {
 
-    private void foreach(ObservableList<String> list) {
 
-        Iterator<String> l = list.iterator();
+        // Изменение размеров окна
+        Resize resize = new Resize(stage);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_MOVED, resize);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_PRESSED, resize);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_DRAGGED, resize);
+        stage.getScene().addEventHandler(MouseEvent.MOUSE_RELEASED, resize);
 
-        while(l.hasNext()) {
-            print.debag("(" + l.next() + ")\n");
-        }
-        print.debag("\n=================\n");
+        // Скроллинг для сетки
+        Scroll scroll = new Scroll();
+        box_center.setOnScroll(scroll);
+
+        // Обработчик для отцентровки сетки
+        Centering centering = new Centering();
+        box_center.heightProperty().addListener(centering);
+        box_center.widthProperty().addListener(centering);
+
+        // Перемещение окна по рабочему столу
+        box_title.addEventHandler(MouseEvent.MOUSE_PRESSED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_DRAGGED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_RELEASED, offset);
+        box_title.addEventHandler(MouseEvent.MOUSE_EXITED, offset);
+
+        style_control.foreach();
+
+        super.execute_after(stage);
     }
 
 }

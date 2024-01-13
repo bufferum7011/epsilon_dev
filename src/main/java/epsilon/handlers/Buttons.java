@@ -1,6 +1,11 @@
 package epsilon.handlers;
-import static epsilon.Panel.*;
+import static epsilon.Panel.c_greeting;
+import static epsilon.Panel.panel;
+import static epsilon.Panel.print;
+import epsilon.layouts.C_main;
+import epsilon.layouts.Default_layouts;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 public class Buttons {
 
@@ -45,7 +50,7 @@ public class Buttons {
         print.debag(input_password);
 
         panel.stage.setResizable(true);
-        c_main.initialize();
+        Default_layouts.start(new Stage(), new C_main());
     }
 
 }

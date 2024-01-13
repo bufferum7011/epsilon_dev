@@ -2,6 +2,8 @@ package epsilon;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
+import epsilon.layouts.Default_layouts;
+import epsilon.layouts.Test;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,7 +11,6 @@ import javafx.stage.Stage;
 public class Panel extends Application {
 
     ////////// Variables //////////
-    private static Properties property;
     public String mysql_server;
     public String mysql_user;
     public String mysql_password;
@@ -23,10 +24,10 @@ public class Panel extends Application {
     public String img_resize;
     public String img_close;
 
+
     public static Panel panel;
     public static auxiliary.Print print;
     public static auxiliary.Exec_sql sql;
-    public static Style_control style_control;
 
     public static epsilon.layouts.C_main c_main             = new epsilon.layouts.C_main();
     public static epsilon.layouts.C_greeting c_greeting     = new epsilon.layouts.C_greeting();
@@ -38,6 +39,10 @@ public class Panel extends Application {
     public static Test test                                 = new Test();
     public static Render render                             = new Render();
     public static Render_elements render_el                 = new Render_elements();
+
+    private static Properties property;
+    public static Style_control style_control;
+
 
     public static void main(String[] args) {
 
@@ -68,11 +73,9 @@ public class Panel extends Application {
     @Override public void start(Stage stage) throws IOException {
 
         print.result("[Application starts]\n");
-        panel.stage = stage;
-
-        c_main.initialize();
-        // test.initialize();
-        // c_greeting.initialize();
+        Default_layouts.start(stage, c_main);
+        // Default_layouts.start(stage, test);
+        // Default_layouts.start(stage, c_greeting);
     }
     @Override public void init() throws Exception {
 

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 
 public class Style_control<T, String> extends Pane {
 
@@ -24,12 +25,12 @@ public class Style_control<T, String> extends Pane {
         this.t = t;
         this.style_name = style_name;
     }
-
-    public void add() {
-        Style_control<T, String> style = new Style_control<>(t, style_name);
-        // (Pane) 
-        list.add(style);
-        foreach();
+    
+    public void add(T t, String style_name) {
+        print.debag("1");
+        list.add(new Style_control<T, String>(t, style_name));
+        print.debag("2");
+        // foreach();
     }
     public void remove(String style_name) {
 
@@ -52,9 +53,12 @@ public class Style_control<T, String> extends Pane {
     public void foreach() {
 
         print.debag("=====foreach=\n");
-        Iterator<T> iterator = (Iterator<T>) list.iterator();
+        Iterator<Style_control<T, String>> iterator = list.iterator();
         while(iterator.hasNext()) {
-            print.debag(iterator.next() + "\n");
+            Style_control<T, String> i = iterator.next();
+            print.way(i.t + "\n");
+            print.way(i.style_name + "\n");
+            print.way(i.getId() + "\n");
         }
     }
     @Override public ObservableList<Node> getChildren() {
