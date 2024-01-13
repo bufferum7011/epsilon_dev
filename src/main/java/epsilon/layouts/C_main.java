@@ -29,7 +29,6 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 
 public class C_main extends Default_layouts {
 
@@ -90,9 +89,8 @@ public class C_main extends Default_layouts {
                         imgView.setFitHeight(22);
 
                         StackPane btn = new StackPane(bg, imgView);
-                        // btn.getStyleClass().add("box_title_btn");
-                        // new Style_control<>(btn, "box_title_btn").add();
-                        
+                        style_control.add(btn, "box_title_btn");
+
                         inner_hBox.getChildren().add(btn);
                     }
 
@@ -101,12 +99,8 @@ public class C_main extends Default_layouts {
                 }
 
                 hBox.getChildren().addAll(spacer, text, spacer_2, inner_hBox);
-                // box_title.getStyleClass().add("box_title");
-                // Pair<T, String> pair = new Pair<T, String>(hbox, "box_title");
-                // style_control.add(pair);
-                style_control.add(box_title, "box_title");
-
                 hBox.setAlignment(Pos.CENTER);
+                style_control.add(box_title, "box_title");
             }
 
             delimeter_title = new Line();
@@ -128,7 +122,6 @@ public class C_main extends Default_layouts {
 
             box_bottom.getChildren().addAll(slider_x);
             style_control.add(box_bottom, "box_bottom");
-            // style_control.add(box_bottom, "box_bottom");
         }
 
         ////////// Создание ползунка для Y //////////
@@ -146,7 +139,7 @@ public class C_main extends Default_layouts {
             }
 
             box_left.getChildren().add(slider_y);
-            // new Style_control<>(box_left, "box_left").add();
+            style_control.add(box_left, "box_left");
         }
 
         ////////// Создание сетки с кругом //////////
@@ -154,8 +147,7 @@ public class C_main extends Default_layouts {
 
         ////////// Упаковка и отправка //////////
         {
-
-            // new Style_control<>(root, "c_main").add();
+            style_control.add(root, "c_main");
             root.setCenter(box_center);
             root.setBottom(box_bottom);
             root.setLeft(box_left);
@@ -169,7 +161,6 @@ public class C_main extends Default_layouts {
 
     }
     @Override public void execute_after(Stage stage) {
-
 
         // Изменение размеров окна
         Resize resize = new Resize(stage);
@@ -194,7 +185,6 @@ public class C_main extends Default_layouts {
         box_title.addEventHandler(MouseEvent.MOUSE_EXITED, offset);
 
         style_control.foreach();
-
         super.execute_after(stage);
     }
 

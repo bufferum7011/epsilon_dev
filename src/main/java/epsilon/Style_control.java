@@ -1,112 +1,98 @@
 package epsilon;
-import static epsilon.Panel.print;
+import static epsilon.Panel.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.css.CssMetaData;
+import javafx.css.Styleable;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
 
-public class Style_control<T, String> {
+public class Style_control {
 
     private Stage stage;
-    private T t;
+    private Object o;
     private String style_name;
-    private List<Style_control<T, String>> list = new ArrayList<>();
+    private List<Style_control> list = new ArrayList<>();
 
-    // private Style_control() {}
     public Style_control(Stage stage) {
         this.stage = stage;
     }
-    public Style_control(T t, String style_name) {
-        this.t = t;
+    public Style_control(Object o, String style_name) {
+        this.o = o;
         this.style_name = style_name;
     }
 
-    public void add(T t, String style_name) {
+    public void add(Object o, String style_name) {
+        this.o = o;
+        this.style_name = style_name;
 
-        // Задача: добавить новый стиль для объекта
-
-        // Создание итератора
-        Iterator<Style_control<T, String>> iterator = list.iterator();
+        Iterator<Style_control> iterator = list.iterator();
 
         boolean key = true;
         while(key && iterator.hasNext()) {
 
-            // Получение текущего элемента из уже существующего list
-            Style_control<T, String> next = iterator.next();
+            Style_control next = iterator.next();
 
-            // Проверка на дубликат
-            if(next.t == t) {
+            if(next.o == o) {
                 key = false;
-                print.error("ЭЛЕМЕНТ УЖЕ СУЩЕСТВУЕТ\n");
+                print.error("\nЭЛЕМЕНТ УЖЕ СУЩЕСТВУЕТ\n");
             }
         }
 
         if(key) {
-            list.add(new Style_control<T, String>(t, style_name));
+            list.add(new Style_control(o, style_name));
             update();
         }
 
     }
     private void update() {
 
-        // Задача: удалить стили и заполнить заново используя их обновленный список
+        Iterator<Style_control> iterator = list.iterator();
 
-        // Создание итератора
-        Iterator<Style_control<T, String>> iterator = list.iterator();
+        while(iterator.hasNext()) {
 
-        // Очистка стилей
-        for(int i = 0; iterator.hasNext(); i++) {
-
+            Style_control next = iterator.next();
             try {
-                iterator.next();
-                print.debag(i + "\t");
-                stage.getScene().getStylesheets().remove(i);
-                print.debag(i + "\t");
+                stage.getScene().getStylesheets().clear();
             }
-            catch(Exception e) {
-                print.error(i + "\t");
-            }
+            catch(Exception e) { print.error("\n_ERROR_\n"); }
         }
 
-        // Перезаполнение стилей
         iterator = list.iterator();
-
-        print.debag("\nПерезаполнение стилей\n");
         for(int i = 0; i < list.size(); i++) {
-            
-            // Получение текущего элемента из уже существующего list
-            Style_control<T, String> next = iterator.next();
-            print.debag(i + "\t");
+
+            Style_control next = iterator.next();
+
             try {
-                ((Parent) next.t).getStylesheets().add((java.lang.String) next.style_name);
+                ((Parent) next.o).getStylesheets().add(panel.css);
+                ((Parent) next.o).getStyleClass().add(style_name);
             }
-            catch (Exception e) {
-                print.error("Перезаполнение стилей\n");
-            }
+            catch(Exception e) { print.error("\n_Перезаполнение_стилей_\n"); }
 
         }
 
-        boolean key = true;
-        if(key) {
-            list.add(new Style_control<T, String>(t, style_name));
-            update();
-        }
+
     }
-    public void remove(String style_name) {
+    public void remove(Object o) {
+        this.o = o;
 
+        // Задача: нужно удалить элемент.
+        // Мне известен объект. Могу сравнвать его с 
     }
     public void foreach() {
 
         print.debag("=====foreach=\n");
-        Iterator<Style_control<T, String>> iterator = list.iterator();
+        Iterator<Style_control> iterator = list.iterator();
         for(int i = 0; iterator.hasNext(); i++) {
-
-            Style_control<T, String> next = iterator.next();
-            print.way(next.t + "\n");
+            print.result("=============\n");
+            Style_control next = iterator.next();
             print.way(next.style_name + "\n");
+            for(int i2 = 0; i2 < ((Parent) next.o).getStyleClass().size(); i2++) {
+                print.way("\t+++" + ((Parent) next.o).getStyleClass().get(i2) + "\n");
+            }
             print.way(i + "\n");
         }
     }
